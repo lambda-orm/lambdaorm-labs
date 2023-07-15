@@ -1,0 +1,56 @@
+domain:
+  entities:
+    - name: Countries
+      primaryKey: ["iso3"]
+      uniqueKey: ["name"]
+      properties:
+        - name: name
+          required: true
+        - name: iso3
+          length: 3
+          required: true
+      relations:
+        - name: states
+          type: manyToOne
+          composite: true
+          from: iso3
+          entity: States
+          to: countryCode
+    - name: States
+      primaryKey: ["id"]
+      uniqueKey: ["countryCode", "name"]
+      properties:
+        - name: id
+          type: integer
+          required: true
+        - name: name
+          required: true
+        - name: countryCode
+          required: true
+          length: 3
+      relations:
+        - name: country
+          from: countryCode
+          entity: Countries
+          to: iso3
+infrastructure:
+  mappings:
+    - name: default       
+  sources:
+    - name: source1
+      dialect: MySQL
+      mapping: default
+      connection: ${CNN_MYSQL}
+    - name: source2    
+      dialect: PostgreSQL
+      mapping: default
+      connection: ${CNN_POSTGRES}
+  stages:
+    - name: default
+      sources:
+        - name: source1
+          condition: entity == "Countries"
+        - name: source2
+          condition: entity == "States"
+  paths:
+    domain: countries/domain        

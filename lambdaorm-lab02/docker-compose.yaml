@@ -1,0 +1,13 @@
+version: '3'
+services:
+  test:
+    container_name: lambdaorm-test
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - 3306:3306
