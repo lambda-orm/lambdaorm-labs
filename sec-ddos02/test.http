@@ -1,0 +1,23 @@
+@host = http://0.0.0.0:9200
+@stage = default
+@expression=Orders.filter(p => p.id === id).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])
+@data={"id": 2 }
+
+### ping
+GET {{host}}/ping HTTP/1.1
+
+### health
+GET {{host}}/health HTTP/1.1
+
+### metrics
+GET {{host}}/metrics HTTP/1.1
+
+### Execute
+POST {{host}}/execute HTTP/1.1
+content-type: application/json
+
+{
+	"options": { "stage": "{{stage}}" },
+	"expression": "{{expression}}",
+	"data":{{data}}
+}
