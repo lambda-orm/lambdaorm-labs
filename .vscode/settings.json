@@ -1,8 +1,16 @@
 {
     "cSpell.words": [
+        "ddos",
+        "DDOS",
+        "flavio",
+        "Keycloak",
         "lambdaorm",
-        "nullable",
-        "proot",
-        "uroot"
+        "nginx",
+        "Northwind",
+        "pentest",
+        "prometheus",
+        "Slowloris",
+        "sqlmap",
+        "wireshark"
     ]
 }
