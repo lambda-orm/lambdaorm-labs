@@ -84,7 +84,16 @@ Filter: tcp.port == 9292
   - [HOW TO AVOID TIME-BASED DDOS ATTACKS IN NODE](https://www.nearform.com/blog/avoid-time-based-ddos-attacks-node-js/)
   - [sqlmap](https://sqlmap.org/)
 
-  - sysctl.conf
+  - Configuración de sysctl.conf
+    - [Opciones de seguridad en el kernel /proc en GNU/Linux](https://blog.elhacker.net/2015/04/opciones-de-seguridad-de-red-en-el-kernel-gnu-linux-sysctl-conf.html)
+    - [Linux Kernel /etc/sysctl.conf Security Hardening](https://www.cyberciti.biz/faq/linux-kernel-etcsysctl-conf-security-hardening/)
+    - [Como mitigar ataques de tipo SYN Flood en Linux](https://www.voztovoice.org/?q=node/2976)
+    - [ubuntu sysctl performance tuning](https://gist.github.com/hiqsociety/2a4c26123df181bcdd3f1a0d42c7ee03)
+    - [sysctl.conf](https://easyengine.io/tutorials/linux/sysctl-conf/)
+    - [DDoS protection with sysctl.conf](https://forums.centos.org/viewtopic.php?f=57&t=75746)
+
+  - IPtables
+    - [Protección DDoS mediante iptables](https://www.hackplayers.com/2016/04/proteccion-ddos-mediante-iptables.html)  
 
   - Node Application
     - [Mejores prácticas de producción: rendimiento y fiabilidad](https://expressjs.com/es/advanced/best-practice-performance.html)
@@ -96,8 +105,7 @@ Filter: tcp.port == 9292
         - [npm](https://www.npmjs.com/package/express-rate-limit)
         - [How to prevent a DDoS attack (or a Brute-force attack)](https://www.youtube.com/watch?v=TtPsUq09OZU)
       - node-rate-limiter-flexible
-        - [github](https://github.com/animir/node-rate-limiter-flexible)  
-
+        - [github](https://github.com/animir/node-rate-limiter-flexible)
   - Ngrok
     - [tutorial rápido](https://www.youtube.com/watch?v=NqCYquO3byk)
     - [NGROK - Como exponer tu aplicación en localhost (con SSL GRATIS)](https://www.youtube.com/watch?v=frvY3Ywxs-I)  
@@ -125,3 +133,4 @@ Filter: tcp.port == 9292
 
   - Docker Network
     - [NETWORKING EN DOCKER!](https://www.youtube.com/watch?v=BNHNMoSJz4g)
+    
