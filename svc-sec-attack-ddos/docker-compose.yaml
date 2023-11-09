@@ -1,0 +1,109 @@
+version: "3"
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:12-alpine
+    restart: always
+    environment:
+      - POSTGRES_DB=northwind
+      - POSTGRES_USER=northwind
+      - POSTGRES_PASSWORD=northwind
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "northwind"]
+      interval: 3s
+      timeout: 1s
+      retries: 10
+  orm:
+    depends_on:
+      - postgres
+    image: flaviorita/lambdaorm-svc:0.6.4
+    # build:
+    #   context: ./../../../../
+    #   dockerfile: Dockerfile
+    restart: always
+    deploy:
+      replicas: 3
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 1G
+        reservations:
+          cpus: "0.1"
+          memory: 500M
+    environment:
+      - NODE_ENV=production
+      - HOST=http://0.0.0.0
+      - PORT=9292
+      - LIMIT_WINDOWS_MS=10000
+      - LIMIT_MAX=10
+      - WORKSPACE=/usr/src/app/workspace
+      - CNN_POSTGRES={"host":"postgres","port":5432,"user":"northwind","password":"northwind","database":"northwind"}
+    volumes:
+      - ./workspace:/usr/src/app/workspace
+    networks:
+      - backend
+    healthcheck:
+      test: curl --fail http://localhost:9292/health || exit 1
+      interval: 10s
+      retries: 3
+      start_period: 30s
+      timeout: 5s
+  prometheus:
+    depends_on:
+      - orm
+    image: prom/prometheus:v2.20.1
+    container_name: prometheus
+    volumes:
+      - prometheus_data:/prometheus
+      - ./prometheus:/etc/prometheus
+    ports:
+      - 9090:9090
+    expose:
+      - 9090
+    networks:
+      - backend
+      - frontend
+  grafana:
+    depends_on:
+      - prometheus
+    image: grafana/grafana:7.1.5
+    container_name: grafana
+    environment:
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - grafana_data:/var/lib/grafana
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+    networks:
+      - frontend
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    depends_on:
+      - orm
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/log:/var/log/nginx
+    ports:
+      - 9200:9200
+    expose:
+      - 9200
+    networks:
+      - backend
+      - frontend
+networks:
+  backend:
+  frontend:
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+  postgres_data: {}

@@ -1,0 +1,148 @@
+version: "3"
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:12-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: northwind
+      POSTGRES_USER: northwind
+      POSTGRES_PASSWORD: northwind
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/startup.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "northwind"]
+      interval: 3s
+      timeout: 1s
+      retries: 10
+  orm:
+    depends_on:
+      - postgres
+    image: flaviorita/lambdaorm-svc:0.6.4
+    restart: always
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 1G
+        reservations:
+          cpus: "0.1"
+          memory: 500M
+    environment:
+      - NODE_ENV=production
+      - HOST=http://0.0.0.0
+      - PORT=9292
+      - LIMIT_WINDOWS_MS=10000
+      - LIMIT_MAX=10
+      - WORKSPACE=/usr/src/app/workspace
+      - CNN_POSTGRES={"host":"postgres","port":5432,"user":"northwind","password":"northwind","database":"northwind"}
+    volumes:
+      - ./workspace:/usr/src/app/workspace
+    networks:
+      - backend
+    healthcheck:
+      test: curl --fail http://localhost:9292/health || exit 1
+      interval: 10s
+      retries: 3
+      start_period: 30s
+      timeout: 5s
+  prometheus:
+    depends_on:
+      - orm
+    image: prom/prometheus:v2.20.1
+    container_name: prometheus
+    volumes:
+      - prometheus_data:/prometheus
+      - ./prometheus:/etc/prometheus
+    ports:
+      - 9090:9090
+    expose:
+      - 9090
+    networks:
+      - backend
+      - frontend
+  grafana:
+    depends_on:
+      - prometheus
+    image: grafana/grafana:7.1.5
+    container_name: grafana
+    environment:
+      GF_AUTH_DISABLE_LOGIN_FORM: true
+      GF_AUTH_ANONYMOUS_ENABLED: true
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - grafana_data:/var/lib/grafana
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+    networks:
+      - frontend
+  kong-migration:
+    image: kong
+    depends_on:
+      - postgres
+    container_name: kong-migration
+    networks:
+      - backend
+    restart: on-failure
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: postgres
+      KONG_PG_USER: kong
+      KONG_PG_PASSWORD: kong
+      KONG_PG_DATABASE: kong
+    command: kong migrations bootstrap
+  kong:
+    image: kong
+    container_name: kong
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: postgres
+      KONG_PG_PORT: 5432
+      KONG_PG_USER: kong
+      KONG_PG_PASSWORD: kong
+      KONG_PG_DATABASE: kong
+      LC_CTYPE: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl
+    restart: on-failure
+    ports:
+      - 8000:8000
+      - 8443:8443
+      - 8001:8001
+      - 8444:8444
+    links:
+      - postgres:postgres
+    networks:
+      - backend
+    depends_on:
+      - kong-migration
+  konga:
+    image: pantsel/konga
+    ports:
+      - 1337:1337
+    links:
+      - kong:kong
+    container_name: konga
+    networks:
+      - backend
+      - frontend
+    environment:
+      - NODE_ENV=production
+networks:
+  backend:
+  frontend:
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+  postgres_data: {}

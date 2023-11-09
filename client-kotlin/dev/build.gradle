@@ -1,0 +1,23 @@
+plugins {
+  id "org.openapi.generator" version "6.3.0"
+}
+
+task openapi(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask){
+    generatorName = "kotlin"
+    inputSpec = "$rootDir/spec/lambda-svc.yaml".toString()
+    outputDir = "$rootDir/..".toString()
+    groupId = "io.github.flaviolionelrita"
+    packageName= "io.github.flaviolionelrita.lambdaorm.client"
+    version = "1.0.0"
+    packageName = "io.github.flaviolionelrita.lambdaorm.client"
+    apiPackage = "io.github.flaviolionelrita.lambdaorm.client.api"
+    invokerPackage = "io.github.flaviolionelrita.lambdaorm.client.invoker"
+    modelPackage = "io.github.flaviolionelrita.lambdaorm.client.model"
+    library = "jvm-okhttp4"
+    configOptions = [
+            dateLibrary: "java8"
+    ]
+    globalProperties = [
+            modelDocs: "false"
+    ]
+}

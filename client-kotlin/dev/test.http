@@ -1,0 +1,4 @@
+@host=http://localhost:8093
+
+GET {{host}}/health HTTP/1.1
+Content-Type: application/json

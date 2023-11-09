@@ -1,0 +1,5 @@
+server.port: ${PORT}
+management.endpoints.web.exposure.include: health,info,metrics,prometheus
+logging.level.root: error
+orm.url: ${ORM_URL}
+

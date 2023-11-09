@@ -1,0 +1,6 @@
+global:
+  scrape_interval: 5s
+scrape_configs:
+  - job_name: "devicenet-svc-lab-api"
+    static_configs:
+      - targets: ["devicenet-svc-lab-api:9292"]

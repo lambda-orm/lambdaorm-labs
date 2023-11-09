@@ -1,0 +1,79 @@
+@host = http://localhost:9292
+@stage = default
+@expression=Orders.filter(p => p.id === id).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])
+@data={"id": 2 }
+
+
+### General -------------------------------------------------------------------------------------------------------------------------
+
+### ping
+GET {{host}}/ping HTTP/1.1
+
+### health
+GET {{host}}/health HTTP/1.1
+
+### metrics
+GET {{host}}/metrics HTTP/1.1
+
+### Schema  -------------------------------------------------------------------------------------------------------------------------
+
+### entities
+GET {{host}}/entities HTTP/1.1
+content-type: application/json
+
+### entity
+GET {{host}}/entities/Orders HTTP/1.1
+content-type: application/json
+
+### stages
+GET {{host}}/stages HTTP/1.1
+content-type: application/json
+
+### stage
+GET {{host}}/stages/PostgreSQL HTTP/1.1
+content-type: application/json
+
+### Expressions -------------------------------------------------------------------------------------------------------------------------
+
+### Model
+POST {{host}}/model HTTP/1.1
+content-type: application/json
+
+{	
+	"expression": "{{expression}}"
+}
+
+### Parameters
+POST {{host}}/parameters HTTP/1.1
+content-type: application/json
+
+{	
+	"expression": "{{expression}}"
+}
+
+### Constraints
+POST {{host}}/constraints HTTP/1.1
+content-type: application/json
+
+{	
+	"expression": "{{expression}}"
+}
+
+### Sentence
+POST {{host}}/sentence HTTP/1.1
+content-type: application/json
+
+{
+	"options": { "stage": "{{stage}}" },
+	"expression": "{{expression}}"
+}
+
+### ExecutePmIndividuals.filter(p=> p.gender == gender).include(p->p.party)
+POST {{host}}/execute HTTP/1.1
+content-type: application/json
+
+{
+	"options": { "stage": "{{stage}}" },
+	"expression": "{{expression}}",
+	"data":{{data}}
+}
