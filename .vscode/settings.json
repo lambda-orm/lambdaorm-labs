@@ -1,17 +1,22 @@
 {
     "cSpell.words": [
+        "autonumeric",
         "ddos",
         "DDOS",
         "flavio",
         "gruntfile",
         "Keycloak",
         "lambdaorm",
+        "MYSQL",
         "nginx",
+        "northwind",
         "Northwind",
         "pentest",
         "prometheus",
+        "proot",
         "Slowloris",
         "sqlmap",
+        "uroot",
         "wireshark"
     ]
 }
