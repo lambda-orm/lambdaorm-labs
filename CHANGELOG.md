@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.0.6](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.5...v0.0.6) (2023-11-15)
+
+
+### Features
+
+* update lab issue 179 ([c566b8c](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/c566b8c7701ec014a5d401bd52a034968102f4c3)), closes [#179](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/179)
+
 ### [0.0.5](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.4...v0.0.5) (2023-11-10)
 
 ### [0.0.4](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.3...v0.0.4) (2023-11-10)
