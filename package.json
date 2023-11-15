@@ -1,6 +1,6 @@
 {
 	"name": "lambdaorm-labs",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "Lambdaorm labs",
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "MIT",
@@ -21,8 +21,8 @@
 		"header": "# Changelog\n\nAll notable changes to this project will be documented in this file.\n\n## Versions\n"
 	},
 	"scripts": {
-		"lint": "grunt --base . --gruntfile task/Gruntfile.js lint",
-		"release": "grunt --base . --gruntfile task/Gruntfile.js release",
+		"lint": "grunt lint",
+		"release": "grunt release",
 		"prepare": "husky install"
 	},
 	"devDependencies": {
