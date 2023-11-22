@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.0.12](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.11...v0.0.12) (2023-11-22)
+
+
+### Features
+
+* rename labs ([faf86a2](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/faf86a2194027b41dbd3df54898f4b275a9f0899)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
+
 ### [0.0.11](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.10...v0.0.11) (2023-11-15)
 
 ### [0.0.10](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.5...v0.0.10) (2023-11-15)
