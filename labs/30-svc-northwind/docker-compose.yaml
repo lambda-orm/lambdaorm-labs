@@ -4,7 +4,7 @@ networks:
     driver: bridge  
 services:
   mysql:
-    container_name: lambdaorm-svc-mysql
+    container_name: mysql
     image: mysql:5.7
     restart: always
     environment:
@@ -15,36 +15,30 @@ services:
     ports:
       - '3306:3306'
     expose:
-      - '3306'
+      - 3306
     networks:
       - northwind
     volumes:
       - mysql-data:/var/lib/mysql
       - mysql-log:/var/log/mysql  
-  lambdaorm-api:
+  orm:
     depends_on:
       - mysql
-    container_name: lambdaorm-svc-api
-    image: flaviorita/lambdaorm-svc:0.7.20
-    # build:
-    #   context: ./../../svc
+    container_name: orm
+    image: flaviorita/lambdaorm-svc:0.8.39
     restart: always  
     environment:
       HOST: http://0.0.0.0
-      PORT: 8080
+      PORT: 9291
+      REQUEST_BODY_SIZE: 100mb
+      RATE_LIMIT_WINDOWS_MS: 60000
+      RATE_LIMIT_MAX: 1000
       WORKSPACE: /workspace
-      DB_HOST: http://mysql
-      DB_PORT: 3306
-      DB_NAME: northwind
-      DB_USER: northwind
-      DB_PASSWORD: northwind
-    # Se configuro network mode host por que cuando se intentaba conectar desde este contenedor al postgress, daba error de conexion
-    # TODO: configurar nuevamente como network y resolver el problema.
-    # network_mode: host 
+      MYSQL_CNX: '{"host":"mysql","port":3306,"user":"northwind","password":"northwind","database":"northwind","multipleStatements": true ,"waitForConnections": true }'
     ports:
-      - '80:8080'
+      - '9291:9291'
     expose:
-      - '80'  
+      - 9291  
     networks:
       - northwind
     volumes:

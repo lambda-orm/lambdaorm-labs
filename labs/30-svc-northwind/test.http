@@ -1,8 +1,7 @@
-@host = http://localhost:9292
+@host = http://localhost:9291
 @stage = default
 @expression=Orders.filter(p => p.id === id).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])
-@data={"id": 2 }
-
+@data={"id": 10248 }
 
 ### General -------------------------------------------------------------------------------------------------------------------------
 
@@ -30,7 +29,7 @@ GET {{host}}/stages HTTP/1.1
 content-type: application/json
 
 ### stage
-GET {{host}}/stages/PostgreSQL HTTP/1.1
+GET {{host}}/stages/default HTTP/1.1
 content-type: application/json
 
 ### Expressions -------------------------------------------------------------------------------------------------------------------------
@@ -68,7 +67,7 @@ content-type: application/json
 	"expression": "{{expression}}"
 }
 
-### ExecutePmIndividuals.filter(p=> p.gender == gender).include(p->p.party)
+### Execute
 POST {{host}}/execute HTTP/1.1
 content-type: application/json
 
