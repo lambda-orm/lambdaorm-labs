@@ -1,7 +1,7 @@
 version: '3'
 services:
-  test:
-    container_name: lambdaorm-lab01
+  mysql:
+    container_name: lab-mysql
     image: mysql:5.7
     restart: always
     environment:

@@ -1,4 +1,4 @@
-# Lab 01
+# Lab ClI Simple
 
 In this laboratory we will see:
 
