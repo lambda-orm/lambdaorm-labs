@@ -1,4 +1,4 @@
-# Lab ClI Simple
+# Lab CLI Simple
 
 In this laboratory we will see:
 
@@ -36,13 +36,13 @@ lambdaorm version
 will create the project folder with the basic structure.
 
 ```sh
-lambdaorm init -w lab_01
+lambdaorm init -w lab
 ```
 
 position inside the project folder.
 
 ```sh
-cd lab_01
+cd lab
 ```
 
 ### Create database for test
@@ -52,8 +52,8 @@ Create file "docker-compose.yaml"
 ```yaml
 version: '3'
 services:
-  test:
-    container_name: lambdaorm-lab01
+  mysql:
+    container_name: lab-mysql
     image: mysql:5.7
     restart: always
     environment:
@@ -68,20 +68,20 @@ services:
 Create MySql database for test:
 
 ```sh
-docker-compose -p "lambdaorm-lab01" up -d
+docker-compose -p "lambdaorm-lab" up -d
 ```
 
 create user and define character set:
 
 ```sh
-docker exec lambdaorm-lab01  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
-docker exec lambdaorm-lab01  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
+docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
+docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
 ```
 
 ### Complete Schema
 
-In the creation of the project the schema was created but without any entity. \
-Add the Country and State entity as seen in the following example
+Since in the creation of the project the schema was created but without any entity. \
+Add the Country and State entity as seen in the following example to the "lambdaorm.yaml" file
 
 ```yaml
 domain:
@@ -133,196 +133,69 @@ infrastructure:
         user: test
         password: test
         database: test
-        multipleStatements: true
-        waitForConnections: true
-        connectionLimit: 10
-        queueLimit: 0
   stages:
     - name: default
       sources:
         - name: test
   paths:
+	src: src
     domain: countries/domain
 ```
 
 ### Update
 
-execute the following command to update the project according to changes in the schema
+Running the update command will create or update the following:
+
+- Folder that will contain the source code and is taken from the "infrastructure.paths.scr" configuration in the lambdaorm.yaml file
+- Folder that will contain the domain files, the path is relative to the src folder and is taken from the "infrastructure.paths.domain" configuration in the lambdaorm.yaml file
+- Model file: file with the definition of the entities
+- Repository files: one file for each entity with data access methods
+- Install the necessary dependencies according to the databases used
 
 ```sh
 lambdaorm update
 ```
 
-the file model will be created inside src/models/model.ts  with the following content
+Result:
 
-```ts
-/* eslint-disable no-use-before-define */
-// THIS FILE IS NOT EDITABLE, IS MANAGED BY LAMBDA ORM
-import { Queryable } from 'lambdaorm'
-export class Country {
-	constructor () {
-		this.states = []
-	}
-
-	name?: string
-	iso3?: string
-	states: State[]
-}
-export interface QryCountry {
-	name: string
-	iso3: string
-	states: ManyToOne<State> & State[]
-}
-export class State {
-	id?: number
-	name?: string
-	countryCode?: string
-	country?: Country
-}
-export interface QryState {
-	id: number
-	name: string
-	countryCode: string
-	country: Country & OneToMany<Country> & Country
-}
-export let Countries: Queryable<QryCountry>
-export let States: Queryable<QryState>
+```sh
+├── data
+├── docker-compose.yaml
+├── lambdaORM.yaml
+├── package.json
+├── src
+│   └── countries
+│       └── domain
+│           ├── model.ts
+│           ├── repositoryCountry.ts
+│           └── repositoryState.ts
+└── tsconfig.json
 ```
 
 ### Sync
+
+When executing the sync command, ddl code will be executed according to the definition in the lambdaorm schema file.
+
+- Tables, indexes and keys will be created
+- The executed code is added to a file in the data folder.
+- The [source-name]-model.json file will be created or updated which maintains the source state since the last synchronization.
 
 ```sh
 lambdaorm sync
 ```
 
-It will generate the table in database and a status file in the "data" folder, with the following content:
+Files generated:
 
-default-model.json
+```sh
+├── data
+│   ├── default-ddl-20231122T154351640Z-sync-test.sql
+│   └── default-model.json
+```
 
-```json
-{
-	"mappings": [
-		{
-			"name": "test",
-			"entities": [
-				{
-					"name": "Countries",
-					"primaryKey": [
-						"iso3"
-					],
-					"uniqueKey": [
-						"name"
-					],
-					"properties": [
-						{
-							"name": "name",
-							"nullable": false,
-							"type": "string",
-							"length": 80,
-							"mapping": "name"
-						},
-						{
-							"name": "iso3",
-							"nullable": false,
-							"length": 3,
-							"type": "string",
-							"mapping": "iso3"
-						}
-					],
-					"relations": [
-						{
-							"name": "states",
-							"type": "manyToOne",
-							"composite": true,
-							"from": "iso3",
-							"entity": "States",
-							"to": "countryCode",
-							"weak": true
-						}
-					],
-					"indexes": [],
-					"dependents": [
-						{
-							"entity": "States",
-							"relation": {
-								"name": "country",
-								"from": "countryCode",
-								"entity": "Countries",
-								"to": "iso3",
-								"type": "oneToMany",
-								"weak": false
-							}
-						}
-					],
-					"constraints": [],
-					"composite": false,
-					"hadReadExps": false,
-					"hadWriteExps": false,
-					"hadReadValues": false,
-					"hadWriteValues": false,
-					"hadDefaults": false,
-					"hadViewReadExp": false,
-					"mapping": "Countries",
-					"hadKeys": false
-				},
-				{
-					"name": "States",
-					"primaryKey": [
-						"id"
-					],
-					"uniqueKey": [
-						"countryCode",
-						"name"
-					],
-					"properties": [
-						{
-							"name": "id",
-							"type": "integer",
-							"nullable": false,
-							"mapping": "id"
-						},
-						{
-							"name": "name",
-							"nullable": false,
-							"type": "string",
-							"length": 80,
-							"mapping": "name"
-						},
-						{
-							"name": "countryCode",
-							"nullable": false,
-							"length": 3,
-							"type": "string",
-							"mapping": "countryCode"
-						}
-					],
-					"relations": [
-						{
-							"name": "country",
-							"from": "countryCode",
-							"entity": "Countries",
-							"to": "iso3",
-							"type": "oneToMany",
-							"weak": false
-						}
-					],
-					"indexes": [],
-					"dependents": [],
-					"constraints": [],
-					"composite": false,
-					"hadReadExps": false,
-					"hadWriteExps": false,
-					"hadReadValues": false,
-					"hadWriteValues": false,
-					"hadDefaults": false,
-					"hadViewReadExp": false,
-					"mapping": "States",
-					"hadKeys": false
-				}
-			]
-		}
-	]
-}
+Verify that the database was created:
+
+```sh
+docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -utest -ptest -e "use test;show tables;"
 ```
 
 ### Populate Data
@@ -330,7 +203,7 @@ default-model.json
 for the import we will download the following file.
 
 ```sh
-wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-lab01/main/data.json
+wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-labs/main/source/countries/data.json
 ```
 
 then we will execute the following command
@@ -391,5 +264,5 @@ lambdaorm drop
 Remove MySql database:
 
 ```sh
-docker-compose -p "lambdaorm-lab01" down
+docker-compose -p "lambdaorm-lab" down
 ```

@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
 // THIS FILE IS NOT EDITABLE, IS MANAGED BY LAMBDA ORM
-import { Queryable } from 'lambdaorm'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Queryable, OneToMany, ManyToOne, OneToOne } from 'lambdaorm'
 export class Country {
 	constructor () {
 		this.states = []

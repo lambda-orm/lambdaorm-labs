@@ -32,7 +32,7 @@ module.exports = function (grunt) {
 				cmd: 'git branch -D release/<%= version %>'
 			},
 			removeOriginReleaseBranch: {
-				cmd: 'git push origin --delete release/<%= version %> --no-verify'
+				cmd: 'git push origin --delete release/<%= version %>'
 			}
 		}
 	})

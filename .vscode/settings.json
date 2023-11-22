@@ -14,9 +14,11 @@
         "pentest",
         "prometheus",
         "proot",
+        "ptest",
         "Slowloris",
         "sqlmap",
         "uroot",
+        "utest",
         "wireshark"
     ]
 }
