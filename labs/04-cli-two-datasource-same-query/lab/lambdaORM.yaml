@@ -7,8 +7,8 @@ domain:
         - name: name
           required: true
         - name: iso3
-          required: true
           length: 3
+          required: true
       relations:
         - name: states
           type: manyToOne
@@ -35,19 +35,20 @@ domain:
           to: iso3
 infrastructure:
   mappings:
-    - name: test
-      entities: []
+    - name: default       
   sources:
-    - name: test
+    - name: source1
       dialect: MySQL
-      mapping: test
-      connection:
-        host: localhost
-        port: 3306
-        user: test
-        password: test
-        database: test
+      mapping: default
+      connection: ${CNN_MYSQL}
+    - name: source2    
+      dialect: PostgreSQL
+      mapping: default
+      connection: ${CNN_POSTGRES}
   stages:
     - name: default
       sources:
-        - name: test
+        - name: source1
+          condition: entity == "Countries"
+        - name: source2
+          condition: entity == "States"

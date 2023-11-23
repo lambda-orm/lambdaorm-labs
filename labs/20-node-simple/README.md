@@ -137,6 +137,39 @@ infrastructure:
     - name: default
       sources:
         - name: test
+  paths:
+	src: src
+    domain: countries/domain
+```
+
+### Update
+
+Running the update command will create or update the following:
+
+- Folder that will contain the source code and is taken from the "infrastructure.paths.scr" configuration in the lambdaorm.yaml file
+- Folder that will contain the domain files, the path is relative to the src folder and is taken from the "infrastructure.paths.domain" configuration in the lambdaorm.yaml file
+- Model file: file with the definition of the entities
+- Repository files: one file for each entity with data access methods
+- Install the necessary dependencies according to the databases used
+
+```sh
+lambdaorm update
+```
+
+Result:
+
+```sh
+├── data
+├── docker-compose.yaml
+├── lambdaORM.yaml
+├── package.json
+├── src
+│   └── countries
+│       └── domain
+│           ├── model.ts
+│           ├── repositoryCountry.ts
+│           └── repositoryState.ts
+└── tsconfig.json
 ```
 
 ### Sync

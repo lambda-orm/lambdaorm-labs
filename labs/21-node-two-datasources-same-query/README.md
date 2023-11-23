@@ -178,7 +178,19 @@ infrastructure:
           condition: entity == "Countries"
         - name: source2
           condition: entity == "States"
+  paths:
+    domain: countries/domain  
 ```
+
+### Update
+
+execute the following command to update the project according to changes in the schema
+
+```sh
+lambdaorm update
+```
+
+the model will be created inside file src/models/model.ts.
 
 ### Sync
 
@@ -195,6 +207,14 @@ Structure:
 │   └── default-model.json
 ├── docker-compose.yaml
 ├── lambdaORM.yaml
+├── package.json
+├── src
+│   └── countries
+│       └── domain
+│           ├── model.ts
+│           ├── repositoryCountry.ts
+│           └── repositoryState.ts
+└── tsconfig.json
 ```
 
 It will generate:

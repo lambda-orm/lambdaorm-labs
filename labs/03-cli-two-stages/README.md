@@ -1,4 +1,4 @@
-# Lab 03
+# Lab CLI - Two stages
 
 In this laboratory we will see:
 
@@ -35,13 +35,13 @@ lambdaorm version
 will create the project folder with the basic structure.
 
 ```sh
-lambdaorm init -w lab_03
+lambdaorm init -w lab
 ```
 
 position inside the project folder.
 
 ```sh
-cd lab_03
+cd lab
 ```
 
 ### Create database for test
@@ -52,7 +52,7 @@ Add file "docker-compose.yaml"
 version: '3'
 services:
   mysql:
-    container_name: lambdaorm-mysql
+    container_name: lab-mysql
     image: mysql:5.7
     restart: always
     environment:
@@ -63,7 +63,7 @@ services:
     ports:
       - 3306:3306
   postgres:
-    container_name: lambdaorm-postgres
+    container_name: lab-postgres
     image: postgres:10
     restart: always
     environment:
@@ -71,20 +71,20 @@ services:
       - POSTGRES_USER=test
       - POSTGRES_PASSWORD=test
     ports:
-      - '5432:5432'
+      - 5432:5432
 ```
 
 Create MySql and Postgres databases for test:
 
 ```sh
-docker-compose -p "lambdaorm-lab03" up -d
+docker-compose -p "lambdaorm-lab" up -d
 ```
 
 Create user and set character:
 
 ```sh
-docker exec lambdaorm-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
-docker exec lambdaorm-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
+docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
+docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
 ```
 
 ### Add environment file
@@ -180,25 +180,13 @@ infrastructure:
         - name: source1
     - name: stage2
       sources:
-        - name: source2
-  paths:
-    domain: countries/domain  
+        - name: source2 
 ```
 
 With this configuration we can work with two stages.
 
 - Stage1 uses the MySQL database with mapping1 , which does not modify any properties.
 - Stage2 uses the PostgreSQL database with the mapping2 which changes the name of the properties
-
-### Update
-
-execute the following command to update the project according to changes in the schema
-
-```sh
-lambdaorm update
-```
-
-the file model will be created inside src/models/model.ts
 
 ### Sync
 
@@ -212,12 +200,31 @@ It will generate:
 - the Counties and States tables in database test and a status file "stage1-model.json" in the "data" folder.
 - the TBL_COUNTRIES and TBL_STATES tables in database test2 and a status file "stage2-model.json" in the "data" folder.
 
+Structure:
+
+```sh
+├── data
+│   ├── stage1-ddl-20231123T014514350Z-sync-source1.sql
+│   ├── stage1-model.json
+│   ├── stage2-ddl-20231123T014521625Z-sync-source2.sql
+│   └── stage2-model.json
+├── docker-compose.yaml
+├── lambdaORM.yaml
+├── package.json
+├── src
+│   └── countries
+│       └── domain
+│           ├── model.ts
+│           ├── repositoryCountry.ts
+│           └── repositoryState.ts
+```
+
 ### Populate Data
 
 for the import we will download the following file.
 
 ```sh
-wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-lab03/main/data.json
+wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-labs/main/source/countries/data.json
 ```
 
 then we will execute the following command
@@ -281,8 +288,8 @@ lambdaorm drop -s stage2 -e ".env"
 
 ### Remove database for test
 
-Remove MySql database:
+Remove databases:
 
 ```sh
-docker-compose -p "lambdaorm-lab03" down
+docker-compose -p "lambdaorm-lab" down
 ```

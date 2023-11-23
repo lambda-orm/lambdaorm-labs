@@ -1,4 +1,4 @@
-# Lab 02
+# Lab CLI Extend Model
 
 In this laboratory we will see:
 
@@ -42,13 +42,13 @@ lambdaorm --version
 will create the project folder with the basic structure.
 
 ```sh
-lambdaorm init -w lab_02
+lambdaorm init -w lab
 ```
 
 position inside the project folder.
 
 ```sh
-cd lab_02
+cd lab
 ```
 
 ### Create database for test
@@ -58,8 +58,8 @@ Create file "docker-compose.yaml"
 ```yaml
 version: '3'
 services:
-  test:
-    container_name: lambdaorm-test
+  mysql:
+    container_name: lab-mysql
     image: mysql:5.7
     restart: always
     environment:
@@ -74,14 +74,14 @@ services:
 Create MySql database for test:
 
 ```sh
-docker-compose -p "lambdaorm-lab02" up -d
+docker-compose -p "lambdaorm-lab" up -d
 ```
 
 Create user and set character:
 
 ```sh
-docker exec lambdaorm-test  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
-docker exec lambdaorm-test  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
+docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
+docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
 ```
 
 ### Complete Schema
@@ -162,228 +162,32 @@ infrastructure:
     - name: default
       sources:
         - name: test
-  paths:
-    domain: countries/domain      
-
-```
-
-### Update
-
-```sh
-lambdaorm update
-```
-
-the file model.ts will be created inside src/models/model.ts
-
-```ts
-/* eslint-disable no-use-before-define */
-// THIS FILE IS NOT EDITABLE, IS MANAGED BY LAMBDA ORM
-import { Queryable } from 'lambdaorm'
-export abstract class Position {
-	latitude?: string
-	longitude?: string
-}
-export interface QryPosition {
-	latitude: string
-	longitude: string
-}
-export class Country extends Position {
-	constructor () {
-		super()
-		this.states = []
-	}
-
-	name?: string
-	iso3?: string
-	iso2?: string
-	capital?: string
-	currency?: string
-	region?: string
-	subregion?: string
-	states: State[]
-}
-export interface QryCountry extends QryPosition {
-	name: string
-	iso3: string
-	iso2: string
-	capital: string
-	currency: string
-	region: string
-	subregion: string
-	states: ManyToOne<State> & State[]
-}
-export class State extends Position {
-	id?: number
-	name?: string
-	countryCode?: string
-	country?: Country
-}
-export interface QryState extends QryPosition {
-	id: number
-	name: string
-	countryCode: string
-	country: Country & OneToMany<Country> & Country
-}
-export let Countries: Queryable<QryCountry>
-export let States: Queryable<QryState>
-
 ```
 
 ### Sync
+
+When executing the sync command, ddl code will be executed according to the definition in the lambdaorm schema file.
+
+- Tables, indexes and keys will be created
+- The executed code is added to a file in the data folder.
+- The [source-name]-model.json file will be created or updated which maintains the source state since the last synchronization.
 
 ```sh
 lambdaorm sync
 ```
 
-It will generate the table in database and a status file in the "data" folder, with the following content:
+Files generated:
 
-default-model.json
+```sh
+├── data
+│   ├── default-ddl-20231122T154351640Z-sync-test.sql
+│   └── default-model.json
+```
 
-```json
-{
-    "mappings": [
-        {
-            "name": "default",
-            "entities": [
-                {
-                    "name": "Countries",
-                    "primaryKey": [
-                        "iso3"
-                    ],
-                    "uniqueKey": [
-                        "name"
-                    ],
-                    "properties": [
-                        {
-                            "name": "name",
-                            "nullable": false,
-                            "type": "string",
-                            "length": 80,
-                            "mapping": "name"
-                        },
-                        {
-                            "name": "iso3",
-                            "length": 3,
-                            "nullable": false,
-                            "type": "string",
-                            "mapping": "iso3"
-                        },
-                        {
-                            "name": "iso2",
-                            "nullable": false,
-                            "length": 2,
-                            "type": "string",
-                            "mapping": "iso2"
-                        },
-                        {
-                            "name": "capital",
-                            "type": "string",
-                            "length": 80,
-                            "mapping": "capital"
-                        },
-                        {
-                            "name": "currency",
-                            "type": "string",
-                            "length": 80,
-                            "mapping": "currency"
-                        },
-                        {
-                            "name": "region",
-                            "type": "string",
-                            "length": 80,
-                            "mapping": "region"
-                        },
-                        {
-                            "name": "subregion",
-                            "type": "string",
-                            "length": 80,
-                            "mapping": "subregion"
-                        },
-                        {
-                            "name": "latitude",
-                            "length": 16,
-                            "type": "string",
-                            "mapping": "latitude"
-                        },
-                        {
-                            "name": "longitude",
-                            "length": 16,
-                            "type": "string",
-                            "mapping": "longitude"
-                        }
-                    ],
-                    "relations": [
-                        {
-                            "name": "states",
-                            "type": "manyToOne",
-                            "composite": true,
-                            "from": "iso3",
-                            "entity": "States",
-                            "to": "countryCode"
-                        }
-                    ],
-                    "mapping": "Countries"
-                },
-                {
-                    "name": "States",
-                    "primaryKey": [
-                        "id"
-                    ],
-                    "uniqueKey": [
-                        "countryCode",
-                        "name"
-                    ],
-                    "properties": [
-                        {
-                            "name": "id",
-                            "type": "integer",
-                            "nullable": false,
-                            "mapping": "id"
-                        },
-                        {
-                            "name": "name",
-                            "nullable": false,
-                            "type": "string",
-                            "length": 80,
-                            "mapping": "name"
-                        },
-                        {
-                            "name": "countryCode",
-                            "nullable": false,
-                            "length": 3,
-                            "type": "string",
-                            "mapping": "countryCode"
-                        },
-                        {
-                            "name": "latitude",
-                            "length": 16,
-                            "type": "string",
-                            "mapping": "latitude"
-                        },
-                        {
-                            "name": "longitude",
-                            "length": 16,
-                            "type": "string",
-                            "mapping": "longitude"
-                        }
-                    ],
-                    "relations": [
-                        {
-                            "name": "country",
-                            "from": "countryCode",
-                            "entity": "Countries",
-                            "to": "iso3",
-                            "type": "oneToMany"
-                        }
-                    ],
-                    "mapping": "States"
-                }
-            ]
-        }
-    ],
-    "mappingData": {},
-    "pendingData": []
-}
+Verify that the database was created:
+
+```sh
+docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -utest -ptest -e "use test;show tables;"
 ```
 
 ### Populate Data
@@ -391,7 +195,7 @@ default-model.json
 for the import we will download the following file.
 
 ```sh
-wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-lab02/main/data.json
+wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-labs/main/source/countries/data.json
 ```
 
 then we will execute the following command
@@ -459,5 +263,5 @@ lambdaorm drop
 Remove MySql database:
 
 ```sh
-docker-compose -p "lambdaorm-lab02" down
+docker-compose -p "lambdaorm-lab" down
 ```
