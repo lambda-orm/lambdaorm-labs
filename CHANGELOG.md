@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### [0.0.15](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.14...v0.0.15) (2023-11-30)
 
-
-### Features
+**Features:**
 
 * add links on README ([a7dafee](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/a7dafeee237247986c9e69ed8b5d998382c61f1c)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
 
