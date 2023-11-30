@@ -43,6 +43,7 @@ All notable changes to this project will be documented in this file.
 ### [0.0.5](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.4...v0.0.5) (2023-11-10)
 
 ### [0.0.4](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.3...v0.0.4) (2023-11-10)
+
 **Bug Fixes:**
 
 * **issue:** add lab for issue 179 ([4e02934](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/4e02934cfa5c3b8ba07e00484b8e969f3c8ea038)), closes [#179](https://github.com/FlavioLionelRita/lambdaorm/issues/179)
