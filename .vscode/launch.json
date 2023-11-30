@@ -5,15 +5,25 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "20-node-simple",
+            "type": "node",
+            "request": "launch",            
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/labs/20-node-simple/lab/src/index.ts",
+            "cwd": "${workspaceFolder}/labs/20-node-simple/lab"
+        },
+        {
             "name": "issue-179",
             "type": "node",
             "request": "launch",            
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/labs/issue-179/src/index.ts",
-            "cwd": "${workspaceFolder}/labs/issue-179",
-            "envFile": "${workspaceFolder}/labs/issue-179/.env"
+            "program": "${workspaceFolder}/issues/179/src/index.ts",
+            "cwd": "${workspaceFolder}/issues/179",
+            "envFile": "${workspaceFolder}/issues/179/.env"
         }
     ]
 }

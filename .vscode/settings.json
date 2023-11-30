@@ -1,12 +1,15 @@
 {
     "cSpell.words": [
         "autonumeric",
+        "datasources",
         "ddos",
         "DDOS",
         "flavio",
         "gruntfile",
+        "INITDB",
         "Keycloak",
         "lambdaorm",
+        "MONGODB",
         "MYSQL",
         "nginx",
         "northwind",
@@ -21,5 +24,6 @@
         "uroot",
         "utest",
         "wireshark"
-    ]
+    ],
+    "editor.inlineSuggest.showToolbar": "onHover"
 }
