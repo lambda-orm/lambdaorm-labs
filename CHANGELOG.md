@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.0.13](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.12...v0.0.13) (2023-11-30)
+
+
+### Features
+
+* add README ([8cc8ae7](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/8cc8ae790f2e3a66448bb1eabfc744119805f444)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
+* update 01-cli-simple lab ([82643f5](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/82643f510bd4bccc79977a634dfea5f2088055b5)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
+* update labs 01 to 05 ([82b36ae](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/82b36ae6d60bfa88886c03ccbb01416016a1762e)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
+
 ### [0.0.12](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.11...v0.0.12) (2023-11-22)
 
 
