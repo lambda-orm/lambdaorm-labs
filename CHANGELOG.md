@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.0.16](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.15...v0.0.16) (2023-12-01)
+
+
+### Features
+
+* create ci labs ([fe506db](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/fe506db2a1749d9b1cdacbcb5f0f6600b407f3d1)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
+
 ### [0.0.15](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.14...v0.0.15) (2023-11-30)
 
 **Features:**
