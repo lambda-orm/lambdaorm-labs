@@ -87,10 +87,8 @@ docker-compose -p lambdaorm-lab up -d
 Initialize databases:
 
 ```sh
-# set character on mysql
 docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
 docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
-# create insights database on postgres
 docker exec lab-postgres psql -U test -c "CREATE DATABASE insights" -W test
 ```
 
@@ -140,8 +138,6 @@ domain:
       autoIncrement: true
     - name: name
       required: true
-    - name: description
-      length: 1000
   - name: Customers
     extends: Address
     primaryKey: ["id"]
@@ -154,63 +150,6 @@ domain:
       required: true
     - name: name
       required: true
-    - name: contact
-    - name: phone
-  - name: Employees
-    extends: Address
-    primaryKey: ["id"]
-    uniqueKey: ["lastName", "firstName"]
-    properties:
-    - name: id
-      type: integer
-      required: true
-      autoIncrement: true
-    - name: lastName
-      required: true
-    - name: firstName
-      required: true
-    - name: title
-    - name: titleOfCourtesy
-    - name: birthDate
-      type: dateTime
-    - name: hireDate
-      type: dateTime
-    - name: phone
-    - name: reportsToId
-      type: integer
-    relations:
-    - name: reportsTo
-      from: reportsToId
-      entity: Employees
-      to: id
-  - name: Shippers
-    primaryKey: ["id"]
-    uniqueKey: ["name"]
-    properties:
-    - name: id
-      type: integer
-      required: true
-      autoIncrement: true
-    - name: name
-      required: true
-    - name: phone
-      length: 20
-  - name: Suppliers
-    extends: Address
-    primaryKey: ["id"]
-    uniqueKey: ["name"]
-    properties:
-    - name: id
-      type: integer
-      required: true
-      autoIncrement: true
-    - name: name
-      required: true
-    - name: contact
-    - name: phone
-      length: 20
-    - name: homepage
-      length: 200
   - name: Products
     primaryKey: ["id"]
     uniqueKey: ["name", "supplierId"]
@@ -221,33 +160,13 @@ domain:
       autoIncrement: true
     - name: name
       required: true
-    - name: supplierId
-      required: true
-      type: integer
     - name: categoryId
       type: integer
     - name: quantity
     - name: price
       type: decimal
       default: 0
-    - name: inStock
-      type: decimal
-      default: 0
-    - name: onOrder
-      type: decimal
-      default: 0
-    - name: reorderLevel
-      type: decimal
-      default: 0
-    - name: discontinued
-      type: boolean
-      default: false
     relations:
-    - name: supplier
-      from: supplierId
-      entity: Suppliers
-      to: id
-      target: products
     - name: category
       from: categoryId
       entity: Categories
@@ -258,8 +177,6 @@ domain:
     indexes:
     - name: orderDate
       fields: ["orderDate"]
-    - name: shippedDate
-      fields: ["shippedDate"]
     properties:
     - name: id
       type: integer
@@ -268,35 +185,12 @@ domain:
     - name: customerId
       required: true
       length: 5
-    - name: employeeId
-      required: true
-      type: integer
     - name: orderDate
-      type: dateTime
-    - name: requiredDate
-      type: date
-    - name: shippedDate
-      type: date
-    - name: shipViaId
-      type: integer
-    - name: freight
-      type: decimal
-    - name: name
-    - name: address
-    - name: city
-    - name: region
-    - name: postalCode
-      length: 20
-    - name: country
+      type: dateTime 
     relations:
     - name: customer
       from: customerId
       entity: Customers
-      to: id
-      target: orders
-    - name: employee
-      from: employeeId
-      entity: Employees
       to: id
       target: orders
   - name: Orders.details
@@ -311,8 +205,6 @@ domain:
     - name: unitPrice
       type: decimal
     - name: quantity
-      type: decimal
-    - name: discount
       type: decimal
     relations:
     - name: order
@@ -351,8 +243,6 @@ infrastructure:
         mapping: CategoryID
       - name: name
         mapping: CategoryName
-      - name: description
-        mapping: Description
     - name: Customers
       extends: Address
       mapping: Customers
@@ -361,55 +251,6 @@ infrastructure:
         mapping: CustomerID
       - name: name
         mapping: CompanyName
-      - name: contact
-        mapping: ContactName
-      - name: phone
-        mapping: ContactTitle
-    - name: Employees
-      extends: Address
-      mapping: Employees
-      properties:
-      - name: id
-        mapping: EmployeeID
-      - name: lastName
-        mapping: LastName
-      - name: firstName
-        mapping: FirstName
-      - name: title
-        mapping: Title
-      - name: titleOfCourtesy
-        mapping: TitleOfCourtesy
-      - name: birthDate
-        mapping: BirthDate
-      - name: hireDate
-        mapping: HireDate
-      - name: phone
-        mapping: HomePhone
-      - name: reportsToId
-        mapping: ReportsTo
-    - name: Shippers
-      mapping: Shippers
-      properties:
-      - name: id
-        mapping: ShipperID
-      - name: name
-        mapping: CompanyName
-      - name: phone
-        mapping: Phone
-    - name: Suppliers
-      extends: Address
-      mapping: Suppliers
-      properties:
-      - name: id
-        mapping: SupplierID
-      - name: name
-        mapping: CompanyName
-      - name: contact
-        mapping: ContactName
-      - name: phone
-        mapping: Phone
-      - name: homepage
-        mapping: HomePage
     - name: Products
       mapping: Products
       properties:
@@ -417,22 +258,12 @@ infrastructure:
         mapping: ProductID
       - name: name
         mapping: ProductName
-      - name: supplierId
-        mapping: SupplierID
       - name: categoryId
         mapping: CategoryID
       - name: quantity
         mapping: QuantityPerUnit
       - name: price
         mapping: UnitPrice
-      - name: inStock
-        mapping: UnitsInStock
-      - name: onOrder
-        mapping: UnitsOnOrder
-      - name: reorderLevel
-        mapping: ReorderLevel
-      - name: discontinued
-        mapping: Discontinued
     - name: Orders
       mapping: Orders
       properties:
@@ -440,30 +271,8 @@ infrastructure:
         mapping: OrderID
       - name: customerId
         mapping: CustomerID
-      - name: employeeId
-        mapping: EmployeeID
       - name: orderDate
         mapping: OrderDate
-      - name: requiredDate
-        mapping: RequiredDate
-      - name: shippedDate
-        mapping: ShippedDate
-      - name: shipViaId
-        mapping: ShipVia
-      - name: freight
-        mapping: Freight
-      - name: name
-        mapping: ShipName
-      - name: address
-        mapping: ShipAddress
-      - name: city
-        mapping: ShipCity
-      - name: region
-        mapping: ShipRegion
-      - name: postalCode
-        mapping: ShipPostalCode
-      - name: country
-        mapping: ShipCountry
     - name: Orders.details
       mapping: Order Details
       properties:
@@ -475,8 +284,6 @@ infrastructure:
         mapping: UnitPrice
       - name: quantity
         mapping: Quantity
-      - name: discount
-        mapping: Discount
   - name: mongoDb
     extends: default
     entities:
@@ -508,7 +315,7 @@ infrastructure:
     - name: Catalog
       condition: entity.in(["Categories","Products"])
     - name: Crm
-      condition: entity.in(["Address","Employees","Customers","Shippers","Suppliers"])
+      condition: entity.in(["Address","Customers"])
     - name: Ordering
       condition: entity.in(["Orders","Orders.details"])
   - name: insights

@@ -1,6 +1,8 @@
 {
     "cSpell.words": [
         "autonumeric",
+        "cqrs",
+        "CQRS",
         "datasources",
         "ddos",
         "DDOS",
@@ -18,6 +20,7 @@
         "postgres",
         "prometheus",
         "proot",
+        "psql",
         "ptest",
         "Slowloris",
         "sqlmap",

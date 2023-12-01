@@ -210,3 +210,19 @@ infrastructure:
   - name: insights
     sources:
     - name: Insights
+  - name: cqrs
+    sources:
+    - name: Insights
+      condition: action == "select"
+    - name: Catalog
+      condition: entity.in(["Categories","Products"])
+    - name: Crm
+      condition: entity.in(["Address","Customers"])
+    - name: Ordering
+      condition: entity.in(["Orders","Orders.details"])    
+application:
+  listeners:
+    - name: syncInsights
+      actions: [insert, bulkInsert, update, delete ]
+      condition: options.stage.in("default","cqrs")
+      after: orm.execute(expression,data,{stage:"insights"})      

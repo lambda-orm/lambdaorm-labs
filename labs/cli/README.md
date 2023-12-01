@@ -86,3 +86,13 @@ In this laboratory we will see:
 - How can you obtain the same results regardless of whether they are stored in a single data source or in multiple data sources
 
 [lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/07-northwind-multiples-stages)
+
+## CLI Lab - Northwind CQRS
+
+In this laboratory we will see:
+
+- How to configure several stages with conditions
+- How to configure listeners to synchronize data between stages
+- How to implement the CQRS pattern
+
+[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/08-northwind-cqrs)
