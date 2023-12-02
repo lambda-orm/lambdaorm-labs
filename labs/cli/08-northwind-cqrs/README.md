@@ -330,7 +330,7 @@ infrastructure:
 application:
   listeners:
     - name: syncInsights
-      actions: [insert, bulkInsert, update, delete ]
+      on: [insert, bulkInsert, update, delete ]
       condition: options.stage.in("default","cqrs")
       after: orm.execute(expression,data,{stage:"insights"})   
 ```
