@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.0.18](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.17...v0.0.18) (2023-12-02)
+
+
+### Features
+
+* compolete node 01 lab ([c616c0c](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/c616c0c5bd84b0ae52918eddf1abd82c9364f7ef)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
+
 ### [0.0.17](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.16...v0.0.17) (2023-12-02)
 
 **Features:**
