@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### [0.0.17](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.16...v0.0.17) (2023-12-02)
 
-
-### Features
+**Features:**
 
 * replace actions property for on in listener ([59ac767](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/59ac767e0a2bd52be13dadc92999320256786f41)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
 
