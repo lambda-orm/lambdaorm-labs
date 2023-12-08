@@ -1,13 +1,12 @@
-# Lab CLI - Simple
+# Lab Node - Queries
 
 In this laboratory we will see:
 
-- How to use the λORM CLI commands
-- how to create a project that uses lambda ORM
+- how to create a project that uses lambda ORM with CLI
 - How to define a schema
-- how to run a bulkInsert from a file
-- how to export data from a schema
-- how to import data into a schema from a previously generated export file
+- how to run a BulkInsert
+- How to execute a query using lambdaorm queries
+- How to drop a schema using lambda CLI
 
 ## Schema diagram
 
@@ -25,23 +24,12 @@ Install the package globally to use the CLI commands to help you create and main
 npm install lambdaorm-cli -g
 ```
 
-Test
-
-```sh
-lambdaorm version
-```
-
 ### Create project
 
 will create the project folder with the basic structure.
 
 ```sh
 lambdaorm init -w lab
-```
-
-position inside the project folder.
-
-```sh
 cd lab
 ```
 
@@ -78,15 +66,30 @@ Add the Country and State entity as seen in the following example to the "lambda
 ```yaml
 domain:
   entities:
+    - name: Positions
+      abstract: true
+      properties:
+        - name: latitude
+          length: 16
+        - name: longitude
+          length: 16
     - name: Countries
+      extends: Positions
       primaryKey: ["iso3"]
       uniqueKey: ["name"]
       properties:
         - name: name
           required: true
         - name: iso3
-          required: true
           length: 3
+          required: true
+        - name: iso2
+          required: true
+          length: 2
+        - name: capital
+        - name: currency
+        - name: region
+        - name: subregion
       relations:
         - name: states
           type: manyToOne
@@ -95,6 +98,7 @@ domain:
           entity: States
           to: countryCode
     - name: States
+      extends: Positions
       primaryKey: ["id"]
       uniqueKey: ["countryCode", "name"]
       properties:
@@ -189,16 +193,74 @@ for the import we will download the following file.
 wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-labs/main/source/countries/data.json
 ```
 
-then we will execute the following command
+## Source Code
 
-```sh
-lambdaorm execute -q "Countries.bulkInsert().include(p => p.states)" -d ./data.json
+### Add file Typescript with example queries
+
+En el folder src añadir el archivo "index.ts" con el siguiente contenido:
+
+```ts
+import { orm } from 'lambdaorm'
+import { Countries, States } from './countries/domain/model'
+import fs from 'fs'
+import path from'path'
+(async () => {
+	try {
+    // Initialize the ORM by passing the schema file
+    await orm.init('./lambdaORM.yaml')
+    // Gets the content of the data.json file to insert the data
+    const content = fs.readFileSync(path.join(__dirname,'../data.json'), 'utf-8')
+    const data = JSON.parse(content)
+    // Insert the countries and associated states
+    await orm.execute(()=> Countries.bulkInsert().include(p => p.states),data)
+    console.log('List 3 countries including states')
+    const query1 = () => Countries.include(p=> p.states) .map(p=> p.name).page(1,3)
+    let result =  await orm.execute(query1)
+    console.log(JSON.stringify(result,null,2))
+    console.log('List 3 countries including some state fields')
+    const query2 = () => Countries.include(p => p.states.map(p=> [p.name,p.latitude,p.longitude])).page(1,2)
+    result =  await orm.execute(query2)
+    console.log(JSON.stringify(result,null,2))
+    console.log('List the number of countries per region using string query')
+    const query3 = 'Countries.map(p=> {region:p.region,count:count(p.iso3)})'
+    result =  await orm.execute(query3)
+    console.log(JSON.stringify(result,null,2))
+    // Delete all records from tables	 
+    await orm.execute(()=> States.deleteAll())
+    await orm.execute(()=> Countries.deleteAll())
+	} catch (error: any) {
+		console.error(error)
+	} finally{
+        await orm.end()
+    }
+})()
 ```
 
-## TypeScript lab
+### Structure
 
 ```sh
+├── data
+│   ├── default-ddl-20231202T163012473Z-sync-default.sql
+│   └── default-model.json
+├── data.json
+├── docker-compose.yaml
+├── lambdaORM.yaml
+├── package.json
+├── src
+│   ├── countries
+│   │   └── domain
+│   │       ├── model.ts
+│   │       ├── repositoryCountry.ts
+│   │       └── repositoryState.ts
+│   └── index.ts
+└── tsconfig.json
+```
 
+### Run
+
+```sh
+npx tsc
+node ./build/index.js
 ```
 
 ## End

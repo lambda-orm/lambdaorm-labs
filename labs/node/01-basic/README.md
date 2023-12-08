@@ -1,13 +1,12 @@
-# Lab CLI - Simple
+# Lab Node - Basic
 
 In this laboratory we will see:
 
-- How to use the λORM CLI commands
-- how to create a project that uses lambda ORM
+- how to create a project that uses lambda ORM with CLI
 - How to define a schema
-- how to run a bulkInsert from a file
-- how to export data from a schema
-- how to import data into a schema from a previously generated export file
+- how to run a BulkInsert
+- How to execute a query using lambdaorm queries
+- How to drop a schema using lambda CLI
 
 ## Schema diagram
 
@@ -195,21 +194,21 @@ import fs from 'fs'
 import path from'path'
 (async () => {
 	try {
-        // Initialize the ORM by passing the schema file
-		await orm.init('./lambdaORM.yaml')
-        // Gets the content of the data.json file to insert the data
-		const content = fs.readFileSync(path.join(__dirname,'../data.json'), 'utf-8')
-		const data = JSON.parse(content)
-        // Insert the countries and associated states
-		await orm.execute(()=> Countries.bulkInsert().include(p => p.states),data)
-        // Test query that gets the states of a country		
-		const result =  await orm.execute(()=> Countries.filter(p=> p.iso3 === 'ARG')
-                        .include(p => p.states.map(p=>p.name)
-                            .filter(p=> p.name.startsWith('C'))))
-		console.log(JSON.stringify(result,null,2))
-        // Delete all records from tables	
-        await orm.execute(()=> States.deleteAll())
-        await orm.execute(()=> Countries.deleteAll())
+    // Initialize the ORM by passing the schema file
+    await orm.init('./lambdaORM.yaml')
+    // Gets the content of the data.json file to insert the data
+    const content = fs.readFileSync(path.join(__dirname,'../data.json'), 'utf-8')
+    const data = JSON.parse(content)
+    // Insert the countries and associated states
+    await orm.execute(()=> Countries.bulkInsert().include(p => p.states),data)
+    // Test query that gets the states of a country		
+    const result =  await orm.execute(()=> Countries.filter(p=> p.iso3 === 'ARG')
+                    .include(p => p.states.map(p=>p.name)
+                        .filter(p=> p.name.startsWith('C'))))
+    console.log(JSON.stringify(result,null,2))
+    // Delete all records from tables	 
+    await orm.execute(()=> States.deleteAll())
+    await orm.execute(()=> Countries.deleteAll())
 	} catch (error: any) {
 		console.error(error)
 	} finally{
