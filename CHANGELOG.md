@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### [0.0.21](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.20...v0.0.21) (2023-12-08)
 
-
-### Features
+**Features:**
 
 * add node labs 3 and 4 ([0b7dd95](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/0b7dd95c4933d24cb95d4e2050456c971bede94f)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
 
