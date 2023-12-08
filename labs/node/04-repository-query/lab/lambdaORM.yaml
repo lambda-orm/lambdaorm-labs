@@ -1,0 +1,53 @@
+domain:
+  entities:
+    - name: Countries
+      primaryKey: ["iso3"]
+      uniqueKey: ["name"]
+      properties:
+        - name: name
+          required: true
+        - name: iso3
+          required: true
+          length: 3
+      relations:
+        - name: states
+          type: manyToOne
+          composite: true
+          from: iso3
+          entity: States
+          to: countryCode
+    - name: States
+      primaryKey: ["id"]
+      uniqueKey: ["countryCode", "name"]
+      properties:
+        - name: id
+          type: integer
+          required: true
+        - name: name
+          required: true
+        - name: countryCode
+          required: true
+          length: 3
+      relations:
+        - name: country
+          from: countryCode
+          entity: Countries
+          to: iso3
+infrastructure:
+  sources:
+    - name: default
+      dialect: PostgreSQL
+      mapping: default
+      connection:
+        host: localhost
+        port: 5436
+        user: test
+        password: test
+        database: test
+  stages:
+    - name: default
+      sources:
+        - name: default
+  paths:
+    src: src
+    domain: countries/domain
