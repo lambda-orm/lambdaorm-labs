@@ -403,7 +403,6 @@ It will generate:
 │   └── insights-model.json
 ├── docker-compose.yaml
 └── lambdaORM.yaml
-
 ```
 
 ### Populate Data
