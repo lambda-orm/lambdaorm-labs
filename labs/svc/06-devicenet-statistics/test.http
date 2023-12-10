@@ -1,0 +1,163 @@
+@host = http://localhost:9291
+
+
+
+### General -------------------------------------------------------------------------------------------------------------------------
+
+### ping
+GET {{host}}/ping HTTP/1.1
+
+### health
+GET {{host}}/health HTTP/1.1
+
+### metrics
+GET {{host}}/metrics HTTP/1.1
+
+### Inserts -------------------------------------------------------------------------------------------------------------------------
+
+### Users
+POST {{host}}/run?query=Users.bulkInsert() HTTP/1.1
+content-type: application/json
+
+[
+	{
+		"username": "flaviolrita",
+		"firstname": "Flavio Lionel",
+		"lastname": "Rita",
+		"email": "flaviolrita@hotmail.com"
+	},
+	{
+		"username": "griss512",
+		"firstname": "Gricelda Rocio",
+		"lastname": "Puchuri Corilla",
+		"email": "griss512@hotmail.com"
+	},
+	{
+		"username": "micaela",
+		"firstname": "Micaela Valentina",
+		"lastname": "Rita Puchuri",
+		"email": "flaviolrita@hotmail.com"
+	},
+	{
+		"username": "joaquin",
+		"firstname": "Joaquin Ignacio",
+		"lastname": "Rita Puchuri",
+		"email": "flaviolrita@hotmail.com"
+	}
+]
+
+### Groups
+POST {{host}}/run?query=Groups.bulkInsert().include(p=>p.members) HTTP/1.1
+content-type: application/json
+
+[
+	{
+		"name": "Rita Puchuri",
+		"members": [
+			{
+				"username": "flaviolrita",
+				"role": "admin"
+			},
+			{
+				"username": "griss512",
+				"role": "admin"
+			},
+			{
+				"username": "micaela",
+				"role": "member"
+			},
+			{
+				"username": "joaquin",
+				"role": "member"
+			}
+		]
+	}
+]
+
+### Devices
+POST {{host}}/run?query=Devices.bulkInsert().include(p=>p.components) HTTP/1.1
+content-type: application/json
+
+[
+	{
+		"name": "Huawei P30 lite Flavio",
+		"type": "phone",
+		"serialNumber": "L2NDU19A18006154",
+		"groupId": "rita-puchuri",
+		"brand": "Huawei",
+		"model": "MAR-LX1A",
+		"so": "android 10",
+		"imei": "863451049927149",
+		"imei2": "863451049959159",
+		"mac": "FC:94:35:90:E2:86",
+		"macBluetooth": "FC:94:35:90:EF:07",
+		"ip": "192.168.1.138",
+		"components": [
+			{
+				"name": "frontal camera",
+				"type": "camera",
+				"brand": "Huawei",
+				"model": "24Mpx front"
+			},
+			{
+				"name": "Rear camera",
+				"type": "camera",
+				"brand": "Huawei",
+				"model": "Rear camera 48, 8 and 2Mpx"
+			},
+			{
+				"name": "microphone",
+				"type": "microphone",
+				"brand": "Huawei",
+				"model": "Microphone SMD Soldering Soldar"
+			}
+		]
+	}
+]
+
+### Metadata -------------------------------------------------------------------------------------------------------------------------
+
+
+### model
+GET {{host}}/model?query=Devices.bulkInsert().include(p=>p.components) HTTP/1.1
+
+### parameters
+GET {{host}}/parameters?query=Devices.bulkInsert().include(p=>p.components) HTTP/1.1
+
+### constraints
+GET {{host}}/constraints?query=Devices.bulkInsert().include(p=>p.components) HTTP/1.1
+
+### sentence
+GET {{host}}/sentence?query=Devices.bulkInsert().include(p=>p.components) HTTP/1.1
+
+### Execute
+POST {{host}}/run?query=Groups.include(p=>[p.members.include(p=>p.user),p.devices.include(p=>p.components.filter(p=>p.type==ComponentType.camera))]) HTTP/1.1
+content-type: application/json
+
+{
+}
+
+
+### Deletes --------------------------------------------------------------------------------------------------------------
+
+### Components
+POST {{host}}/run?query=Components.deleteAll() HTTP/1.1
+content-type: application/json
+
+{}
+
+
+### Devices
+POST {{host}}/run?query=Devices.deleteAll() HTTP/1.1
+
+### GroupUsers
+POST {{host}}/run?query=GroupUsers.deleteAll() HTTP/1.1
+
+### Users
+POST {{host}}/run?query=Users.deleteAll() HTTP/1.1
+
+### Groups
+POST {{host}}/run?query=Groups.deleteAll() HTTP/1.1
+
+
+
