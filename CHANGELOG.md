@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.0.22](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.21...v0.0.22) (2023-12-11)
+
+
+### Features
+
+* add service 02 lab ([20dc21a](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/20dc21ad85367e4100e018024d140cd316754717)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
+* add service cqrs lab ([75b92a1](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/75b92a1ba30833d4d059d8585317e182088f0bdd)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
+* add service ddos pentest ([07152af](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/07152af000ca84c6144cf24c7e49aebcb241d464)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
+* complete service 01 lab ([842f10b](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/842f10b3f387b7a240f1afef40fe4c9d95bc058c)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
+* working in devicenet lab ([187f106](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/187f106685d0e9c08a309883e9f03f1a16423689)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
+
 ### [0.0.21](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.20...v0.0.21) (2023-12-08)
 
 **Features:**
