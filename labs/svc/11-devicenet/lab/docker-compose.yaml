@@ -1,0 +1,58 @@
+version: "3"
+networks:
+  devicenet:
+    driver: bridge
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:10
+    restart: always
+    environment:
+      - POSTGRES_DB=keycloak
+      - POSTGRES_USER=devicenet
+      - POSTGRES_PASSWORD=devicenet
+    ports:
+      - 5432:5432
+    networks:
+      - devicenet
+  keycloak:
+    depends_on:
+      - postgres
+    image: quay.io/keycloak/keycloak:legacy
+    container_name: keycloak
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_SCHEMA: public
+      DB_DATABASE: keycloak
+      DB_USER: devicenet
+      DB_PASSWORD: devicenet
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: Pa55w0rd
+    ports:
+      - 8180:8080
+    networks:
+      - devicenet
+  orm:
+    depends_on:
+      - postgres
+    container_name: orm
+    image: flaviorita/lambdaorm-svc:0.8.52
+    restart: always  
+    environment:
+      HOST: http://localhost
+      PORT: 9291
+      REQUEST_BODY_SIZE: 100mb
+      RATE_LIMIT_WINDOWS_MS: 60000
+      RATE_LIMIT_MAX: 1000
+      WORKSPACE: /workspace
+      REALM_ID: devicenet
+      USERS_SECRET_KEY: rifk863hmKSJDJ87hd*nhJ98
+      DEVICES_SECRET_KEY: hhd843hf8HD7HDg65GD&^5
+      CNN_POSTGRES: '{"host":"postgres","port":5432,"user":"devicenet","password":"devicenet","database":"devicenet"}'
+    ports:
+      - 9291:9291
+    networks:
+      - devicenet
+    volumes:
+      - ./:/workspace
