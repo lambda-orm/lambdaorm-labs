@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### [0.0.22](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.21...v0.0.22) (2023-12-11)
 
-
-### Features
+**Features:**
 
 * add service 02 lab ([20dc21a](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/20dc21ad85367e4100e018024d140cd316754717)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
 * add service cqrs lab ([75b92a1](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/75b92a1ba30833d4d059d8585317e182088f0bdd)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
