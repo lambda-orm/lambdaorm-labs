@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### [0.0.23](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.22...v0.0.23) (2023-12-12)
 
-
-### Features
+**Features:**
 
 * add load balancer pentest service test ([95e025c](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/95e025c6baa8193012d513ac1fe27b402a535b70)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
 * add load balancer pentest service test ([62f92c5](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/62f92c5a7eb4b10f08228e64a9780a6e6c26f7ee)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
