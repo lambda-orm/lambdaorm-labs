@@ -1,0 +1,39 @@
+version: "3"
+networks:
+  northwind:
+    driver: bridge  
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:10
+    restart: always
+    environment:
+      - POSTGRES_DB=northwind
+      - POSTGRES_USER=northwind
+      - POSTGRES_PASSWORD=northwind
+    ports:
+      - 5432:5432
+    networks:
+      - northwind   
+  orm:
+    depends_on:
+      - postgres
+    container_name: orm
+    image: flaviorita/lambdaorm-svc:0.8.52
+    restart: always  
+    environment:
+      HOST: http://0.0.0.0
+      PORT: 9291
+      REQUEST_BODY_SIZE: 100mb
+      RATE_LIMIT_WINDOWS_MS: 60000
+      RATE_LIMIT_MAX: 1000
+      WORKSPACE: /workspace
+      POSTGRES_CNX: '{"host":"postgres","port":5432,"user":"northwind","password":"northwind","database":"northwind" }'
+    ports:
+      - 9291:9291
+    expose:
+      - 9291  
+    networks:
+      - northwind
+    volumes:
+      - ./:/workspace

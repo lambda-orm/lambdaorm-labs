@@ -4,7 +4,6 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
         {
             "name": "node-01-basic",
             "type": "node",
@@ -14,6 +13,16 @@
             ],
             "program": "${workspaceFolder}/labs/node/01-basic/lab/src/index.ts",
             "cwd": "${workspaceFolder}/labs/node/01-basic/lab"
+        },
+        {
+            "name": "node client import",
+            "type": "node",
+            "request": "launch",            
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/labs/client-node/02-import/client/src/index.ts",
+            "cwd": "${workspaceFolder}/labs/client-node/02-import/client"
         },
         {
             "name": "issue-179",

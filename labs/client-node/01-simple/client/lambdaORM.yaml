@@ -1,0 +1,111 @@
+domain:  
+  entities:
+  - name: Address
+    abstract: true
+    indexes:
+    - name: postalCode
+      fields: ["postalCode"]
+    - name: region
+      fields: ["region", "country"]
+    - name: city
+      fields: ["city"]
+    properties:
+    - name: address
+    - name: city
+    - name: region
+    - name: postalCode
+      length: 20
+    - name: country
+  - name: Categories
+    primaryKey: ["id"]
+    uniqueKey: ["name"]
+    properties:
+    - name: id
+      type: integer
+      required: true
+      autoIncrement: true
+    - name: name
+      required: true
+  - name: Customers
+    extends: Address
+    primaryKey: ["id"]
+    indexes:
+    - name: name
+      fields: ["name"]
+    properties:
+    - name: id
+      length: 5
+      required: true
+    - name: name
+      required: true
+  - name: Products
+    primaryKey: ["id"]
+    uniqueKey: ["name", "supplierId"]
+    properties:
+    - name: id
+      type: integer
+      required: true
+      autoIncrement: true
+    - name: name
+      required: true
+    - name: categoryId
+      type: integer
+    - name: quantity
+    - name: price
+      type: decimal
+      default: 0
+    relations:
+    - name: category
+      from: categoryId
+      entity: Categories
+      to: id
+      target: products
+  - name: Orders
+    primaryKey: ["id"]
+    indexes:
+    - name: orderDate
+      fields: ["orderDate"]
+    properties:
+    - name: id
+      type: integer
+      required: true
+      autoIncrement: true
+    - name: customerId
+      required: true
+      length: 5
+    - name: orderDate
+      type: dateTime 
+    relations:
+    - name: customer
+      from: customerId
+      entity: Customers
+      to: id
+      target: orders
+  - name: Orders.details
+    primaryKey: ["orderId", "productId"]
+    properties:
+    - name: orderId
+      required: true
+      type: integer
+    - name: productId
+      required: true
+      type: integer
+    - name: unitPrice
+      type: decimal
+    - name: quantity
+      type: decimal
+    relations:
+    - name: order
+      from: orderId
+      entity: Orders
+      to: id
+      target: details
+    - name: product
+      from: productId
+      entity: Products
+      to: id
+      target: orderDetails
+infrastructure:
+  paths:    
+    src: src
+    domain: northwind/domain  
