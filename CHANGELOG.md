@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### [0.0.24](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.23...v0.0.24) (2023-12-13)
 
-
-### Features
+**Features:**
 
 * complete import clien node lab ([48b4d7e](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/48b4d7ec131f07b368a9e3d2d25f57ac85462bc2)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
 
