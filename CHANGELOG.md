@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### [0.0.25](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.24...v0.0.25) (2023-12-16)
 
-
-### Features
+**Features:**
 
 * add cqrs kafka service lab ([727d46c](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/727d46c504087febd568d85646891817023de1ac)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
 * complete cqrs kafka service lab ([4fef33d](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/4fef33dfb15b6bbdea44566d41535f94490c8e19)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
