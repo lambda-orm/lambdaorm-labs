@@ -1,0 +1,106 @@
+version: '3'
+networks:
+  northwind:
+    driver: bridge
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - 3306:3306
+    networks:
+      - northwind  
+  postgres:
+    container_name: postgres  
+    image: postgres:10
+    restart: always
+    environment:
+      - POSTGRES_DB=test
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+    ports:
+      - 5432:5432
+    networks:
+      - northwind  
+  mongodb:    
+    container_name: mongodb
+    image: mongo:5.0
+    restart: always
+    environment:
+      - MONGO_INITDB_DATABASE=test
+      - MONGO_INITDB_ROOT_USERNAME=test
+      - MONGO_INITDB_ROOT_PASSWORD=test
+    ports:
+      - 27017:27017
+    networks:
+      - northwind
+  zookeeper:
+    container_name: zookeeper
+    image: confluentinc/cp-zookeeper:latest
+    networks: 
+      - northwind
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+  kafka:
+    container_name: kafka
+    image: confluentinc/cp-kafka:latest
+    networks: 
+      - northwind
+    depends_on:
+      - zookeeper
+    ports:
+      - 9092:9092
+      - 9093:9093
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  kafdrop:
+    container_name: kafdrop
+    image: obsidiandynamics/kafdrop:latest
+    networks: 
+      - northwind
+    depends_on:
+      - kafka
+    ports:
+      - 19000:9000
+    environment:
+      KAFKA_BROKERCONNECT: kafka:29092  
+  orm:
+    depends_on:
+      - mysql      
+      - postgres
+      - mongodb
+    container_name: orm
+    image: flaviorita/lambdaorm-svc:0.8.57
+    restart: always  
+    environment:
+      HOST: http://0.0.0.0
+      PORT: 9291
+      REQUEST_BODY_SIZE: 100mb
+      RATE_LIMIT_WINDOWS_MS: 60000
+      RATE_LIMIT_MAX: 1000
+      WORKSPACE: /workspace
+      CNN_MYSQL: '{"host":"mysql","port":3306,"user":"test","password":"test","database":"test"}'
+      CNN_POSTGRES: '{"host":"postgres","port":5432,"user":"test","password":"test","database":"test"}'
+      CNN_MONGODB: '{"url":"mongodb://test:test@mongodb:27017","database":"test"}'
+      CNN_INSIGHTS: '{"host":"postgres","port":5432,"user":"test","password":"test","database":"insights"}'
+      QUEUE_CONFIG: '{"clientId": "collections", "brokers": ["localhost:9092"]}'
+    ports:
+      - 9291:9291
+    expose:
+      - 9291  
+    networks:
+      - northwind
+    volumes:
+      - ./:/workspace
