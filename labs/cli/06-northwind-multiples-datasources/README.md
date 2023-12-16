@@ -1,6 +1,6 @@
 # CLI Lab - Northwind multiple datasources
 
-In this laboratory we will see:
+**In this laboratory we will see:**
 
 - How to configure the schema to work with multiple data sources
 - How to execute queries from CLI to obtain data from multiple data sources in the same query
@@ -628,7 +628,7 @@ Result:
 
 ## End
 
-### Drop tables/collections and remove databases
+Drop tables/collections and remove databases:
 
 ```sh
 lambdaorm drop -e .env

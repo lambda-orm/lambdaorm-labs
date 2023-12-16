@@ -1,15 +1,36 @@
-# Service - Northwind CQRS (Command Query Responsibility Segregation)
+# Service - Northwind CQRS (Command Query Responsibility Segregation) with kafka
 
-In this laboratory we will see:
+**In this laboratory we will see:**
 
-Creating the northwind sample database tables and loading it with sample data.
-This database presents several non-standard cases such as:
-	- Name of tables and fields with spaces
-	- Tables with composite primary keys
-	- Tables with autonumeric ids and others with ids strings
+Configure postgres databases, mysql, mongo and a lambdaorm service using docker-compose.
+How to configure different stages:
 
-Since this is the database that was used for many examples and unit tests, you can test the example queries that are in the documentation.
-We will also see some example queries to execute from CLI
+- default: where domain entities are mapped to different data sources.
+- insights: where domain entities are mapped to a single data source.
+- cqrs: where domain entities are mapped to different data sources and read-only queries are executed.
+
+How to configure a listener to synchronize data between different data sources.
+How to configure a consumer to listen to messages from a Kafka topic.
+
+Consume the lambdaorm service to:
+
+- Execute ping
+- Obtain the data model corresponding to a query
+- Obtain the parameters of a query.
+- Obtain the restrictions of a query.
+- Obtain the execution plan of a query.
+- Import data to be distributed across different data sources.
+- Execute a query that, according to the stage, will be executed in one or more data sources.
+
+We will verify that lambdaorm behaves the same whether the domain entities are mapped to a single data source or to multiple data sources.
+
+CQRS (Command Query Responsibility Segregation) is a design pattern that separates read and write operations of a domain model.
+This pattern can be difficult to implement in conventional development or with a traditional ORM, but with lambdaorm it is very simple, since we can solve it through configuration.
+
+Consider that in this lab we are not only implementing CQRS, but we are also implementing a distributed data model, where each entity in the domain can be mapped to a different data source.
+
+In this case, every time a stage is inserted, updated or deleted in the default stage or cqrs, a message will be sent to the "insights-sync" topic with the expression and the data.
+and this message will be consumed and the expression will be executed in the insights stage, thus achieving synchronization between the data sources and the insights source.
 
 ## Install lambda ORM CLI
 
@@ -28,7 +49,19 @@ lambdaorm init -w lab
 cd lab
 ```
 
+## Configure
+
 ### Configure docker-compose
+
+Configure docker-compose to create the following containers:
+
+- mysql: database for the catalog
+- postgres: database for crm and insights
+- mongodb: database for ordering
+- zookeeper: kafka dependency
+- kafka: kafka dependency
+- kafdrop: kafka dependency
+- orm: lambdaorm service  
 
 Create file "docker-compose.yaml"
 
@@ -146,6 +179,15 @@ services:
 ```
 
 ### Configure Schema
+
+In the schema we will configure:
+
+- Domain entities
+- Mappings of domain entities to database tables
+- Data sources
+- Stages with conditions to define which domain entity applies to each data source
+- Listeners to synchronize data between databases
+- Consumers to listen to messages from a kafka topic
 
 In the creation of the project the schema was created but without any entity.
 Modify the configuration of lambdaorm.yaml with the following content
@@ -394,6 +436,41 @@ application:
       on: [insert, bulkInsert, update, delete ]
       condition: options.stage.in("default","cqrs")
       after: queue.send("insights-sync",[{expression:expression,data:data}])  
+```
+
+**Listeners configuration:**
+
+To synchronize data between databases, a listener is defined that will be executed after each insert, update, delete and bulk insert operation in the default and cqrs scenario. \
+After each operation, a message is sent to the "insights-sync" topic with the expression and the data.
+
+```yaml
+...
+application:
+  listeners:
+    - name: syncInsights
+      on: [insert, bulkInsert, update, delete ]
+      condition: options.stage.in("default","cqrs")
+      after: queue.send("insights-sync",[{expression:expression,data:data}])  
+```
+
+**Consumer configuration:**
+
+A consumer is defined that will listen to the "insights-sync" topic and execute the expression received in the "insights" scenario.
+
+```yaml
+...
+infrastructure:
+  ...
+  queue: 
+    consumers:
+      - name: syncInsights
+        config:
+          groupId: group1
+        subscribe:
+          topic: insights-sync
+          fromBeginning: true
+        execute: orm.execute(message.expression,message.data, {stage:"insights"})
+...            
 ```
 
 ### Create .env file

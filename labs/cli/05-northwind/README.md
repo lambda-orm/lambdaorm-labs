@@ -1,6 +1,6 @@
 # CLI Lab - Northwind
 
-In this laboratory we will see:
+**In this laboratory we will see:**
 
 Creating the northwind sample database tables and loading it with sample data.
 This database presents several non-standard cases such as:
@@ -62,7 +62,7 @@ services:
 Create MySql database for test:
 
 ```sh
-docker-compose -p "lambdaorm-lab" up -d
+docker-compose -p lambdaorm-lab up -d
 ```
 
 Create user and set character:
@@ -275,7 +275,7 @@ infrastructure:
 ### Sync
 
 ```sh
-lambdaorm sync -e ".env"
+lambdaorm sync -e .env
 ```
 
 It will generate:
@@ -293,7 +293,7 @@ wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-labs/main/sour
 then we execute
 
 ```sh
-lambdaorm import -e ".env" -d ./data.json
+lambdaorm import -e .env -d ./data.json
 ```
 
 ### Queries
@@ -301,32 +301,32 @@ lambdaorm import -e ".env" -d ./data.json
 Shows some fields of the first product:
 
 ```sh
-lambdaorm execute -e ".env" -q "Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity }))"
+lambdaorm execute -e .env -q "Products.first(p => ({ category: p.category.name, name: p.name, quantity: p.quantity }))"
 ```
 
 lists details of orders that meet a filter and sorts the records
 the values to filter are passed as parameters:
 
 ```sh
-lambdaorm execute -e ".env" -q "Orders.details.filter(p => between(p.order.orderDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product])" -d "{ \"minValue\": 10, \"from\": \"1997-01-01\", \"to\": \"1997-12-31\" }"
+lambdaorm execute -e .env -q "Orders.details.filter(p => between(p.order.orderDate, from, to) && p.unitPrice > minValue).map(p => ({ category: p.product.category.name, product: p.product.name, unitPrice: p.unitPrice, quantity: p.quantity })).sort(p => [p.category, p.product])" -d "{ \"minValue\": 10, \"from\": \"1997-01-01\", \"to\": \"1997-12-31\" }"
 ```
 
 List the maximum price by category, ordered by descending price and filtering by maximum price greater than 100
 
 ```sh
-lambdaorm execute -e ".env" -q "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))"
+lambdaorm execute -e .env -q "Products.having(p => max(p.price) > 100).map(p => ({ category: p.category.name, largestPrice: max(p.price) })).sort(p => desc(p.largestPrice))"
 ```
 
 distinct category of products:
 
 ```sh
-lambdaorm execute -e ".env" -q "Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => p.category)"
+lambdaorm execute -e .env -q "Products.distinct(p => ({ quantity: p.quantity, category: p.category.name })).sort(p => p.category)"
 ```
 
 returns an order including customer fields, order detail, product and category:
 
 ```sh
-lambdaorm execute -e ".env" -q "Orders.filter(p => p.id == id).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])" -d "{\"id\": 1}"
+lambdaorm execute -e .env -q "Orders.filter(p => p.id == id).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])" -d "{\"id\": 1}"
 ```
 
 ### Drop
@@ -334,7 +334,7 @@ lambdaorm execute -e ".env" -q "Orders.filter(p => p.id == id).include(p => [p.c
 remove all tables from the schema and delete the state file, MySQL-model.json
 
 ```sh
-lambdaorm drop -e ".env"
+lambdaorm drop -e .env
 ```
 
 ## End
@@ -344,5 +344,5 @@ lambdaorm drop -e ".env"
 Remove MySql database:
 
 ```sh
-docker-compose -p "lambdaorm-lab" down
+docker-compose -p lambdaorm-lab down
 ```

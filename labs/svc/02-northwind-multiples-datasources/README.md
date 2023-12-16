@@ -1,15 +1,21 @@
 # Service - Northwind Multiples Datasources
 
-In this laboratory we will see:
+**In this laboratory we will see:**
 
-Creating the northwind sample database tables and loading it with sample data.
-This database presents several non-standard cases such as:
-	- Name of tables and fields with spaces
-	- Tables with composite primary keys
-	- Tables with autonumeric ids and others with ids strings
+Set up a postgres, mysql and mongo database and lambdaorm service using docker-compose.
+Configure a lambdaorm schema where entities defined in the domain are mapped to different databases.
+Create the Northwind sample database tables using the lambdaorm cli.
+Access lambdaorm service endpoints to:
 
-Since this is the database that was used for many examples and unit tests, you can test the example queries that are in the documentation.
-We will also see some example queries to execute from CLI
+- Execute ping
+- Obtain the data model corresponding to a query
+- Get the parameters of a query
+- Obtain the constraints of a query
+- Get the execution plan of a query
+- Import data
+- Run a query
+
+We will verify that lambdaorm behaves in the same way if the domain entities are mapped to a single datasource or to multiple datasources.
 
 ## Install lambda ORM CLI
 
@@ -28,7 +34,9 @@ lambdaorm init -w lab
 cd lab
 ```
 
-## Create database for test
+## Configure
+
+### Configure docker-compose to stand up the database and lambdaorm service
 
 Create file "docker-compose.yaml"
 
@@ -103,20 +111,19 @@ services:
       - ./:/workspace
 ```
 
-Create database for test:
+Create infrastructure:
 
 ```sh
-docker-compose -p "lambdaorm-lab" up -d
+docker-compose -p lambdaorm-lab up -d
 ```
 
-## Complete Schema
+### Configure Schema
 
 In the creation of the project the schema was created but without any entity.
 Modify the configuration of lambdaorm.yaml with the following content
 
 ```yaml
 domain:  
-  enums:
   entities:
   - name: Address
     abstract: true
@@ -328,6 +335,25 @@ infrastructure:
     rateLimitMax: $RATE_LIMIT_MAX
 ```
 
+**Configure multiples datasources:**
+
+Within the default stage, the different data sources that will be used are configured.
+For this, the "condition" property is used, which allows defining an expression that is evaluated to determine if the datasource is used for the entity that is being processed.
+
+In the following example, 3 datasources are configured, the first is used for the Categories and Products entities, the second for the Address and Customers entities and the third for the Orders and Orders.details entities.
+
+```yaml
+  stages:
+  - name: default
+    sources:
+    - name: Catalog
+      condition: entity.in(["Categories","Products"])
+    - name: Crm
+      condition: entity.in(["Address","Customers"])
+    - name: Ordering
+      condition: entity.in(["Orders","Orders.details"]) 
+```
+
 ### Create .env file
 
 Create file ".env" with the following content:
@@ -340,22 +366,10 @@ CNN_MONGODB={"url":"mongodb://test:test@localhost:27017","database":"test"}
 
 ### Sync
 
-```sh
-lambdaorm sync -e ".env"
-```
-
-### Populate Data
-
-for the import we will download the following file.
+Using the lambdaorm cli we synchronize the schema with the database.
 
 ```sh
-wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-labs/main/source/northwind/data.json
-```
-
-then we execute
-
-```sh
-lambdaorm import -e ".env" -d ./data.json
+lambdaorm sync -e .env
 ```
 
 ## Service endpoints
@@ -522,6 +536,8 @@ Result:
 
 ### Plan
 
+By obtaining the execution plan of the query you can see that queries are executed in the different datasources and that lambdaorm is responsible for joining the results of the queries and returning a single result.
+
 ```sh
 curl -X POST "http://localhost:9291/plan?format=beautiful" -H "Content-Type: application/json" -d '{"expression": "Orders.filter(p=>p.customerId==customerId).include(p=>[p.details.include(p=>p.product.map(p=>p.name)).map(p=>{subTotal:p.quantity*p.unitPrice}),p.customer.map(p=>p.name)]).order(p=>p.orderDate).page(1,1)"}'
 ```
@@ -559,7 +575,26 @@ Result:
 }
 ```
 
+### Import Data
+
+for the import we will download the following file.
+
+```sh
+wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-labs/main/source/northwind/data.json
+```
+
+then invokes the import endpoint
+
+```sh
+curl -X POST -H "Content-Type: application/json" -d @data.json http://localhost:9291/stages/default/import
+```
+
+When importing the data, lambdaorm is responsible for distributing the data to the different data sources.
+
 ### Execute
+
+The following query fetches the data from different data sources and joins them to return a single result.
+Lambdaorm abstracts us from how the data is stored and allows us to work against a single domain which simplifies obtaining the data.
 
 ```sh
 curl -X POST "http://localhost:9291/execute?format=beautiful" -H "Content-Type: application/json" -d '{"expression": "Orders.filter(p=>p.customerId==customerId).include(p=>[p.details.include(p=>p.product.map(p=>p.name)).map(p=>{subTotal:p.quantity*p.unitPrice}),p.customer.map(p=>p.name)]).order(p=>p.orderDate).page(1,1)","data":"{\"customerId\": \"CENTC\"}"}'
@@ -596,7 +631,9 @@ Result:
 
 ## End
 
+To finish the lab we execute the following commands to drop the tables and stop the containers and delete them.
+
 ```sh
-lambdaorm drop -e ".env"
+lambdaorm drop -e .env
 docker-compose -p lambdaorm-lab down
 ```

@@ -1,6 +1,6 @@
 # CLI Lab - Two data sources with the same query
 
-In this laboratory we will see:
+**In this laboratory we will see:**
 
 - How to insert data from a file to more than one table.
 - how to define a stage that works with entities in different databases
@@ -94,7 +94,7 @@ services:
 Create MySql database for test:
 
 ```sh
-docker-compose -p "lambdaorm-lab" up -d
+docker-compose -p lambdaorm-lab up -d
 ```
 
 Create user and set character:
@@ -183,7 +183,7 @@ infrastructure:
 ### Sync
 
 ```sh
-lambdaorm sync -e ".env"
+lambdaorm sync -e .env
 ```
 
 Structure:
@@ -214,38 +214,38 @@ wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-labs/main/sour
 then we execute
 
 ```sh
-lambdaorm execute -e ".env" -q "Countries.bulkInsert().include(p => p.states)" -d ./data.json
+lambdaorm execute -e .env -q "Countries.bulkInsert().include(p => p.states)" -d ./data.json
 ```
 
 test:
 
 ```sh
-lambdaorm execute -e ".env" -q "Countries.page(1,10).include(p => p.states)"
+lambdaorm execute -e .env -q "Countries.page(1,10).include(p => p.states)"
 ```
 
 ### Export data
 
 ```sh
-lambdaorm export -e ".env"
+lambdaorm export -e .env
 ```
 
 ### Delete data
 
 ```sh
-lambdaorm execute -e ".env" -q "States.deleteAll()" 
-lambdaorm execute -e ".env" -q "Countries.deleteAll()" 
+lambdaorm execute -e .env -q "States.deleteAll()" 
+lambdaorm execute -e .env -q "Countries.deleteAll()" 
 ```
 
 ### Import data
 
 ```sh
-lambdaorm import -e ".env" -d ./default-export.json
+lambdaorm import -e .env -d ./default-export.json
 ```
 
 test:
 
 ```sh
-lambdaorm execute -e ".env" -q "Countries.page(1,10).include(p => p.states)"
+lambdaorm execute -e .env -q "Countries.page(1,10).include(p => p.states)"
 ```
 
 ### Drop
@@ -253,7 +253,7 @@ lambdaorm execute -e ".env" -q "Countries.page(1,10).include(p => p.states)"
 remove all tables from the schema and delete the state file, stage1-model.json
 
 ```sh
-lambdaorm drop -e ".env"
+lambdaorm drop -e .env
 ```
 
 ## End
@@ -263,5 +263,5 @@ lambdaorm drop -e ".env"
 Remove databases:
 
 ```sh
-docker-compose -p "lambdaorm-lab" down
+docker-compose -p lambdaorm-lab down
 ```

@@ -1,6 +1,6 @@
 # CLI Lab - Northwind multiple stages
 
-In this laboratory we will see:
+**In this laboratory we will see:**
 
 - How to configure the schema to work with multiple data sources
 - How to configure the schema to work with multiple stages
@@ -368,7 +368,7 @@ lambdaorm import -e .env -s insights -d ./default-export.json
 ### Query on default stage
 
 ```sh
-lambdaorm execute -e ".env" -s default -q "Orders.filter(p => p.customerId == customerId).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])]).order(p=> p.id).page(1,1)" -d "{\"customerId\": \"HANAR\"}"
+lambdaorm execute -e .env -s default -q "Orders.filter(p => p.customerId == customerId).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])]).order(p=> p.id).page(1,1)" -d "{\"customerId\": \"HANAR\"}"
 ```
 
 Result:
@@ -432,7 +432,7 @@ Result:
 ### Same query on insights stage
 
 ```sh
-lambdaorm execute -e ".env" -s insights -q "Orders.filter(p => p.customerId == customerId).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])]).order(p=> p.id).page(1,1)" -d "{\"customerId\": \"HANAR\"}"
+lambdaorm execute -e .env -s insights -q "Orders.filter(p => p.customerId == customerId).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])]).order(p=> p.id).page(1,1)" -d "{\"customerId\": \"HANAR\"}"
 ```
 
 Result:
@@ -498,7 +498,7 @@ Result:
 If we add the -o plan parameter we can see the different statements that will be executed and in what source they will be executed.
 
 ```sh
-lambdaorm execute -e ".env" -s default -o plan -q "Orders.filter(p => p.customerId == customerId).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])]).order(p=> p.id).page(1,1)" -d "{\"customerId\": \"HANAR\"}"
+lambdaorm execute -e .env -s default -o plan -q "Orders.filter(p => p.customerId == customerId).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])]).order(p=> p.id).page(1,1)" -d "{\"customerId\": \"HANAR\"}"
 ```
 
 Result:
@@ -547,7 +547,7 @@ Result:
 If we add the -o plan parameter we can see the different statements that will be executed and in what source they will be executed.
 
 ```sh
-lambdaorm execute -e ".env" -s insights -o plan -q "Orders.filter(p => p.customerId == customerId).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])]).order(p=> p.id).page(1,1)" -d "{\"customerId\": \"HANAR\"}"
+lambdaorm execute -e .env -s insights -o plan -q "Orders.filter(p => p.customerId == customerId).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])]).order(p=> p.id).page(1,1)" -d "{\"customerId\": \"HANAR\"}"
 ```
 
 Result:
@@ -593,7 +593,7 @@ Result:
 
 ## End
 
-### Drop tables/collections and remove databases
+Drop tables/collections and remove databases:
 
 ```sh
 lambdaorm drop -e .env -s default

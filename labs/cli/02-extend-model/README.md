@@ -1,6 +1,6 @@
 # CLI Lab Extend Model
 
-In this laboratory we will see:
+**In this laboratory we will see:**
 
 - how to create a project that uses lambda ORM
 - How to define a schema

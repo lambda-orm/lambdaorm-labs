@@ -1,15 +1,32 @@
 # Service - Northwind CQRS (Command Query Responsibility Segregation)
 
-In this laboratory we will see:
+**In this laboratory we will see:**
 
-Creating the northwind sample database tables and loading it with sample data.
-This database presents several non-standard cases such as:
-	- Name of tables and fields with spaces
-	- Tables with composite primary keys
-	- Tables with autonumeric ids and others with ids strings
+Configure postgres databases, mysql, mongo and a lambdaorm service using docker-compose.
+How to configure different stages:
 
-Since this is the database that was used for many examples and unit tests, you can test the example queries that are in the documentation.
-We will also see some example queries to execute from CLI
+- default: where domain entities are mapped to different data sources.
+- insights: where domain entities are mapped to a single data source.
+- cqrs: where domain entities are mapped to different data sources and read-only queries are executed.
+
+How to configure a listener to synchronize data between different data sources.
+
+Consume the lambdaorm service to:
+
+- Execute ping
+- Obtain the data model corresponding to a query
+- Obtain the parameters of a query.
+- Obtain the restrictions of a query.
+- Obtain the execution plan of a query.
+- Import data to be distributed across different data sources.
+- Execute a query that, according to the stage, will be executed in one or more data sources.
+
+We will verify that lambdaorm behaves the same whether the domain entities are mapped to a single data source or to multiple data sources.
+
+CQRS (Command Query Responsibility Segregation) is a design pattern that separates read and write operations of a domain model.
+This pattern can be difficult to implement in conventional development or with a traditional ORM, but with lambdaorm it is very simple, since we can solve it through configuration.
+
+Consider that in this lab we are not only implementing CQRS, but we are also implementing a distributed data model, where each entity in the domain can be mapped to a different data source.
 
 ## Install lambda ORM CLI
 
@@ -28,7 +45,16 @@ lambdaorm init -w lab
 cd lab
 ```
 
-## Create database for test
+## Configure
+
+### Configure docker-compose
+
+Configure docker-compose to create the following containers:
+
+- mysql: database for the catalog.
+- postgres: database for the crm and insights.
+- mongodb: database for the ordering.
+- orm: lambdaorm service.
 
 Create file "docker-compose.yaml"
 
@@ -104,10 +130,10 @@ services:
       - ./:/workspace
 ```
 
-Create database for test:
+Create infrastructure:
 
 ```sh
-docker-compose -p "lambdaorm-lab" up -d
+docker-compose -p lambdaorm-lab up -d
 ```
 
 Initialize databases:
@@ -118,14 +144,13 @@ docker exec mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT AL
 docker exec postgres psql -U test -c "CREATE DATABASE insights" -W test
 ```
 
-## Complete Schema
+### Configure Schema
 
 In the creation of the project the schema was created but without any entity.
 Modify the configuration of lambdaorm.yaml with the following content
 
 ```yaml
 domain:  
-  enums:
   entities:
   - name: Address
     abstract: true
@@ -360,6 +385,53 @@ application:
       after: orm.execute(expression,data,{stage:"insights"})     
 ```
 
+**Configure multiples stages:**
+
+- default: where domain entities are mapped to different data sources.
+- insights: where domain entities are mapped to a single data source.
+- cqrs: where domain entities are mapped to different data sources and read-only queries are executed.
+
+```yaml
+...
+stages:
+  - name: default
+    sources:
+    - name: Catalog
+      condition: entity.in(["Categories","Products"])
+    - name: Crm
+      condition: entity.in(["Address","Customers"])
+    - name: Ordering
+      condition: entity.in(["Orders","Orders.details"])
+  - name: insights
+    sources:
+    - name: Insights
+  - name: cqrs
+    sources:
+    - name: Insights
+      condition: action == "select"
+    - name: Catalog
+      condition: entity.in(["Categories","Products"])
+    - name: Crm
+      condition: entity.in(["Address","Customers"])
+    - name: Ordering
+      condition: entity.in(["Orders","Orders.details"])
+...
+```
+
+**listeners configuration:**
+
+In order to synchronize the data between the databases, a listener is defined that will be executed after each insert, update, delete and bulkInsert operation in the stage default and cqrs.
+
+```yaml
+...
+application:
+  listeners:
+    - name: syncInsights
+      actions: [insert, bulkInsert, update, delete ]
+      condition: options.stage.in("default","cqrs")
+      after: orm.execute(expression,data,{stage:"insights"})
+```
+
 ### Create .env file
 
 Create file ".env" with the following content:
@@ -372,6 +444,8 @@ CNN_INSIGHTS={"host":"localhost","port":5432,"user":"test","password":"test","da
 ```
 
 ### Sync
+
+It is necessary to synchronize the models and data from the default and insights stages.
 
 ```sh
 lambdaorm sync -e .env -s default
@@ -391,20 +465,6 @@ Structure of the project:
 │   └── insights-model.json
 ├── docker-compose.yaml
 └── lambdaORM.yaml
-```
-
-### Populate Data
-
-for the import we will download the following file.
-
-```sh
-wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-labs/main/source/northwind/data.json
-```
-
-then we execute
-
-```sh
-lambdaorm import -e .env -s default -d ./data.json
 ```
 
 ## Service endpoints
@@ -571,6 +631,8 @@ Result:
 
 ### Plan on default Stage
 
+When a query is executed in the default stage, data will be obtained from different data sources according to the stage configuration.
+
 ```sh
 curl -X POST "http://localhost:9291/plan?format=beautiful" -H "Content-Type: application/json" -d '{"expression": "Orders.filter(p=>p.customerId==customerId).include(p=>[p.details.include(p=>p.product.map(p=>p.name)).map(p=>{subTotal:p.quantity*p.unitPrice}),p.customer.map(p=>p.name)]).order(p=>p.orderDate).page(1,1)", "options":"{\"default\": \"cqrs\"}"}'
 ```
@@ -610,6 +672,9 @@ Result:
 
 ### Plan on CQRS Stage
 
+When you run a query on the cqrs stage, you will get data from a single data source according to the stage configuration.
+But if the query is for insert, update or delete, it will be executed in the corresponding data source.
+
 ```sh
 curl -X POST "http://localhost:9291/plan?format=beautiful" -H "Content-Type: application/json" -d '{"expression": "Orders.filter(p=>p.customerId==customerId).include(p=>[p.details.include(p=>p.product.map(p=>p.name)).map(p=>{subTotal:p.quantity*p.unitPrice}),p.customer.map(p=>p.name)]).order(p=>p.orderDate).page(1,1)", "options":"{\"stage\": \"cqrs\"}"}'
 ```
@@ -645,6 +710,20 @@ Result:
     }
   ]
 }
+```
+
+### Populate Data
+
+for the import we will download the following file.
+
+```sh
+wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-labs/main/source/northwind/data.json
+```
+
+then we execute
+
+```sh
+curl -X POST -H "Content-Type: application/json" -d @data.json http://localhost:9291/stages/default/import
 ```
 
 ### Execute on default Stage

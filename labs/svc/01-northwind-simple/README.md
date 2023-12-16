@@ -1,15 +1,18 @@
 # Service - Northwind Simple
 
-In this laboratory we will see:
+**In this laboratory we will see:**
 
-Creating the northwind sample database tables and loading it with sample data.
-This database presents several non-standard cases such as:
-	- Name of tables and fields with spaces
-	- Tables with composite primary keys
-	- Tables with autonumeric ids and others with ids strings
+Stand up a postgres database and lambdaorm service using docker-compose.
+Create the Northwind sample database tables using the lambdaorm cli.
+Access lambdaorm service endpoints to:
 
-Since this is the database that was used for many examples and unit tests, you can test the example queries that are in the documentation.
-We will also see some example queries to execute from CLI
+- Execute ping
+- Obtain the data model corresponding to a query
+- Get the parameters of a query
+- Obtain the constraints of a query
+- Get the execution plan of a query
+- Import data
+- Run a query
 
 ## Install lambda ORM CLI
 
@@ -25,15 +28,12 @@ will create the project folder with the basic structure.
 
 ```sh
 lambdaorm init -w lab
-```
-
-position inside the project folder.
-
-```sh
 cd lab
 ```
 
-## Create database for test
+## Configure
+
+### Configure docker-compose to stand up the database and lambdaorm service
 
 Create file "docker-compose.yaml"
 
@@ -85,7 +85,7 @@ Create database for test:
 docker-compose -p "lambdaorm-lab" up -d
 ```
 
-## Complete Schema
+### Configure Schema
 
 In the creation of the project the schema was created but without any entity.
 Modify the configuration of lambdaorm.yaml with the following content
@@ -292,22 +292,10 @@ POSTGRES_CNX={"host":"localhost","port":5432,"user":"northwind","password":"nort
 
 ### Sync
 
-```sh
-lambdaorm sync -e ".env"
-```
-
-### Populate Data
-
-for the import we will download the following file.
+Using the lambdaorm cli we synchronize the schema with the database.
 
 ```sh
-wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-labs/main/source/northwind/data.json
-```
-
-then we execute
-
-```sh
-lambdaorm import -e ".env" -d ./data.json
+lambdaorm sync -e .env
 ```
 
 ## Service endpoints
@@ -451,6 +439,20 @@ Result:
 }
 ```
 
+### Import Data
+
+for the import we will download the following file.
+
+```sh
+wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-labs/main/source/northwind/data.json
+```
+
+then we execute
+
+```sh
+curl -X POST -H "Content-Type: application/json" -d @data.json http://localhost:9291/stages/default/import
+```
+
 ### Execute
 
 ```sh
@@ -485,7 +487,9 @@ Result:
 
 ## End
 
+To finish the lab we execute the following commands to drop the tables and stop the containers and delete them.
+
 ```sh
-lambdaorm drop -e ".env"
+lambdaorm drop -e .env
 docker-compose -p lambdaorm-lab down
 ```

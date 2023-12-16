@@ -1,10 +1,22 @@
 # CLI Lab - Northwind CQRS
 
-In this laboratory we will see:
+**In this laboratory we will see:**
 
-- How to configure several stages with conditions
-- How to configure listeners to synchronize data between stages
-- How to implement the CQRS pattern
+Configure postgres databases, mysql, mongo using docker-compose.
+How to configure different stages:
+
+- default: where domain entities are mapped to different data sources.
+- insights: where domain entities are mapped to a single data source.
+- cqrs: where domain entities are mapped to different data sources and read-only queries are executed.
+
+How to configure a listener to synchronize data between different data sources.
+
+We will verify that lambdaorm behaves the same whether the domain entities are mapped to a single data source or to multiple data sources.
+
+CQRS (Command Query Responsibility Segregation) is a design pattern that separates read and write operations of a domain model.
+This pattern can be difficult to implement in conventional development or with a traditional ORM, but with lambdaorm it is very simple, since we can solve it through configuration.
+
+Consider that in this lab we are not only implementing CQRS, but we are also implementing a distributed data model, where each entity in the domain can be mapped to a different data source.
 
 ## Install lambda ORM CLI
 

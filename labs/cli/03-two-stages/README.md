@@ -1,6 +1,6 @@
 # CLI Lab - Two stages
 
-In this laboratory we will see:
+**In this laboratory we will see:**
 
 - how to work with two sources with different mappings
 - how to define two stages and work with them
@@ -91,7 +91,7 @@ docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT
 
 Add file ".env"
 
-```txt
+```sh
 CNN_MYSQL={"host":"localhost","port":3306,"user":"test","password":"test","database":"test"}
 CNN_POSTGRES={"host":"localhost","port":5432,"user":"test","password":"test","database":"test"}
 ```
@@ -191,8 +191,8 @@ With this configuration we can work with two stages.
 ### Sync
 
 ```sh
-lambdaorm sync -s stage1 -e ".env"
-lambdaorm sync -s stage2 -e ".env"
+lambdaorm sync -s stage1 -e .env
+lambdaorm sync -s stage2 -e .env
 ```
 
 It will generate:
@@ -230,34 +230,34 @@ wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-labs/main/sour
 then we will execute the following command
 
 ```sh
-lambdaorm execute -s stage1 -e ".env" -q  "Countries.bulkInsert().include(p => p.states)" -d ./data.json 
-lambdaorm execute -s stage2 -e ".env" -q  "Countries.bulkInsert().include(p => p.states)" -d ./data.json 
+lambdaorm execute -s stage1 -e .env -q  "Countries.bulkInsert().include(p => p.states)" -d ./data.json 
+lambdaorm execute -s stage2 -e .env -q  "Countries.bulkInsert().include(p => p.states)" -d ./data.json 
 ```
 
 test:
 
 ```sh
-lambdaorm execute -s stage1 -e ".env" -q  "Countries.page(1,10).include(p => p.states)"
-lambdaorm execute -s stage2 -e ".env" -q  "Countries.page(1,10).include(p => p.states)"
+lambdaorm execute -s stage1 -e .env -q  "Countries.page(1,10).include(p => p.states)"
+lambdaorm execute -s stage2 -e .env -q  "Countries.page(1,10).include(p => p.states)"
 ```
 
 ### Delete data in Countries and states in stage2
 
 ```sh
-lambdaorm execute -s stage2 -e ".env" -q  "States.deleteAll()"
-lambdaorm execute -s stage2 -e ".env" -q  "Countries.deleteAll()"
+lambdaorm execute -s stage2 -e .env -q  "States.deleteAll()"
+lambdaorm execute -s stage2 -e .env -q  "Countries.deleteAll()"
 ```
 
 verify delete data on stage 2:
 
 ```sh
-lambdaorm execute -s stage2 -e ".env" -q  "Countries.map(p=> count(1))"
+lambdaorm execute -s stage2 -e .env -q  "Countries.map(p=> count(1))"
 ```
 
 ### Export data from stage1
 
 ```sh
-lambdaorm export  -s stage1 -e ".env" 
+lambdaorm export  -s stage1 -e .env 
 ```
 
 the stage1-export.json file will be created
@@ -265,14 +265,14 @@ the stage1-export.json file will be created
 ### Import in stage2 from data exported from stage1
 
 ```sh
-lambdaorm import -s stage2 -e ".env" -d ./stage1-export.json
+lambdaorm import -s stage2 -e .env -d ./stage1-export.json
 ```
 
 test:
 
 ```sh
-lambdaorm execute -s stage2 -e ".env" -q  "Countries.map(p=> count(1))"
-lambdaorm execute -s stage2 -e ".env" -q  "Countries.page(1,10).include(p => p.states)"
+lambdaorm execute -s stage2 -e .env -q  "Countries.map(p=> count(1))"
+lambdaorm execute -s stage2 -e .env -q  "Countries.page(1,10).include(p => p.states)"
 ```
 
 ### Drop
@@ -280,8 +280,8 @@ lambdaorm execute -s stage2 -e ".env" -q  "Countries.page(1,10).include(p => p.s
 remove all tables from the schema and delete the state file stage1-state.json and stage2-state.json
 
 ```sh
-lambdaorm drop -s stage1 -e ".env"
-lambdaorm drop -s stage2 -e ".env"
+lambdaorm drop -s stage1 -e .env
+lambdaorm drop -s stage2 -e .env
 ```
 
 ## End

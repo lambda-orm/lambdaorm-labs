@@ -1,6 +1,6 @@
 # CLI Lab - Simple
 
-In this laboratory we will see:
+**In this laboratory we will see:**
 
 - How to use the λORM CLI commands
 - how to create a project that uses lambda ORM
