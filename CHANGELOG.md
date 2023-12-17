@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.0.26](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.25...v0.0.26) (2023-12-17)
+
+
+### Features
+
+* complete first client node labs ([ce196bf](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/ce196bf01d1d17801fcf84eca6e3cc696f0062cf)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
+* refactorize all labs ([3b63773](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/3b63773f74171f640e59269e5fd3955c68df17ff)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
+* working in cli and service labs ([79eafd6](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/79eafd646569b28f75770668d19429dd3ba41652)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
+
 ### [0.0.25](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.24...v0.0.25) (2023-12-16)
 
 **Features:**
