@@ -598,10 +598,8 @@ Result:
 
 ### Plan
 
-If we add the -o plan parameter we can see the different statements that will be executed and in what source they will be executed.
-
 ```sh
-lambdaorm execute -e ".env" -o plan -q "Orders.filter(p => p.customerId == customerId).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])]).page(1,2)" -d "{\"customerId\": \"HANAR\"}"
+lambdaorm plan -e .env -o beautiful -q "Orders.filter(p => p.customerId == customerId).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])]).page(1,2)" -d "{\"customerId\": \"HANAR\"}"
 ```
 
 Result:
