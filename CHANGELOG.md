@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### [0.0.27](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.26...v0.0.27) (2023-12-17)
 
-
-### Bug Fixes
+**Bug Fixes:**
 
 * update cli plan method ([d3ee1cb](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/d3ee1cbe7d29dc8feb8571892cd00beee847cf9b)), closes [#201](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/201)
 
