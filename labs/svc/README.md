@@ -1,6 +1,6 @@
 # Service Labs
 
-## Service - Northwind Simple
+## Northwind Simple Lab
 
 **In this laboratory we will see:**
 
@@ -18,7 +18,7 @@ Access lambdaorm service endpoints to:
 
 [lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/01-northwind-simple)
 
-## Service - Northwind Multiples Datasources
+## Northwind Multiples Datasources Lab
 
 **In this laboratory we will see:**
 
@@ -39,7 +39,7 @@ We will verify that lambdaorm behaves in the same way if the domain entities are
 
 [lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/02-northwind-multiples-datasources)
 
-## Service - Northwind CQRS (Command Query Responsibility Segregation)
+## Northwind CQRS (Command Query Responsibility Segregation) Lab
 
 **In this laboratory we will see:**
 
@@ -71,7 +71,7 @@ Consider that in this lab we are not only implementing CQRS, but we are also imp
 
 [lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/03-northwind-cqrs)
 
-## Service - Northwind CQRS (Command Query Responsibility Segregation) with kafka
+## Northwind CQRS (Command Query Responsibility Segregation) with kafka Lab
 
 **In this laboratory we will see:**
 
@@ -107,7 +107,7 @@ and this message will be consumed and the expression will be executed in the ins
 
 [lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/04-northwind-cqrs-kafka)
 
-## Service - Pentest DDoS (Distributed Denial of Service)
+## Pentest DDoS (Distributed Denial of Service) Lab
 
 **In this laboratory we will see:**
 
@@ -126,7 +126,7 @@ We will execute DDoS attacks using the following tools:
 
 [lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/05-pentest-ddos)
 
-## Service - Load Balancer Pentest DDoS (Distributed Denial of Service)
+## Load Balancer Pentest DDoS (Distributed Denial of Service) Lab
 
 **In this laboratory we will see:**
 

@@ -182,12 +182,16 @@ services:
 
 In the schema we will configure:
 
-- Domain entities
-- Mappings of domain entities to database tables
-- Data sources
-- Stages with conditions to define which domain entity applies to each data source
-- Listeners to synchronize data between databases
-- Consumers to listen to messages from a kafka topic
+- Domain
+  - Entities
+- Infrastructure
+  - Mappings of domain entities to database tables
+  - Data sources for Crm, Catalog, Ordering and Insights
+  - Stages with conditions to define which domain entity applies to each data source
+  - Service
+  - Consumers to listen to messages from a kafka topic
+- Application  
+  - Listeners to synchronize data between databases
 
 In the creation of the project the schema was created but without any entity.
 Modify the configuration of lambdaorm.yaml with the following content

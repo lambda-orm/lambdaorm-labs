@@ -39,7 +39,13 @@ position inside the project folder.
 cd lab
 ```
 
-## Create database for test
+## Configure
+
+### Configure docker-compose
+
+Configure docker-compose to create the following containers:
+
+- mysql: MySQL database
 
 Create file "docker-compose.yaml"
 
@@ -59,28 +65,17 @@ services:
       - 3306:3306
 ```
 
-Create MySql database for test:
+### Configure Schema
 
-```sh
-docker-compose -p lambdaorm-lab up -d
-```
+In the schema we will configure:
 
-Create user and set character:
-
-```sh
-docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
-docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
-```
-
-## Add environment file
-
-Add file ".env"
-
-```sh
-CNN_MYSQL={"host":"localhost","port":3306,"user":"test","password":"test","database":"test"}
-```
-
-## Complete Schema
+- Domain
+  - Entities
+- Infrastructure
+  - Mapping
+  - Default data source
+  - Default stage
+  - Service
 
 In the creation of the project the schema was created but without any entity.
 Modify the configuration of lambdaorm.yaml with the following content
@@ -272,6 +267,29 @@ infrastructure:
       - name: MySQL
 ```
 
+### Add environment file
+
+Add file ".env"
+
+```sh
+CNN_MYSQL={"host":"localhost","port":3306,"user":"test","password":"test","database":"test"}
+```
+
+## Start
+
+Create MySql database for test:
+
+```sh
+docker-compose -p lambdaorm-lab up -d
+```
+
+Create user and set character:
+
+```sh
+docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
+docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
+```
+
 ### Sync
 
 ```sh
@@ -329,6 +347,8 @@ returns an order including customer fields, order detail, product and category:
 lambdaorm execute -e .env -q "Orders.filter(p => p.id == id).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])" -d "{\"id\": 1}"
 ```
 
+## End
+
 ### Drop
 
 remove all tables from the schema and delete the state file, MySQL-model.json
@@ -337,11 +357,9 @@ remove all tables from the schema and delete the state file, MySQL-model.json
 lambdaorm drop -e .env
 ```
 
-## End
+### Remove Containers
 
-### Remove database for test
-
-Remove MySql database:
+Remove MySql database
 
 ```sh
 docker-compose -p lambdaorm-lab down

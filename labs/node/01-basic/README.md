@@ -1,11 +1,12 @@
 # Lab Node - Basic
 
-In this laboratory we will see:
+**In this laboratory we will see:**
 
 - how to create a project that uses lambda ORM with CLI
-- How to define a schema
-- how to run a BulkInsert
-- How to execute a query using lambdaorm queries
+- How configure the schema
+- How to synchronize the database  with lambda ORM CLI
+- How to consume the lambda ORM library in a Node application
+- How to execute a query using lambdaorm
 - How to drop a schema using lambda CLI
 
 ## Schema diagram
@@ -26,7 +27,7 @@ npm install lambdaorm-cli -g
 lambdaorm version
 ```
 
-### Create project
+## Create project
 
 will create the project folder with the basic structure.
 
@@ -35,7 +36,11 @@ lambdaorm init -w lab
 cd lab
 ```
 
-### Create database for test
+## Configure
+
+### Configure docker-compose
+
+Create docker-compose file to create a postgres database
 
 Create file "docker-compose.yaml"
 
@@ -43,7 +48,7 @@ Create file "docker-compose.yaml"
 version: '3'
 services:
   postgres:
-    container_name: lab-postgres
+    container_name: postgres
     image: postgres:10
     restart: always
     environment:
@@ -54,13 +59,18 @@ services:
       - '5436:5432' 
 ```
 
-Create database for test:
+### Configure Schema
 
-```sh
-docker-compose -p "lambdaorm-lab" up -d
-```
+In the schema we will configure:
 
-### Complete Schema
+- Domain
+  - Entities
+    - Country
+    - State
+- Infrastructure
+  - Default source
+  - Default stage
+  - Paths
 
 Since in the creation of the project the schema was created but without any entity. \
 Add the Country and State entity as seen in the following example to the "lambdaorm.yaml" file
@@ -121,26 +131,6 @@ infrastructure:
     domain: countries/domain
 ```
 
-### Sync
-
-When executing the sync command, ddl code will be executed according to the definition in the lambdaorm schema file.
-
-- Tables, indexes and keys will be created
-- The executed code is added to a file in the data folder.
-- The [source-name]-model.json file will be created or updated which maintains the source state since the last synchronization.
-
-```sh
-lambdaorm sync
-```
-
-Files generated:
-
-```sh
-├── data
-│   ├── default-ddl-20231202T163012473Z-sync-default.sql
-│   └── default-model.json
-```
-
 ### Build
 
 Running the build command will create or update the following:
@@ -171,6 +161,36 @@ Result:
 └── tsconfig.json
 ```
 
+## Start
+
+### Create infrastructure
+
+Create database for test:
+
+```sh
+docker-compose -p lambdaorm-lab up -d
+```
+
+### Sync
+
+When executing the sync command, ddl code will be executed according to the definition in the lambdaorm schema file.
+
+- Tables, indexes and keys will be created
+- The executed code is added to a file in the data folder.
+- The [source-name]-model.json file will be created or updated which maintains the source state since the last synchronization.
+
+```sh
+lambdaorm sync
+```
+
+Files generated:
+
+```sh
+├── data
+│   ├── default-ddl-20231202T163012473Z-sync-default.sql
+│   └── default-model.json
+```
+
 ### Download Data
 
 Download the following file.
@@ -178,10 +198,6 @@ Download the following file.
 ```sh
 wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-labs/main/source/countries/data.json
 ```
-
-Este archivo lo utilizaremos mas adelante en el codigo para insertar los registros en la base de datos.
-
-## Source Code
 
 ### Add First file Typescript
 
@@ -237,7 +253,7 @@ import path from'path'
 └── tsconfig.json
 ```
 
-### Run
+## Run
 
 ```sh
 npx tsc
@@ -274,9 +290,9 @@ node ./build/index.js
 
 ## End
 
-Empty and Remove database:
+Drop tables associates to default stage and down containers
 
 ```sh
 lambdaorm drop
-docker-compose -p "lambdaorm-lab" down
+docker-compose -p lambdaorm-lab down
 ```

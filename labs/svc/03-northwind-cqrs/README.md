@@ -130,21 +130,19 @@ services:
       - ./:/workspace
 ```
 
-Create infrastructure:
-
-```sh
-docker-compose -p lambdaorm-lab up -d
-```
-
-Initialize databases:
-
-```sh
-docker exec mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
-docker exec mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
-docker exec postgres psql -U test -c "CREATE DATABASE insights" -W test
-```
-
 ### Configure Schema
+
+In the schema we will configure:
+
+- Domain
+  - Entities
+- Infrastructure
+  - Mappings of domain entities to database tables
+  - Data sources for Crm, Catalog, Ordering and Insights
+  - Stages with conditions to define which domain entity applies to each data source
+  - Service
+- Application  
+  - Listeners to synchronize data between databases
 
 In the creation of the project the schema was created but without any entity.
 Modify the configuration of lambdaorm.yaml with the following content
@@ -441,6 +439,22 @@ CNN_MYSQL={"host":"localhost","port":3306,"user":"test","password":"test","datab
 CNN_POSTGRES={"host":"localhost","port":5432,"user":"test","password":"test","database":"test"}
 CNN_MONGODB={"url":"mongodb://test:test@localhost:27017","database":"test"}
 CNN_INSIGHTS={"host":"localhost","port":5432,"user":"test","password":"test","database":"insights"}
+```
+
+## Start
+
+### Create infrastructure
+
+```sh
+docker-compose -p lambdaorm-lab up -d
+```
+
+### Initialize databases
+
+```sh
+docker exec mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
+docker exec mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
+docker exec postgres psql -U test -c "CREATE DATABASE insights" -W test
 ```
 
 ### Sync

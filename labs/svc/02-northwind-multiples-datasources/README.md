@@ -111,13 +111,17 @@ services:
       - ./:/workspace
 ```
 
-Create infrastructure:
-
-```sh
-docker-compose -p lambdaorm-lab up -d
-```
-
 ### Configure Schema
+
+In the schema we will configure:
+
+- Domain
+  - Entities
+- Infrastructure
+  - Mappings of domain entities to database tables
+  - Data sources for Crm, Catalog and Ordering
+  - Stages with conditions to define which domain entity applies to each data source
+  - Service
 
 In the creation of the project the schema was created but without any entity.
 Modify the configuration of lambdaorm.yaml with the following content
@@ -362,6 +366,14 @@ Create file ".env" with the following content:
 CNN_MYSQL={"host":"localhost","port":3306,"user":"test","password":"test","database":"test"}
 CNN_POSTGRES={"host":"localhost","port":5432,"user":"test","password":"test","database":"test"}
 CNN_MONGODB={"url":"mongodb://test:test@localhost:27017","database":"test"}
+```
+
+## Start
+
+### Create infrastructure
+
+```sh
+docker-compose -p lambdaorm-lab up -d
 ```
 
 ### Sync

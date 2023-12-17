@@ -21,9 +21,7 @@ To understand an entity we use the extends attribute in the definition of the en
         extends: Positions
 ```
 
-## Lab
-
-### Install lambda ORM CLI
+## Install lambda ORM CLI
 
 Install the package globally to use the CLI commands to help you create and maintain projects
 
@@ -37,7 +35,7 @@ Test
 lambdaorm --version
 ```
 
-### Create project
+## Create project
 
 will create the project folder with the basic structure.
 
@@ -51,7 +49,13 @@ position inside the project folder.
 cd lab
 ```
 
-### Create database for test
+## Configure
+
+### Configure docker-compose
+
+Configure docker-compose to create the following containers:
+
+- mysql: MySQL database
 
 Create file "docker-compose.yaml"
 
@@ -71,20 +75,16 @@ services:
       - 3306:3306
 ```
 
-Create MySql database for test:
+### Configure Schema
 
-```sh
-docker-compose -p "lambdaorm-lab" up -d
-```
+In the schema we will configure:
 
-Create user and set character:
-
-```sh
-docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
-docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
-```
-
-### Complete Schema
+- Domain
+  - Entities
+- Infrastructure
+  - Default Mapping
+  - Default Source
+  - Default Stage
 
 In the creation of the project the schema was created but without any entity. \
 Add the Country and State entity as seen in the following example
@@ -162,6 +162,21 @@ infrastructure:
     - name: default
       sources:
         - name: test
+```
+
+## Start
+
+Create MySql database for test:
+
+```sh
+docker-compose -p lambdaorm-lab up -d
+```
+
+Create user and set character:
+
+```sh
+docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
+docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
 ```
 
 ### Sync
@@ -248,20 +263,11 @@ List the number of countries by region and sub region:
 lambdaorm execute -q "Countries.map(p=> {region:p.region,subregion:p.subregion,count:count(p.iso3)})"
 ```
 
-### Drop
+## End
 
-remove all tables from the schema and delete the state file, source-state.json
+To finish the lab we execute the following commands to drop the tables and remove the containers
 
 ```sh
 lambdaorm drop
-```
-
-## End
-
-### Remove database for test
-
-Remove MySql database:
-
-```sh
-docker-compose -p "lambdaorm-lab" down
+docker-compose -p lambdaorm-lab down
 ```

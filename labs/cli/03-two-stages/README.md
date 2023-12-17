@@ -30,7 +30,7 @@ Test
 lambdaorm version
 ```
 
-### Create project
+## Create project
 
 will create the project folder with the basic structure.
 
@@ -44,7 +44,14 @@ position inside the project folder.
 cd lab
 ```
 
-### Create database for test
+## Configure
+
+### Configure docker-compose
+
+Configure docker-compose to create the following containers:
+
+- mysql: MySQL database
+- postgres: PostgreSQL database
 
 Add file "docker-compose.yaml"
 
@@ -74,37 +81,17 @@ services:
       - 5432:5432
 ```
 
-Create MySql and Postgres databases for test:
-
-```sh
-docker-compose -p "lambdaorm-lab" up -d
-```
-
-Create user and set character:
-
-```sh
-docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
-docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
-```
-
-### Add environment file
-
-Add file ".env"
-
-```sh
-CNN_MYSQL={"host":"localhost","port":3306,"user":"test","password":"test","database":"test"}
-CNN_POSTGRES={"host":"localhost","port":5432,"user":"test","password":"test","database":"test"}
-```
-
-### Complete Schema
+### Configure Schema
 
 In the creation of the project, the schema was created in the file lambdaORM.yaml with the initial configuration of example\
 We will replace this configuration with the following where the following changes are made:
 
-- Added Country and State entities
-- The mapping "test" was replaced by "mapping1" and "mapping2"
-- Replaced the "test" source with "source1" and "source2" , which use environment variables to set up the connection
-- The stages were replaced by the stages "stage1" and "stage2"
+- Domain
+  - Added Country and State entities
+- Infrastructure
+  - The mapping "test" was replaced by "mapping1" and "mapping2"
+  - Replaced the "test" source with "source1" and "source2" , which use environment variables to set up the connection
+  - The stages were replaced by the stages "stage1" and "stage2"
 
 Modify file "lambdaORM.yaml"
 
@@ -187,6 +174,30 @@ With this configuration we can work with two stages.
 
 - Stage1 uses the MySQL database with mapping1 , which does not modify any properties.
 - Stage2 uses the PostgreSQL database with the mapping2 which changes the name of the properties
+
+### Add environment file
+
+Add file ".env"
+
+```sh
+CNN_MYSQL={"host":"localhost","port":3306,"user":"test","password":"test","database":"test"}
+CNN_POSTGRES={"host":"localhost","port":5432,"user":"test","password":"test","database":"test"}
+```
+
+## Start
+
+Create MySql and Postgres databases for test:
+
+```sh
+docker-compose -p lambdaorm-lab up -d
+```
+
+Create user and set character:
+
+```sh
+docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
+docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
+```
 
 ### Sync
 
@@ -275,6 +286,8 @@ lambdaorm execute -s stage2 -e .env -q  "Countries.map(p=> count(1))"
 lambdaorm execute -s stage2 -e .env -q  "Countries.page(1,10).include(p => p.states)"
 ```
 
+## End
+
 ### Drop
 
 remove all tables from the schema and delete the state file stage1-state.json and stage2-state.json
@@ -284,12 +297,8 @@ lambdaorm drop -s stage1 -e .env
 lambdaorm drop -s stage2 -e .env
 ```
 
-## End
-
-### Remove database for test
-
-Remove databases:
+### Remove containers
 
 ```sh
-docker-compose -p "lambdaorm-lab" down
+docker-compose -p lambdaorm-lab down
 ```

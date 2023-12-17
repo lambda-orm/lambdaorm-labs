@@ -31,9 +31,7 @@ infrastructure:
           condition: entity == "States"
 ```
 
-## Lab
-
-### Install lambda ORM CLI
+## Install lambda ORM CLI
 
 Install the package globally to use the CLI commands to help you create and maintain projects
 
@@ -47,7 +45,7 @@ Test
 lambdaorm --version
 ```
 
-### Create project
+## Create project
 
 will create the project folder with the basic structure.
 
@@ -61,7 +59,14 @@ position inside the project folder.
 cd lab
 ```
 
-### Create database for test
+## Configure
+
+### Configure docker-compose
+
+Configure docker-compose to create the following containers:
+
+- mysql: MySQL database
+- postgres: PostgreSQL database
 
 Create file "docker-compose.yaml"
 
@@ -91,19 +96,6 @@ services:
       - 5432:5432
 ```
 
-Create MySql database for test:
-
-```sh
-docker-compose -p lambdaorm-lab up -d
-```
-
-Create user and set character:
-
-```sh
-docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
-docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
-```
-
 ### Add environment file
 
 Add file ".env"
@@ -113,15 +105,17 @@ CNN_MYSQL={"host":"localhost","port":3306,"user":"test","password":"test","datab
 CNN_POSTGRES={"host":"localhost","port":5432,"user":"test","password":"test","database":"test"}
 ```
 
-### Complete Schema
+### Configure Schema
 
 At project creation the schema was created in the lambdaORM.yaml file with the initial example configuration\
 We will replace this configuration with the following where the following changes are made:
 
-- Added country and state entities
-- "test" mapping was replaced by "default"
-- Replaced "test" source with "source1" and "source2", which use environment variables to configure the connection
-- The sources are replaced in the definition of the default stage
+- Domain
+  - Added country and state entities
+- Infrastructure  
+  - "test" mapping was replaced by "default"
+  - Replaced "test" source with "source1" and "source2", which use environment variables to configure the connection
+  - The sources are replaced in the definition of the default stage
 
 ```yaml
 domain:
@@ -178,6 +172,21 @@ infrastructure:
           condition: entity == "Countries"
         - name: source2
           condition: entity == "States"
+```
+
+## Start
+
+Create MySql database for test:
+
+```sh
+docker-compose -p lambdaorm-lab up -d
+```
+
+Create user and set character:
+
+```sh
+docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
+docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
 ```
 
 ### Sync
@@ -248,20 +257,11 @@ test:
 lambdaorm execute -e .env -q "Countries.page(1,10).include(p => p.states)"
 ```
 
-### Drop
-
-remove all tables from the schema and delete the state file, stage1-model.json
-
-```sh
-lambdaorm drop -e .env
-```
-
 ## End
 
-### Remove database for test
-
-Remove databases:
+To finish the lab we execute the following commands to drop the tables and remove the containers
 
 ```sh
+lambdaorm drop
 docker-compose -p lambdaorm-lab down
 ```

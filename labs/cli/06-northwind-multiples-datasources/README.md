@@ -34,7 +34,15 @@ position inside the project folder.
 cd lab
 ```
 
-## Create database for test
+## Configure
+
+### Configure docker-compose
+
+Configure docker-compose to create the following containers:
+
+- mysql: MySQL database
+- postgres: PostgreSQL database
+- mongodb: MongoDB database
 
 Create file "docker-compose.yaml"
 
@@ -75,30 +83,16 @@ services:
            
 ```
 
-Create MySql database for test:
+### Configure Schema
 
-```sh
-docker-compose -p lambdaorm-lab up -d
-```
+In the schema we will configure:
 
-Create user and set character:
-
-```sh
-docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
-docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
-```
-
-## Add environment file
-
-Add file ".env"
-
-```sh
-CNN_MYSQL={"host":"localhost","port":3306,"user":"test","password":"test","database":"test"}
-CNN_POSTGRES={"host":"localhost","port":5433,"user":"test","password":"test","database":"test"}
-CNN_MONGODB={"url":"mongodb://test:test@localhost:27017","database":"test"}
-```
-
-## Complete Schema
+- Domain
+  - Entities
+- Infrastructure
+  - Mapping
+  - Data sources (Crm, Catalog, Ordering)
+  - Default stage  with rules to select data sources
 
 In the creation of the project the schema was created but without any entity.
 Modify the configuration of lambdaorm.yaml with the following content
@@ -309,6 +303,31 @@ infrastructure:
       condition: entity.in(["Address","Customers"])
     - name: Ordering
       condition: entity.in(["Orders","Orders.details"])   
+```
+
+### Add environment file
+
+Add file ".env"
+
+```sh
+CNN_MYSQL={"host":"localhost","port":3306,"user":"test","password":"test","database":"test"}
+CNN_POSTGRES={"host":"localhost","port":5433,"user":"test","password":"test","database":"test"}
+CNN_MONGODB={"url":"mongodb://test:test@localhost:27017","database":"test"}
+```
+
+## Start
+
+Create MySQl, PostgreSQL and MongoDB databases
+
+```sh
+docker-compose -p lambdaorm-lab up -d
+```
+
+Create user and set character:
+
+```sh
+docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
+docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
 ```
 
 ### Sync

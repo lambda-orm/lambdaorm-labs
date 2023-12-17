@@ -1,6 +1,6 @@
 # CLI Labs
 
-## CLI Lab - Simple
+## Simple Lab
 
 **In this laboratory we will see:**
 
@@ -13,7 +13,7 @@
 
 [lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/01-simple)
 
-## CLI Lab Extend Model
+## Extend Model Lab
 
 **In this laboratory we will see:**
 
@@ -25,7 +25,7 @@
 
 [lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/02-extend-model)
 
-## CLI Lab - Two stages
+## Two stages Lab
 
 **In this laboratory we will see:**
 
@@ -37,7 +37,7 @@
 
 [lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/03-two-stages)
 
-## CLI Lab - Two data sources with the same query
+## Two data sources with the same query Lab
 
 **In this laboratory we will see:**
 
@@ -49,7 +49,7 @@
 
 [lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/04-two-datasource-same-query)
 
-## CLI Lab - Northwind
+## Northwind Lab
 
 **In this laboratory we will see:**
 
@@ -64,7 +64,7 @@ We will also see some example queries to execute from CLI
 
 [lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/05-northwind)
 
-## CLI Lab - Northwind multiple datasources
+## Northwind multiple datasources Lab
 
 **In this laboratory we will see:**
 
@@ -74,7 +74,7 @@ We will also see some example queries to execute from CLI
 
 [lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/06-northwind-multiples-datasources)
 
-## CLI Lab - Northwind multiple stages
+## Northwind multiple stages Lab
 
 **In this laboratory we will see:**
 
@@ -87,7 +87,7 @@ We will also see some example queries to execute from CLI
 
 [lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/07-northwind-multiples-stages)
 
-## CLI Lab - Northwind CQRS
+## Northwind CQRS Lab
 
 **In this laboratory we will see:**
 

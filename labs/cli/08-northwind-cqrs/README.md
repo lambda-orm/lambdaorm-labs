@@ -46,7 +46,15 @@ position inside the project folder.
 cd lab
 ```
 
-## Create database for test
+## Configure
+
+### Configure docker-compose
+
+Configure docker-compose to create the following containers:
+
+- mysql: database for the catalog and crm domains
+- postgres: database for the ordering domain
+- mongodb: database for the ordering domain
 
 Create file "docker-compose.yaml"
 
@@ -86,32 +94,19 @@ services:
       - 27017:27017           
 ```
 
-Create MySql database for test:
+### Configure Schema
 
-```sh
-docker-compose -p lambdaorm-lab up -d
-```
+In the schema we will configure:
 
-Initialize databases:
-
-```sh
-docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
-docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
-docker exec lab-postgres psql -U test -c "CREATE DATABASE insights" -W test
-```
-
-## Add environment file
-
-Add file ".env"
-
-```sh
-CNN_MYSQL={"host":"localhost","port":3306,"user":"test","password":"test","database":"test"}
-CNN_POSTGRES={"host":"localhost","port":5433,"user":"test","password":"test","database":"test"}
-CNN_MONGODB={"url":"mongodb://test:test@localhost:27017","database":"test"}
-CNN_INSIGHTS={"host":"localhost","port":5433,"user":"test","password":"test","database":"insights"}
-```
-
-## Complete Schema
+- Domain
+  - Entities
+- Infrastructure
+  - Default View
+  - Default Mapping and MongoDb Mapping
+  - Data Sources for Catalog, Crm, Ordering and Insights
+  - Stages: default, insights and cqrs
+- Application
+  - Listeners to synchronize data between stages
 
 In the creation of the project the schema was created but without any entity.
 Modify the configuration of lambdaorm.yaml with the following content
@@ -394,6 +389,33 @@ application:
       actions: [insert, bulkInsert, update, delete ]
       condition: options.stage.in("default","cqrs")
       after: orm.execute(expression,data,{stage:"insights"})
+```
+
+### Add environment file
+
+Add file ".env"
+
+```sh
+CNN_MYSQL={"host":"localhost","port":3306,"user":"test","password":"test","database":"test"}
+CNN_POSTGRES={"host":"localhost","port":5433,"user":"test","password":"test","database":"test"}
+CNN_MONGODB={"url":"mongodb://test:test@localhost:27017","database":"test"}
+CNN_INSIGHTS={"host":"localhost","port":5433,"user":"test","password":"test","database":"insights"}
+```
+
+## Start
+
+Create MySql database for test:
+
+```sh
+docker-compose -p lambdaorm-lab up -d
+```
+
+Initialize databases:
+
+```sh
+docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
+docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
+docker exec lab-postgres psql -U test -c "CREATE DATABASE insights" -W test
 ```
 
 ### Sync

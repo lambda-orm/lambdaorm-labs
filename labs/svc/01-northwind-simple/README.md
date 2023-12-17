@@ -33,7 +33,12 @@ cd lab
 
 ## Configure
 
-### Configure docker-compose to stand up the database and lambdaorm service
+### Configure docker-compose
+
+Configure docker-compose to create the following containers:
+
+- postgres: postgres database
+- orm: lambdaorm service
 
 Create file "docker-compose.yaml"
 
@@ -44,7 +49,7 @@ networks:
     driver: bridge  
 services:
   postgres:
-    container_name: lab-postgres
+    container_name: postgres
     image: postgres:10
     restart: always
     environment:
@@ -79,13 +84,17 @@ services:
       - ./:/workspace
 ```
 
-Create database for test:
-
-```sh
-docker-compose -p "lambdaorm-lab" up -d
-```
-
 ### Configure Schema
+
+In the schema we will configure:
+
+- Domain
+  - Entities
+- Infrastructure
+  - Mappings of domain entities to database tables
+  - Default data source
+  - Default stage
+  - Service
 
 In the creation of the project the schema was created but without any entity.
 Modify the configuration of lambdaorm.yaml with the following content
@@ -288,6 +297,14 @@ Create file ".env" with the following content:
 
 ```sh
 POSTGRES_CNX={"host":"localhost","port":5432,"user":"northwind","password":"northwind","database":"northwind"}
+```
+
+## Start
+
+Create database for test:
+
+```sh
+docker-compose -p lambdaorm-lab up -d
 ```
 
 ### Sync

@@ -15,9 +15,7 @@ The schema defines how the entities of the model are mapped with the database ta
 
 ![schema](schema.svg)
 
-## Lab
-
-### Install lambda ORM CLI
+## Install lambda ORM CLI
 
 Install the package globally to use the CLI commands to help you create and maintain projects
 
@@ -31,7 +29,7 @@ Test
 lambdaorm version
 ```
 
-### Create project
+## Create project
 
 will create the project folder with the basic structure.
 
@@ -45,7 +43,13 @@ position inside the project folder.
 cd lab
 ```
 
-### Create database for test
+## Configure
+
+### Configure docker-compose
+
+Configure docker-compose to create the following containers:
+
+- mysql: MySQL database
 
 Create file "docker-compose.yaml"
 
@@ -65,20 +69,16 @@ services:
       - 3306:3306
 ```
 
-Create MySql database for test:
+### Configure Schema
 
-```sh
-docker-compose -p "lambdaorm-lab" up -d
-```
+In the schema we will configure:
 
-create user and define character set:
-
-```sh
-docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
-docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
-```
-
-### Complete Schema
+- Domain
+  - Entities
+- Infrastructure
+  - Default Mapping
+  - Default Source
+  - Default Stage
 
 Since in the creation of the project the schema was created but without any entity. \
 Add the Country and State entity as seen in the following example to the "lambdaorm.yaml" file
@@ -137,6 +137,21 @@ infrastructure:
     - name: default
       sources:
         - name: test
+```
+
+## Start
+
+Create MySql database for test:
+
+```sh
+docker-compose -p "lambdaorm-lab" up -d
+```
+
+create user and define character set:
+
+```sh
+docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
+docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
 ```
 
 ### Sync
@@ -216,20 +231,11 @@ We verify that the data was imported.
 lambdaorm execute -q "Countries.page(1,10).include(p => p.states)"
 ```
 
-### Drop
+## End
 
-remove all tables from the schema and delete the state file, myDb-state.json
+To finish the lab we execute the following commands to drop the tables and remove the containers
 
 ```sh
 lambdaorm drop
-```
-
-## End
-
-### Remove database for test
-
-Remove MySql database:
-
-```sh
-docker-compose -p "lambdaorm-lab" down
+docker-compose -p lambdaorm-lab down
 ```
