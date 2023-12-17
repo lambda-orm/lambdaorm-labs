@@ -1,5 +1,9 @@
 # CLI Labs
 
+It is a series of labs that show how to use the [lambda ORM CLI](https://www.npmjs.com/package/lambdaorm-cli)
+
+- [Documentation](https://github.com/FlavioLionelRita/lambdaorm-cli/wiki)
+
 ## Simple Lab
 
 **In this laboratory we will see:**

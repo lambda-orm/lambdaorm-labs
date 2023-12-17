@@ -1,5 +1,9 @@
 # Node Labs
 
+It is a series of labs showing how to use the [lambda ORM](https://www.npmjs.com/package/lambdaorm) library in a Node project.
+
+- [Documentation](https://github.com/FlavioLionelRita/lambdaorm/wiki)
+
 ## Basic Lab
 
 **In this laboratory we will see:**

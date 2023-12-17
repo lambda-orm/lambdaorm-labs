@@ -1,6 +1,6 @@
 # Lambda ORM Labs
 
-Este repositorio contiene los laboratorios de Lambda ORM.
+This repository contains the Lambda ORM labs.
 
 ## Labs
 

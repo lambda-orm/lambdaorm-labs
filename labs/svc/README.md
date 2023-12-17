@@ -1,5 +1,10 @@
 # Service Labs
 
+It is a series of laboratories that show how to use the [lambda ORM Service](https://github.com/FlavioLionelRita/lambdaorm-svc)
+
+- [Documentation](https://github.com/FlavioLionelRita/lambdaorm-svc/wiki)
+- [Docker Hub](https://hub.docker.com/repository/docker/flaviorita/lambdaorm-svc/general)
+
 ## Northwind Simple Lab
 
 **In this laboratory we will see:**

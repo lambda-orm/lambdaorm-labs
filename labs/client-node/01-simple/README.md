@@ -1,9 +1,13 @@
 # Node Client - Simple
 
-In this laboratory we will see:
+**In this laboratory we will see:**
 
-Since this is the database that was used for many examples and unit tests, you can test the example queries that are in the documentation.
-We will also see some example queries to execute from CLI
+- how to create a project that uses lambda ORM with CLI
+- How configure the schema
+- How to synchronize the database  with lambda ORM CLI
+- How to set up the lambda ORM service
+- How to consume the lambda ORM service from a Node client
+- How to drop a schema using lambda CLI
 
 ## Install lambda ORM CLI
 
@@ -22,7 +26,71 @@ lambdaorm init -w service
 cd service
 ```
 
-### Complete Schema
+### Configure Service Infrastructure
+
+Create docker-compose file to create a postgres database and lambdaorm service
+
+Create file "docker-compose.yaml"
+
+```yaml
+version: "3"
+networks:
+  northwind:
+    driver: bridge  
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:10
+    restart: always
+    environment:
+      - POSTGRES_DB=northwind
+      - POSTGRES_USER=northwind
+      - POSTGRES_PASSWORD=northwind
+    ports:
+      - 5432:5432
+    networks:
+      - northwind   
+  orm:
+    depends_on:
+      - postgres
+    container_name: orm
+    image: flaviorita/lambdaorm-svc:0.8.52
+    restart: always  
+    environment:
+      HOST: http://0.0.0.0
+      PORT: 9291
+      REQUEST_BODY_SIZE: 100mb
+      RATE_LIMIT_WINDOWS_MS: 60000
+      RATE_LIMIT_MAX: 1000
+      WORKSPACE: /workspace
+      POSTGRES_CNX: '{"host":"postgres","port":5432,"user":"northwind","password":"northwind","database":"northwind" }'
+    ports:
+      - 9291:9291
+    expose:
+      - 9291  
+    networks:
+      - northwind
+    volumes:
+      - ./:/workspace
+```
+
+### Configure Service Schema
+
+In the schema we will configure:
+
+- Domain
+  - Entities
+    - Address
+    - Categories
+    - Customers
+    - Products
+    - Orders
+    - Orders.details
+- Infrastructure
+  - Default mapping
+  - Default source
+  - Default stage
+  - Service
 
 In the creation of the project the schema was created but without any entity.
 Modify the configuration of lambdaorm.yaml with the following content
@@ -235,52 +303,6 @@ for the import we will download the following file.
 wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-labs/main/source/northwind/data.json
 ```
 
-### Configure Service Infrastructure
-
-Create file "docker-compose.yaml"
-
-```yaml
-version: "3"
-networks:
-  northwind:
-    driver: bridge  
-services:
-  postgres:
-    container_name: postgres
-    image: postgres:10
-    restart: always
-    environment:
-      - POSTGRES_DB=northwind
-      - POSTGRES_USER=northwind
-      - POSTGRES_PASSWORD=northwind
-    ports:
-      - 5432:5432
-    networks:
-      - northwind   
-  orm:
-    depends_on:
-      - postgres
-    container_name: orm
-    image: flaviorita/lambdaorm-svc:0.8.52
-    restart: always  
-    environment:
-      HOST: http://0.0.0.0
-      PORT: 9291
-      REQUEST_BODY_SIZE: 100mb
-      RATE_LIMIT_WINDOWS_MS: 60000
-      RATE_LIMIT_MAX: 1000
-      WORKSPACE: /workspace
-      POSTGRES_CNX: '{"host":"postgres","port":5432,"user":"northwind","password":"northwind","database":"northwind" }'
-    ports:
-      - 9291:9291
-    expose:
-      - 9291  
-    networks:
-      - northwind
-    volumes:
-      - ./:/workspace
-```
-
 ### Service Structure
 
 ```sh
@@ -313,7 +335,20 @@ lambdaorm init -w client
 cd client
 ```
 
-### Complete Client Schema
+### Configure Client Schema
+
+In the schema we will configure:
+
+- Domain
+  - Entities
+    - Address
+    - Categories
+    - Customers
+    - Products
+    - Orders
+    - Orders.details
+- Infrastructure
+  - Paths
 
 In the creation of the project the schema was created but without any entity.
 Modify the configuration of lambdaorm.yaml with the following content
@@ -574,6 +609,8 @@ node ./build/index.js
 ```
 
 ## End
+
+To finish the lab we execute the following commands to drop the tables and stop the containers and delete them associated to service
 
 ```sh
 cd service
