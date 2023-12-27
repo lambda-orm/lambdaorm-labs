@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.0.28](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.27...v0.0.28) (2023-12-27)
+
+
+### Features
+
+* update cli and client-node labs ([b918634](https://github.com/FlavioLionelRita/lambdaorm-labs/commit/b918634024c0ab42ccf6052c2f513b4044d8a6d5)), closes [#224](https://github.com/FlavioLionelRita/lambdaorm-labs/issues/224)
+
 ### [0.0.27](https://github.com/FlavioLionelRita/lambdaorm-labs/compare/v0.0.26...v0.0.27) (2023-12-17)
 
 **Bug Fixes:**
