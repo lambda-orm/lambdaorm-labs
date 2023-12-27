@@ -55,7 +55,7 @@ services:
     depends_on:
       - postgres
     container_name: orm
-    image: flaviorita/lambdaorm-svc:0.8.54
+    image: flaviorita/lambdaorm-svc:1.1.1
     restart: always  
     environment:
       HOST: http://0.0.0.0
@@ -97,7 +97,8 @@ In the creation of the project the schema was created but without any entity.
 Modify the configuration of lambdaorm.yaml with the following content
 
 ```yaml
-domain:  
+domain:
+  version: 0.0.1  
   entities:
   - name: Address
     abstract: true
@@ -309,7 +310,7 @@ POSTGRES_CNX={"host":"localhost","port":5432,"user":"northwind","password":"nort
 
 ```sh
 # create infrastructure
-docker-compose -p lambdaorm-lab up -d
+  docker-compose -p lambdaorm-lab up -d
 # create tables in database
 lambdaorm sync -e .env
 # exit the service folder
@@ -321,146 +322,18 @@ cd ..
 will create the client folder with the basic structure.
 
 ```sh
-lambdaorm init -w client
+lambdaorm init -w client -u http://localhost:9291
 cd client
 ```
 
-### Complete Client Schema
-
-In the schema we will configure:
-
-- Domain
-  - Entities
-    - Address
-    - Categories
-    - Customers
-    - Products
-    - Orders
-    - Orders.details
-- Infrastructure
-  - Paths
-
-In the creation of the project the schema was created but without any entity.
-Modify the configuration of lambdaorm.yaml with the following content
-
-```yaml
-domain:  
-  entities:
-  - name: Address
-    abstract: true
-    indexes:
-    - name: postalCode
-      fields: ["postalCode"]
-    - name: region
-      fields: ["region", "country"]
-    - name: city
-      fields: ["city"]
-    properties:
-    - name: address
-    - name: city
-    - name: region
-    - name: postalCode
-      length: 20
-    - name: country
-  - name: Categories
-    primaryKey: ["id"]
-    uniqueKey: ["name"]
-    properties:
-    - name: id
-      type: integer
-      required: true
-      autoIncrement: true
-    - name: name
-      required: true
-  - name: Customers
-    extends: Address
-    primaryKey: ["id"]
-    indexes:
-    - name: name
-      fields: ["name"]
-    properties:
-    - name: id
-      length: 5
-      required: true
-    - name: name
-      required: true
-  - name: Products
-    primaryKey: ["id"]
-    uniqueKey: ["name", "supplierId"]
-    properties:
-    - name: id
-      type: integer
-      required: true
-      autoIncrement: true
-    - name: name
-      required: true
-    - name: categoryId
-      type: integer
-    - name: quantity
-    - name: price
-      type: decimal
-      default: 0
-    relations:
-    - name: category
-      from: categoryId
-      entity: Categories
-      to: id
-      target: products
-  - name: Orders
-    primaryKey: ["id"]
-    indexes:
-    - name: orderDate
-      fields: ["orderDate"]
-    properties:
-    - name: id
-      type: integer
-      required: true
-      autoIncrement: true
-    - name: customerId
-      required: true
-      length: 5
-    - name: orderDate
-      type: dateTime 
-    relations:
-    - name: customer
-      from: customerId
-      entity: Customers
-      to: id
-      target: orders
-  - name: Orders.details
-    primaryKey: ["orderId", "productId"]
-    properties:
-    - name: orderId
-      required: true
-      type: integer
-    - name: productId
-      required: true
-      type: integer
-    - name: unitPrice
-      type: decimal
-    - name: quantity
-      type: decimal
-    relations:
-    - name: order
-      from: orderId
-      entity: Orders
-      to: id
-      target: details
-    - name: product
-      from: productId
-      entity: Products
-      to: id
-      target: orderDetails
-infrastructure:
-  paths:    
-    src: src
-    domain: northwind/domain  
-```
+When initializing, passing the service url, the lambdaorm.yaml file is created with the domain configuration and the service url is set.
 
 ### Create Client Infrastructure
 
+Run the build command to create the model file and repositories.
+
 ```sh
-lambdaorm build -l client-node --all
+lambdaorm build -l client-node --all -u http://localhost:9291
 ```
 
 ### Download data for import
@@ -620,6 +493,7 @@ query:
 To finish the lab we execute the following commands to drop the tables and stop the containers and delete them associated to service
 
 ```sh
+cd ..
 cd service
 lambdaorm drop -e .env
 docker-compose -p lambdaorm-lab down

@@ -3,7 +3,6 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "lambdaorm-client-node": "^0.7.28",
-    "mysql2": "^3.6.5"
+    "lambdaorm-client-node": "^0.7.35"
   }
 }

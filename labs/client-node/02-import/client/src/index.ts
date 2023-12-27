@@ -5,7 +5,6 @@ import path from'path'
  try { 
   orm.init('http://localhost:9291')
   // test connection
-  console.log('ping:') 
   console.log(await orm.general.ping())
   // Gets the content of the data.json file to insert the data
   const content = fs.readFileSync(path.join(__dirname,'../data.json'), 'utf-8')
@@ -19,11 +18,10 @@ import path from'path'
                      .include(p=>p.category.map(p=>p.name))
                     .map(p=>p.name))
                    .map(p=>[p.quantity,p.unitPrice])])`
-  console.log('plan:') 
+  // get plan 
   const plan = await orm.plan(query, { stage: 'default'})
   console.log(JSON.stringify(plan,null,2))
   // execute query
-  console.log('query:') 
   const result = await orm.execute(query, {customerId: 'CENTC' },{ stage: 'default'})
   console.log(JSON.stringify(result,null,2))
  } catch (error: any) {

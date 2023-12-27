@@ -1,5 +1,5 @@
 import { orm } from 'lambdaorm-client-node'
-import { Orders } from './northwind/domain/model'
+import { Orders } from './domain/model'
 ( async () => {
  try { 
   orm.init('http://localhost:9291')

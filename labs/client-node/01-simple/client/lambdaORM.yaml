@@ -1,111 +1,280 @@
-domain:  
+domain:
+  version: 0.0.1
   entities:
-  - name: Address
-    abstract: true
-    indexes:
-    - name: postalCode
-      fields: ["postalCode"]
-    - name: region
-      fields: ["region", "country"]
-    - name: city
-      fields: ["city"]
-    properties:
-    - name: address
-    - name: city
-    - name: region
-    - name: postalCode
-      length: 20
-    - name: country
-  - name: Categories
-    primaryKey: ["id"]
-    uniqueKey: ["name"]
-    properties:
-    - name: id
-      type: integer
-      required: true
-      autoIncrement: true
-    - name: name
-      required: true
-  - name: Customers
-    extends: Address
-    primaryKey: ["id"]
-    indexes:
-    - name: name
-      fields: ["name"]
-    properties:
-    - name: id
-      length: 5
-      required: true
-    - name: name
-      required: true
-  - name: Products
-    primaryKey: ["id"]
-    uniqueKey: ["name", "supplierId"]
-    properties:
-    - name: id
-      type: integer
-      required: true
-      autoIncrement: true
-    - name: name
-      required: true
-    - name: categoryId
-      type: integer
-    - name: quantity
-    - name: price
-      type: decimal
-      default: 0
-    relations:
-    - name: category
-      from: categoryId
-      entity: Categories
-      to: id
-      target: products
-  - name: Orders
-    primaryKey: ["id"]
-    indexes:
-    - name: orderDate
-      fields: ["orderDate"]
-    properties:
-    - name: id
-      type: integer
-      required: true
-      autoIncrement: true
-    - name: customerId
-      required: true
-      length: 5
-    - name: orderDate
-      type: dateTime 
-    relations:
-    - name: customer
-      from: customerId
-      entity: Customers
-      to: id
-      target: orders
-  - name: Orders.details
-    primaryKey: ["orderId", "productId"]
-    properties:
-    - name: orderId
-      required: true
-      type: integer
-    - name: productId
-      required: true
-      type: integer
-    - name: unitPrice
-      type: decimal
-    - name: quantity
-      type: decimal
-    relations:
-    - name: order
-      from: orderId
-      entity: Orders
-      to: id
-      target: details
-    - name: product
-      from: productId
-      entity: Products
-      to: id
-      target: orderDetails
+    - name: Categories
+      primaryKey:
+        - id
+      uniqueKey:
+        - name
+      properties:
+        - name: id
+          type: integer
+          required: false
+          autoIncrement: true
+        - name: name
+          required: true
+          type: string
+          length: 80
+      required: []
+      indexes: []
+      relations:
+        - name: products
+          type: manyToOne
+          composite: false
+          from: id
+          entity: Products
+          weak: true
+          to: categoryId
+          target: category
+      dependents:
+        - entity: Products
+          relation:
+            name: category
+            from: categoryId
+            entity: Categories
+            to: id
+            target: products
+            type: oneToMany
+            weak: false
+      constraints: []
+      composite: false
+      hadReadExps: false
+      hadWriteExps: false
+      hadReadValues: false
+      hadWriteValues: false
+      hadDefaults: false
+      hadViewReadExp: false
+    - name: Customers
+      primaryKey:
+        - id
+      indexes:
+        - name: name
+          fields:
+            - name
+      properties:
+        - name: id
+          length: 5
+          required: true
+          type: string
+        - name: name
+          required: true
+          type: string
+          length: 80
+        - name: address
+          required: false
+          type: string
+          length: 80
+        - name: city
+          required: false
+          type: string
+          length: 80
+        - name: region
+          required: false
+          type: string
+          length: 80
+        - name: postalCode
+          length: 20
+          required: false
+          type: string
+        - name: country
+          required: false
+          type: string
+          length: 80
+      uniqueKey: []
+      required: []
+      relations:
+        - name: orders
+          type: manyToOne
+          composite: false
+          from: id
+          entity: Orders
+          weak: true
+          to: customerId
+          target: customer
+      dependents:
+        - entity: Orders
+          relation:
+            name: customer
+            from: customerId
+            entity: Customers
+            to: id
+            target: orders
+            type: oneToMany
+            weak: false
+      constraints: []
+      composite: false
+      hadReadExps: false
+      hadWriteExps: false
+      hadReadValues: false
+      hadWriteValues: false
+      hadDefaults: false
+      hadViewReadExp: false
+    - name: Products
+      primaryKey:
+        - id
+      uniqueKey:
+        - name
+        - supplierId
+      properties:
+        - name: id
+          type: integer
+          required: false
+          autoIncrement: true
+        - name: name
+          required: true
+          type: string
+          length: 80
+        - name: categoryId
+          type: integer
+          required: false
+        - name: quantity
+          required: false
+          type: string
+          length: 80
+        - name: price
+          type: decimal
+          default: 0
+          required: false
+      relations:
+        - name: category
+          from: categoryId
+          entity: Categories
+          to: id
+          target: products
+          type: oneToMany
+          weak: false
+        - name: orderDetails
+          type: manyToOne
+          composite: false
+          from: id
+          entity: Orders.details
+          weak: true
+          to: productId
+          target: product
+      required: []
+      indexes: []
+      dependents:
+        - entity: Orders.details
+          relation:
+            name: product
+            from: productId
+            entity: Products
+            to: id
+            target: orderDetails
+            type: oneToMany
+            weak: false
+      constraints: []
+      composite: false
+      hadReadExps: false
+      hadWriteExps: false
+      hadReadValues: false
+      hadWriteValues: false
+      hadDefaults: true
+      hadViewReadExp: false
+    - name: Orders
+      primaryKey:
+        - id
+      indexes:
+        - name: orderDate
+          fields:
+            - orderDate
+      properties:
+        - name: id
+          type: integer
+          required: false
+          autoIncrement: true
+        - name: customerId
+          required: true
+          length: 5
+          type: string
+        - name: orderDate
+          type: dateTime
+          required: false
+      relations:
+        - name: customer
+          from: customerId
+          entity: Customers
+          to: id
+          target: orders
+          type: oneToMany
+          weak: false
+        - name: details
+          type: manyToOne
+          composite: true
+          from: id
+          entity: Orders.details
+          weak: true
+          to: orderId
+          target: order
+      uniqueKey: []
+      required: []
+      dependents:
+        - entity: Orders.details
+          relation:
+            name: order
+            from: orderId
+            entity: Orders
+            to: id
+            target: details
+            type: oneToMany
+            weak: false
+      constraints: []
+      composite: false
+      hadReadExps: false
+      hadWriteExps: false
+      hadReadValues: false
+      hadWriteValues: false
+      hadDefaults: false
+      hadViewReadExp: false
+    - name: Orders.details
+      primaryKey:
+        - orderId
+        - productId
+      properties:
+        - name: orderId
+          required: true
+          type: integer
+        - name: productId
+          required: true
+          type: integer
+        - name: unitPrice
+          type: decimal
+          required: false
+        - name: quantity
+          type: decimal
+          required: false
+      relations:
+        - name: order
+          from: orderId
+          entity: Orders
+          to: id
+          target: details
+          type: oneToMany
+          weak: false
+        - name: product
+          from: productId
+          entity: Products
+          to: id
+          target: orderDetails
+          type: oneToMany
+          weak: false
+      uniqueKey: []
+      required: []
+      indexes: []
+      dependents: []
+      constraints: []
+      composite: true
+      hadReadExps: false
+      hadWriteExps: false
+      hadReadValues: false
+      hadWriteValues: false
+      hadDefaults: false
+      hadViewReadExp: false
+  enums: []
 infrastructure:
-  paths:    
+  service:
+    url: http://localhost:9291
+  paths:
     src: src
-    domain: northwind/domain  
+    data: data
+    domain: domain

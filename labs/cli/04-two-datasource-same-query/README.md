@@ -262,6 +262,6 @@ lambdaorm execute -e .env -q "Countries.page(1,10).include(p => p.states)"
 To finish the lab we execute the following commands to drop the tables and remove the containers
 
 ```sh
-lambdaorm drop
+lambdaorm drop -e .env 
 docker-compose -p lambdaorm-lab down
 ```
