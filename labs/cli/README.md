@@ -112,3 +112,10 @@ This pattern can be difficult to implement in conventional development or with a
 Consider that in this lab we are not only implementing CQRS, but we are also implementing a distributed data model, where each entity in the domain can be mapped to a different data source.
 
 [lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/08-northwind-cqrs)
+
+## CLI - Client
+
+- How to set up the lambda ORM service
+- How to consume the lambda ORM service from a CLI Client
+
+[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/09-client)
