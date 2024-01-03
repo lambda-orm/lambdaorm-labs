@@ -444,7 +444,7 @@ It will generate:
 For the import we will download the following file.
 
 ```sh
-wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-labs/main/source/northwind/data.json
+wget https://raw.githubusercontent.com/lambda-orm/lambdaorm-labs/main/source/northwind/data.json
 ```
 
 We import the records in the default stage and these will be replicated in the insights stage

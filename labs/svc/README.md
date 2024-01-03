@@ -1,8 +1,8 @@
 # Service Labs
 
-It is a series of laboratories that show how to use the [lambda ORM Service](https://github.com/FlavioLionelRita/lambdaorm-svc)
+It is a series of laboratories that show how to use the [lambda ORM Service](https://github.com/lambda-orm/lambdaorm-svc)
 
-- [Documentation](https://github.com/FlavioLionelRita/lambdaorm-svc/wiki)
+- [Documentation](https://github.com/lambda-orm/lambdaorm-svc/wiki)
 - [Docker Hub](https://hub.docker.com/repository/docker/flaviorita/lambdaorm-svc/general)
 
 ## Northwind Simple Lab
@@ -21,7 +21,7 @@ Access lambdaorm service endpoints to:
 - Import data
 - Run a query
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/01-northwind-simple)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/svc/01-northwind-simple)
 
 ## Northwind Multiples Datasources Lab
 
@@ -42,7 +42,7 @@ Access lambdaorm service endpoints to:
 
 We will verify that lambdaorm behaves in the same way if the domain entities are mapped to a single datasource or to multiple datasources.
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/02-northwind-multiples-datasources)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/svc/02-northwind-multiples-datasources)
 
 ## Northwind CQRS (Command Query Responsibility Segregation) Lab
 
@@ -74,7 +74,7 @@ This pattern can be difficult to implement in conventional development or with a
 
 Consider that in this lab we are not only implementing CQRS, but we are also implementing a distributed data model, where each entity in the domain can be mapped to a different data source.
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/03-northwind-cqrs)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/svc/03-northwind-cqrs)
 
 ## Northwind CQRS (Command Query Responsibility Segregation) with kafka Lab
 
@@ -110,7 +110,7 @@ Consider that in this lab we are not only implementing CQRS, but we are also imp
 In this case, every time a stage is inserted, updated or deleted in the default stage or cqrs, a message will be sent to the "insights-sync" topic with the expression and the data.
 and this message will be consumed and the expression will be executed in the insights stage, thus achieving synchronization between the data sources and the insights source.
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/04-northwind-cqrs-kafka)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/svc/04-northwind-cqrs-kafka)
 
 ## Pentest DDoS (Distributed Denial of Service) Lab
 
@@ -129,7 +129,7 @@ We will execute DDoS attacks using the following tools:
 - Slowloris
 - GoldenEye
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/05-pentest-ddos)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/svc/05-pentest-ddos)
 
 ## Load Balancer Pentest DDoS (Distributed Denial of Service) Lab
 
@@ -149,4 +149,4 @@ We will execute DDoS attacks using the following tools:
 - Slowloris
 - GoldenEye
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/svc/06-pentest-ddos-load-balancer)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/svc/06-pentest-ddos-load-balancer)
