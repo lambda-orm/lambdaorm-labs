@@ -196,7 +196,7 @@ Files generated:
 Download the following file.
 
 ```sh
-wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-labs/main/source/countries/data.json
+wget https://raw.githubusercontent.com/lambda-orm/lambdaorm-labs/main/source/countries/data.json
 ```
 
 ### Add First file Typescript

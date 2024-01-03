@@ -2,7 +2,7 @@
 
 It is a series of labs showing how to use the [lambda ORM](https://www.npmjs.com/package/lambdaorm) library in a Node project.
 
-- [Documentation](https://github.com/FlavioLionelRita/lambdaorm/wiki)
+- [Documentation](https://github.com/lambda-orm/lambdaorm/wiki)
 
 ## Basic Lab
 
@@ -15,7 +15,7 @@ It is a series of labs showing how to use the [lambda ORM](https://www.npmjs.com
 - How to execute a query using lambdaorm
 - How to drop a schema using lambda CLI
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/node/01-basic)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/node/01-basic)
 
 ## Queries Labs
 
@@ -28,7 +28,7 @@ It is a series of labs showing how to use the [lambda ORM](https://www.npmjs.com
 - How to execute several queries using lambdaorm
 - How to drop a schema using lambda CLI
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/node/02-queries)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/node/02-queries)
 
 ## Repository Lab
 
@@ -41,7 +41,7 @@ It is a series of labs showing how to use the [lambda ORM](https://www.npmjs.com
 - How to use repository pattern with lambdaorm
 - How to drop a schema using lambda CLI
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/node/03-repository)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/node/03-repository)
 
 ## Repository Query Lab
 
@@ -56,4 +56,4 @@ It is a series of labs showing how to use the [lambda ORM](https://www.npmjs.com
 - How to execute queries with repository pattern
 - How to drop a schema using lambda CLI
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/node/04-repository-query)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/node/04-repository-query)

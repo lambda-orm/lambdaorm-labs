@@ -528,7 +528,7 @@ for the import we will download the following file.
 
 ```sh
 # download data.json
-wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-labs/main/source/northwind/data.json
+wget https://raw.githubusercontent.com/lambda-orm/lambdaorm-labs/main/source/northwind/data.json
 # import data.json
 curl -X POST -H "Content-Type: application/json" -d @data.json http://localhost:9291/stages/default/import
 ```
