@@ -131,3 +131,9 @@ Consider that in this lab we are not only implementing CQRS, but we are also imp
 - How to synchronize the schema with respect to the data source with the match command
 
 [lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/11-match)
+
+## CLI - Introspect
+
+- How to obtain schema from data introspection with the introspect command
+
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/12-introspect)
