@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [0.0.37](https://github.com/lambda-orm/lambdaorm-labs/compare/v0.0.36...v0.0.37) (2024-05-01)
+
+
+### Features
+
+* add cli fetch lab ([2f5cde7](https://github.com/lambda-orm/lambdaorm-labs/commit/2f5cde75295109dc2ca523bd51d42516f1fbe4cf)), closes [#0](https://github.com/lambda-orm/lambdaorm-labs/issues/0)
+* add cli match lab ([0b55506](https://github.com/lambda-orm/lambdaorm-labs/commit/0b55506efee183a622f2bb1e8e2afc1039c64b4a)), closes [#0](https://github.com/lambda-orm/lambdaorm-labs/issues/0)
+
 ### [0.0.36](https://github.com/lambda-orm/lambdaorm-labs/compare/v0.0.35...v0.0.36) (2024-01-03)
 
 ### [0.0.35](https://github.com/lambda-orm/lambdaorm-labs/compare/v0.0.28...v0.0.35) (2024-01-03)
