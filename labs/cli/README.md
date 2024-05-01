@@ -119,3 +119,9 @@ Consider that in this lab we are not only implementing CQRS, but we are also imp
 - How to consume the lambda ORM service from a CLI Client
 
 [lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/09-client)
+
+## CLI - Fetch
+
+- How to obtain the mapping schema from a database with the fetch command
+
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/10-fetch)
