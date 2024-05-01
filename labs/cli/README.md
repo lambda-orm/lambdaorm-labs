@@ -125,3 +125,9 @@ Consider that in this lab we are not only implementing CQRS, but we are also imp
 - How to obtain the mapping schema from a database with the fetch command
 
 [lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/10-fetch)
+
+## CLI - Match
+
+- How to synchronize the schema with respect to the data source with the match command
+
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/11-match)
