@@ -1,0 +1,26 @@
+version: 0.0.1
+domain:
+  version: 0.0.1
+  entities: []
+infrastructure:
+  sources:
+    - name: default
+      dialect: MySQL
+      mapping: default
+      connection:
+        host: localhost
+        port: 3306
+        user: test
+        password: test
+        database: test
+        multipleStatements: true
+        waitForConnections: true
+        connectionLimit: 10
+        queueLimit: 0
+  mappings:
+    - name: default
+      entities: []
+  stages:
+    - name: default
+      sources:
+        - name: default

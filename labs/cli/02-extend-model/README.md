@@ -210,7 +210,7 @@ docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -utest -ptest -e "use 
 for the import we will download the following file.
 
 ```sh
-wget https://raw.githubusercontent.com/FlavioLionelRita/lambdaorm-labs/main/source/countries/data.json
+wget https://raw.githubusercontent.com/lambda-orm/lambdaorm-labs/main/source/countries/data.json
 ```
 
 then we will execute the following command

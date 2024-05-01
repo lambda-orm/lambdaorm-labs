@@ -13,7 +13,7 @@ It is a series of laboratories that show how to use the [lambda ORM Client Node 
 - How to consume the lambda ORM service from a Node client
 - How to drop a schema using lambda CLI
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/client-node/01-simple)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/client-node/01-simple)
 
 ## Import data Lab
 
@@ -27,4 +27,4 @@ It is a series of laboratories that show how to use the [lambda ORM Client Node 
 - How to import data using Node client and lambda ORM service
 - How to drop a schema using lambda CLI
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/client-node/02-import-data)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/client-node/02-import-data)

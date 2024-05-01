@@ -2,7 +2,7 @@
 
 It is a series of labs that show how to use the [lambda ORM CLI](https://www.npmjs.com/package/lambdaorm-cli)
 
-- [Documentation](https://github.com/FlavioLionelRita/lambdaorm-cli/wiki)
+- [Documentation](https://github.com/lambda-orm/lambdaorm-cli/wiki)
 
 ## Simple Lab
 
@@ -15,7 +15,7 @@ It is a series of labs that show how to use the [lambda ORM CLI](https://www.npm
 - how to export data from a schema
 - how to import data into a schema from a previously generated export file
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/01-simple)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/01-simple)
 
 ## Extend Model Lab
 
@@ -27,7 +27,7 @@ It is a series of labs that show how to use the [lambda ORM CLI](https://www.npm
 - How to insert data from a file.
 - how to run queries from cli to perform different types of queries
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/02-extend-model)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/02-extend-model)
 
 ## Two stages Lab
 
@@ -39,7 +39,7 @@ It is a series of labs that show how to use the [lambda ORM CLI](https://www.npm
 - How to insert data from a file to more than one table.
 - how to use imported data from one stage to import it to another
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/03-two-stages)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/03-two-stages)
 
 ## Two data sources with the same query Lab
 
@@ -51,7 +51,7 @@ It is a series of labs that show how to use the [lambda ORM CLI](https://www.npm
 - how to run a bulkInsert on entities in different databases
 - how to export and import entity data in different databases
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/04-two-datasource-same-query)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/04-two-datasource-same-query)
 
 ## Northwind Lab
 
@@ -66,7 +66,7 @@ This database presents several non-standard cases such as:
 Since this is the database that was used for many examples and unit tests, you can test the example queries that are in the documentation.
 We will also see some example queries to execute from CLI
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/05-northwind)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/05-northwind)
 
 ## Northwind multiple datasources Lab
 
@@ -76,7 +76,7 @@ We will also see some example queries to execute from CLI
 - How to execute queries from CLI to obtain data from multiple data sources in the same query
 - How to obtain the execution plan of a query and visualize which data sources the queries will be executed on
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/06-northwind-multiples-datasources)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/06-northwind-multiples-datasources)
 
 ## Northwind multiple stages Lab
 
@@ -89,7 +89,7 @@ We will also see some example queries to execute from CLI
 - How to export data from one stage and import it into another
 - How can you obtain the same results regardless of whether they are stored in a single data source or in multiple data sources
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/07-northwind-multiples-stages)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/07-northwind-multiples-stages)
 
 ## Northwind CQRS Lab
 
@@ -111,11 +111,23 @@ This pattern can be difficult to implement in conventional development or with a
 
 Consider that in this lab we are not only implementing CQRS, but we are also implementing a distributed data model, where each entity in the domain can be mapped to a different data source.
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/08-northwind-cqrs)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/08-northwind-cqrs)
 
 ## CLI - Client
 
 - How to set up the lambda ORM service
 - How to consume the lambda ORM service from a CLI Client
 
-[lab](https://github.com/FlavioLionelRita/lambdaorm-labs/tree/main/labs/cli/09-client)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/09-client)
+
+## CLI - Fetch
+
+- How to obtain the mapping schema from a database with the fetch command
+
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/10-fetch)
+
+## CLI - Match
+
+- How to synchronize the schema with respect to the data source with the match command
+
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/11-match)

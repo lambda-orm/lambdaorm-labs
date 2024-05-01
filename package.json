@@ -1,6 +1,6 @@
 {
 	"name": "lambdaorm-labs",
-	"version": "0.0.34",
+	"version": "0.0.37",
 	"description": "Lambdaorm labs",
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "MIT",
@@ -9,13 +9,13 @@
 		"node": ">=10"
 	},
 	"main": "src/index.js",
-	"homepage": "https://github.com/FlavioLionelRita/lambdaorm-labs/readme",
+	"homepage": "https://github.com/lambda-orm/lambdaorm-labs/readme",
 	"bugs": {
-		"url": "https://github.com/FlavioLionelRita/lambdaorm/issues"
+		"url": "https://github.com/lambda-orm/lambdaorm/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/FlavioLionelRita/lambdaorm-labs.git"
+		"url": "https://github.com/lambda-orm/lambdaorm-labs.git"
 	},
 	"standard-version": {
 		"header": "# Changelog\n\nAll notable changes to this project will be documented in this file.\n\n## Versions\n"

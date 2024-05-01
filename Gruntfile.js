@@ -32,7 +32,7 @@ module.exports = function (grunt) {
 	})
 	grunt.registerTask('changelog-format', 'apply format to changelog', function () {
 		const changelog = grunt.file.read('CHANGELOG.md')
-		let newChangelog = changelog.replace(/https:\/\/github.com\/FlavioLionelRita\/lambdaorm-cli\/issues\//g, 'https://github.com/FlavioLionelRita/lambdaorm/issues/')
+		let newChangelog = changelog.replace(/https:\/\/github.com\/FlavioLionelRita\/lambdaorm-cli\/issues\//g, 'https://github.com/lambda-orm/lambdaorm/issues/')
 		newChangelog = newChangelog.replace(/\n### Bug Fixes/g, '**Bug Fixes:**')
 		newChangelog = newChangelog.replace(/\n### Features/g, '**Features:**')
 		grunt.file.write('CHANGELOG.md', newChangelog)
