@@ -49,6 +49,7 @@
         "sqlmap",
         "uroot",
         "utest",
+        "VARCHAR",
         "wireshark"
     ],
     "editor.inlineSuggest.showToolbar": "onHover"

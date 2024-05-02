@@ -60,8 +60,33 @@ It is a series of labs showing how to use the [lambda ORM](https://www.npmjs.com
 
 ## Fetch
 
+**In this laboratory we will see:**
+
 - how to create a project that uses lambda ORM with CLI
 - how to create a project that uses lambda ORM
 - How to obtain the mapping schema from a database with the fetch command
 
 [lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/node/10-fetch)
+
+## Match
+
+**In this laboratory we will see:**
+
+- How to use λORM CLI commands
+- how to create a project that uses lambda ORM
+- How to synchronize the schema with respect to the data source with the match command
+
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/node/11-match)
+
+## Introspect
+
+**In this laboratory we will see:**
+
+- How to use λORM CLI commands
+- how to create a project that uses lambda ORM
+- How to run the introspect method to:
+   - Update the schema according to the introspected type of data.
+   - Synchronize the schema with the data source.
+   - Create files with the model status and update scripts.
+
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/node/12-introspect)

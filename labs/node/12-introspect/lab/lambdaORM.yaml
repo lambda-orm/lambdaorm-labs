@@ -2,7 +2,7 @@ version: 0.0.1
 domain:
   version: 0.0.1
   entities:
-    - name: CountiesLanguages
+    - name: CountriesLanguages
       intermediate: true
       primaryKey:
         - id
@@ -14,25 +14,25 @@ domain:
         - name: languageCode
           length: 4
           required: true
-        - name: countyName
+        - name: countryName
           length: 32
           required: true
       uniqueKey:
-        - countyName
+        - countryName
         - languageCode
       relations:
-        - name: counties
+        - name: countries
           type: oneToMany
-          from: countyName
-          entity: Counties
+          from: countryName
+          entity: Countries
           to: name
-          target: countiesLanguages
+          target: countriesLanguages
         - name: languages
           type: oneToMany
           from: languageCode
           entity: Languages
           to: code
-          target: countiesLanguages
+          target: countriesLanguages
     - name: Languages
       primaryKey:
         - code
@@ -78,7 +78,7 @@ domain:
         - name: positionLat
           type: decimal
           required: true
-        - name: countyName
+        - name: countryName
           length: 32
           required: true
       relations:
@@ -88,12 +88,12 @@ domain:
           entity: Positions
           to: lat
           composite: true
-        - name: counties
+        - name: countries
           type: oneToMany
-          from: countyName
-          entity: Counties
+          from: countryName
+          entity: Countries
           to: name
-    - name: Counties
+    - name: Countries
       primaryKey:
         - name
       properties:
@@ -121,7 +121,7 @@ domain:
           type: manyToOne
           from: name
           entity: Timezones
-          to: countyName
+          to: countryName
           composite: true
 infrastructure:
   sources:

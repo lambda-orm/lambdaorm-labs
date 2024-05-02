@@ -147,7 +147,7 @@ npx tsc
 node ./build/index.js
 ```
 
-Como resultado se creará el archivo "mappings.yaml" con el mapping del schema correspondiente con el source de datos.
+As a result, the "mappings.yaml" file will be created with the mapping of the corresponding schema to the data source.
 
 ## End
 
