@@ -1,10 +1,10 @@
-# CLI Lab - Introspect
+# CLI Lab - Match
 
 **In this laboratory we will see:**
 
 - How to use λORM CLI commands
 - how to create a project that uses lambda ORM
-- How to obtain schema from data introspection with the introspect command
+- How to synchronize the schema with respect to the data source with the match command
 
 ## Install lambda ORM CLI
 
@@ -67,25 +67,48 @@ docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER
 docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
 ```
 
-### Download data
-
-download json file the countries for the lab:
+### Create tables and Import data
 
 ```sh
-wget https://raw.githubusercontent.com/lambda-orm/lambdaorm-labs/main/source/countries/countries.json
+# download the northwind-mysql.sql file
+wget https://raw.githubusercontent.com/lambda-orm/lambdaorm-labs/main/source/northwind/northwind-mysql.sql
+# copy the file to the container
+docker cp northwind-mysql.sql lab-mysql:/northwind-mysql.sql
+# connect to the container
+docker exec -it lab-mysql bash
+# ejecute the script in test database
+mysql -uroot -proot -D test < ./northwind-mysql.sql
+# exit from the container
+exit
 ```
 
-### Introspect
-
-The introspect command allows you to obtain the schema from data introspection.
-
-Running the introspect command:
+Verify that teh tables were created:
 
 ```sh
-lambdaorm introspect -d countries.json -n counties
+docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "use test;show tables;"
 ```
 
-This command updates the schema based on data introspection, in this case from the country.json file.
+### Match
+
+The match command is used to update the schema with respect to the sources (Databases). \
+Once executed, the schema will be synchronized with the database. \
+It also adds a file with the matching scripts. \
+
+Running the match command:
+
+```sh
+lambdaorm match
+```
+
+Once the command is executed, the schema file (lambdaORM.yaml in this case) will be updated with respect to the data source.
+
+Files created:
+
+```sh
+├── data
+│   ├── default-ddl-20240501T212640369Z-match-default.sql
+│   └── default-model.json
+```
 
 ## End
 

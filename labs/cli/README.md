@@ -137,3 +137,9 @@ Consider that in this lab we are not only implementing CQRS, but we are also imp
 - How to obtain schema from data introspection with the introspect command
 
 [lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/12-introspect)
+
+## CLI Incorporate
+
+- How to update schema, sync data source and import data with built-in command
+
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/13-incorporate)

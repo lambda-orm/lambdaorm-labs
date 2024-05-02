@@ -57,3 +57,11 @@ It is a series of labs showing how to use the [lambda ORM](https://www.npmjs.com
 - How to drop a schema using lambda CLI
 
 [lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/node/04-repository-query)
+
+## Fetch
+
+- how to create a project that uses lambda ORM with CLI
+- how to create a project that uses lambda ORM
+- How to obtain the mapping schema from a database with the fetch command
+
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/node/10-fetch)

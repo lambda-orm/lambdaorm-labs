@@ -145,4 +145,3 @@ infrastructure:
     - name: default
       sources:
         - name: default
-
