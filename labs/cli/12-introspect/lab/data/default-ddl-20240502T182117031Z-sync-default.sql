@@ -1,0 +1,14 @@
+CREATE TABLE CountiesLanguages (id INTEGER  AUTO_INCREMENT,languageCode VARCHAR(4) NOT NULL ,countyName VARCHAR(32) NOT NULL ,CONSTRAINT CountiesLanguages_PK PRIMARY KEY (id));
+ALTER TABLE CountiesLanguages ADD CONSTRAINT CountiesLanguages_UK UNIQUE (countyName,languageCode);
+CREATE TABLE Languages (code VARCHAR(4) NOT NULL ,name VARCHAR(16) NOT NULL ,CONSTRAINT Languages_PK PRIMARY KEY (code));
+CREATE TABLE Regions (code VARCHAR(2) NOT NULL ,name VARCHAR(32) NOT NULL ,CONSTRAINT Regions_PK PRIMARY KEY (code));
+CREATE TABLE Positions (lat DECIMAL(10,4) NOT NULL ,`long` DECIMAL(10,4) NOT NULL ,CONSTRAINT Positions_PK PRIMARY KEY (lat));
+ALTER TABLE Positions ADD CONSTRAINT Positions_UK UNIQUE (`long`);
+CREATE TABLE Timezones (GmtOffset INTEGER  ,name VARCHAR(32) NOT NULL ,positionLat DECIMAL(10,4) NOT NULL ,countyName VARCHAR(32) NOT NULL ,CONSTRAINT Timezones_PK PRIMARY KEY (name));
+CREATE TABLE Counties (name VARCHAR(32) NOT NULL ,phoneCode INTEGER NOT NULL ,priority INTEGER NOT NULL ,regionCode VARCHAR(2) NOT NULL ,CONSTRAINT Counties_PK PRIMARY KEY (name));
+ALTER TABLE Counties ADD CONSTRAINT Counties_UK UNIQUE (phoneCode);
+ALTER TABLE CountiesLanguages ADD CONSTRAINT CountiesLanguages_counties_FK FOREIGN KEY (countyName) REFERENCES Counties (name);
+ALTER TABLE CountiesLanguages ADD CONSTRAINT CountiesLanguages_languages_FK FOREIGN KEY (languageCode) REFERENCES Languages (code);
+ALTER TABLE Timezones ADD CONSTRAINT Timezones_position_FK FOREIGN KEY (positionLat) REFERENCES Positions (lat);
+ALTER TABLE Timezones ADD CONSTRAINT Timezones_counties_FK FOREIGN KEY (countyName) REFERENCES Counties (name);
+ALTER TABLE Counties ADD CONSTRAINT Counties_region_FK FOREIGN KEY (regionCode) REFERENCES Regions (code);
