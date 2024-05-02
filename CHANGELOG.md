@@ -6,8 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ## [1.1.0](https://github.com/lambda-orm/lambdaorm-labs/compare/v0.0.37...v1.1.0) (2024-05-02)
 
-
-### Features
+**Features:**
 
 * add cli introspect  lab ([1715443](https://github.com/lambda-orm/lambdaorm-labs/commit/171544304ee3f75a00483548751d4f47c9624d68)), closes [#0](https://github.com/lambda-orm/lambdaorm-labs/issues/0)
 * add node fetch lab ([1744cee](https://github.com/lambda-orm/lambdaorm-labs/commit/1744ceeff14dcb1fec199cdcd81a032cef1133f4)), closes [#0](https://github.com/lambda-orm/lambdaorm-labs/issues/0)
