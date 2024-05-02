@@ -90,3 +90,17 @@ It is a series of labs showing how to use the [lambda ORM](https://www.npmjs.com
    - Create files with the model status and update scripts.
 
 [lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/node/12-introspect)
+
+## Incorporate
+
+**In this laboratory we will see:**
+
+- How to use λORM CLI commands
+- how to create a project that uses lambda ORM
+- How to run the incorporate method to:
+   - Update the schema according to the introspected type of data.
+   - Synchronize the schema with the data source.
+   - Create files with the model status and update scripts.
+   - Import data in the data source.
+
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/node/13-incorporate)

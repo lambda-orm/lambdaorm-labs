@@ -116,7 +116,7 @@ In the src folder add the file "index.ts" in src folder with the following conte
 import { Orm } from 'lambdaorm'
 (async () => {
 	const workspace = process.cwd()
-	const schemaPath = workspace + '/lambdaOrm.yaml'		
+	const schemaPath = workspace + '/lambdaORM.yaml'		
 	const orm = new Orm(workspace)
 	try{
 		const data = JSON.parse( await orm.helper.fs.read(workspace + '/countries.json') || '{}')

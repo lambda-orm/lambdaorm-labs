@@ -4,7 +4,7 @@
 
 - How to use λORM CLI commands
 - how to create a project that uses lambda ORM
-- How to update schema, sync data source and import data with built-in command
+- How to update schema, sync data source and import data with incorporate command
 
 ## Install lambda ORM CLI
 

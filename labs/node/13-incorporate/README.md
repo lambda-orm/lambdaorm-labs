@@ -1,10 +1,14 @@
-# CLI Lab - Incorporate
+# Node Lab - Incorporate
 
 **In this laboratory we will see:**
 
 - How to use λORM CLI commands
 - how to create a project that uses lambda ORM
-- How to update schema, sync data source and import data with built-in command
+- How to run the incorporate method to:
+   - Update the schema according to the introspected type of data.
+   - Synchronize the schema with the data source.
+   - Create files with the model status and update scripts.
+   - Import data in the data source.
 
 ## Install lambda ORM CLI
 
@@ -20,11 +24,6 @@ will create the project folder with the basic structure.
 
 ```sh
 lambdaorm init -w lab
-```
-
-position inside the project folder.
-
-```sh
 cd lab
 ```
 
@@ -75,6 +74,37 @@ download json file the countries for the lab:
 wget https://raw.githubusercontent.com/lambda-orm/lambdaorm-labs/main/source/countries/countries.json
 ```
 
+### Build
+
+Running the build command will create or update the following:
+
+- Folder that will contain the source code and is taken from the "infrastructure.paths.scr" configuration in the lambdaorm.yaml file
+- Folder that will contain the domain files, the path is relative to the src folder and is taken from the "infrastructure.paths.domain" configuration in the lambdaorm.yaml file
+- Model file: file with the definition of the entities
+- Repository files: one file for each entity with data access methods
+- Install the necessary dependencies according to the databases used
+
+```sh
+lambdaorm build -l node
+```
+
+Result:
+
+```sh
+├── data
+├── countries.json
+├── docker-compose.yaml
+├── lambdaORM.yaml
+├── northwind-mysql.sql
+├── package.json
+├── package-lock.json
+|── node_modules
+├── src
+│   └── domain
+│       └── model.ts
+└── tsconfig.json
+```
+
 ### Incorporate
 
 The incorporate command does the following:
@@ -83,22 +113,61 @@ The incorporate command does the following:
 - Generate and apply scripts to synchronize the schema with the data source
 - Import data from data source
 
-Running the incorporate command:
+#### Add Source Code
 
-```sh
-lambdaorm incorporate -d countries.json -n countries
+In the src folder add the file "index.ts" in src folder with the following content:
+
+```Typescript
+import { Orm } from 'lambdaorm'
+(async () => {
+	const workspace = process.cwd()
+	const schemaPath = workspace + '/lambdaOrm.yaml'		
+	const orm = new Orm(workspace)
+	try{
+		const data = JSON.parse( await orm.helper.fs.read(workspace + '/countries.json') || '{}')
+		await orm.init(schemaPath)	
+		await orm.stage.incorporate(data, 'countries')
+	}catch(e){
+		console.log(e)
+	} finally {
+		orm.end()
+	}	
+})()
 ```
 
-Files generated:
+### Run
 
 ```sh
+npx tsc
+node ./build/index.js
+```
+
+As a result:
+
+- The "lambdaORM.yaml" file will be updated according to the type introspected from the data.
+- The updated schema is synchronized with the data source.
+- Files are created with the model status and update scripts.
+
+File structure:
+
+```sh
+├── countries.json
 ├── data
 │   ├── default-data.json
-│   ├── default-ddl-20240502T113912983Z-sync-default.sql
+│   ├── default-ddl-20240502T181420089Z-sync-default.sql
 │   └── default-model.json
+├── docker-compose.yaml
+├── lambdaORM.yaml
+├── package.json
+├── package-lock.json
+├── src
+│   ├── domain
+│   │   └── model.ts
+│   └── index.ts
+└── tsconfig.json
 ```
 
-Scripts generated in **default-ddl-20240502T113912983Z-sync-default.sql**:
+Contents of the file "default-ddl-20240502T181420089Z-sync-default.sql":
 
 ```sql
 CREATE TABLE CountriesLanguages (id INTEGER  AUTO_INCREMENT,languageCode VARCHAR(4) NOT NULL ,countryName VARCHAR(32) NOT NULL ,CONSTRAINT CountriesLanguages_PK PRIMARY KEY (id));
@@ -158,5 +227,4 @@ To finish the lab we execute the following command to eliminate the containers.
 
 ```sh
 docker-compose -p lambdaorm-lab down
-rm -r data
 ```
