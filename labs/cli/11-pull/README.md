@@ -1,10 +1,10 @@
-# CLI Lab - Match
+# CLI Lab - Pull
 
 **In this laboratory we will see:**
 
 - How to use λORM CLI commands
 - how to create a project that uses lambda ORM
-- How to synchronize the schema with respect to the data source with the match command
+- How to synchronize the schema with respect to the data source with the pull command
 
 ## Install lambda ORM CLI
 
@@ -88,16 +88,16 @@ Verify that teh tables were created:
 docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "use test;show tables;"
 ```
 
-### Match
+### Pull
 
-The match command is used to update the schema with respect to the sources (Databases). \
+The pull command is used to update the schema with respect to the sources (Databases). \
 Once executed, the schema will be synchronized with the database. \
-It also adds a file with the matching scripts. \
+It also adds a file with the pulling scripts. \
 
-Running the match command:
+Running the pull command:
 
 ```sh
-lambdaorm match
+lambdaorm pull
 ```
 
 Once the command is executed, the schema file (lambdaORM.yaml in this case) will be updated with respect to the data source.
@@ -106,7 +106,7 @@ Files created:
 
 ```sh
 ├── data
-│   ├── default-ddl-20240501T212640369Z-match-default.sql
+│   ├── default-ddl-20240501T212640369Z-pull-default.sql
 │   └── default-model.json
 ```
 

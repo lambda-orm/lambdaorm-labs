@@ -1,10 +1,10 @@
-# Node Lab - Match
+# Node Lab - Pull
 
 **In this laboratory we will see:**
 
 - How to use λORM CLI commands
 - how to create a project that uses lambda ORM
-- How to synchronize the schema with respect to the data source with the match command
+- How to synchronize the schema with respect to the data source with the pull command
 
 ## Install lambda ORM CLI
 
@@ -113,11 +113,11 @@ Result:
 └── tsconfig.json
 ```
 
-### Match
+### Pull
 
-The match command is used to update the schema with respect to the sources (Databases). \
+The pull command is used to update the schema with respect to the sources (Databases). \
 Once executed, the schema will be synchronized with the database. \
-It also adds a file with the matching scripts. \
+It also adds a file with the pulling scripts. \
 
 #### Add Source Code
 
@@ -132,7 +132,7 @@ import { Orm } from 'lambdaorm'
 		await orm.helper.fs.removeDir(workspace + '/data')
 		const originalSchema = orm.helper.yaml.load(await orm.helper.fs.read(workspace + '/lambdaOrm.yaml'))
 		await orm.init(originalSchema)	
-		await orm.stage.match()
+		await orm.stage.pull()
 		await orm.helper.fs.write( workspace + '/result.yaml', orm.helper.yaml.dump(orm.state.originalSchema))
 	}catch(e){
 		console.log(e)
@@ -160,7 +160,7 @@ File structure:
 ```sh
 .
 ├── data
-│   ├── default-ddl-20240502T165327450Z-match-default.sql
+│   ├── default-ddl-20240502T165327450Z-pull-default.sql
 │   └── default-model.json
 ├── docker-compose.yaml
 ├── lambdaORM.yaml
@@ -175,7 +175,7 @@ File structure:
 └── tsconfig.json
 ```
 
-Contents of the file "default-ddl-20240502T165327450Z-match-default.sql":
+Contents of the file "default-ddl-20240502T165327450Z-pull-default.sql":
 
 ```sql
 CREATE TABLE Categories (CategoryID INTEGER  AUTO_INCREMENT,CategoryName VARCHAR(15) NOT NULL ,Description TEXT  ,Picture LONGBLOB  ,CONSTRAINT Categories_PK PRIMARY KEY (CategoryID));

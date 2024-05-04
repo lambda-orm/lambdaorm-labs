@@ -68,15 +68,15 @@ It is a series of labs showing how to use the [lambda ORM](https://www.npmjs.com
 
 [lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/node/10-fetch)
 
-## Match
+## Pull
 
 **In this laboratory we will see:**
 
 - How to use λORM CLI commands
 - how to create a project that uses lambda ORM
-- How to synchronize the schema with respect to the data source with the match command
+- How to synchronize the schema with respect to the data source with the pull command
 
-[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/node/11-match)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/node/11-pull)
 
 ## Introspect
 
