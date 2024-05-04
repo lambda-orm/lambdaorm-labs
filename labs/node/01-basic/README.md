@@ -171,7 +171,7 @@ Create database for test:
 docker-compose -p lambdaorm-lab up -d
 ```
 
-### Sync
+### Push
 
 When executing the sync command, ddl code will be executed according to the definition in the lambdaorm schema file.
 
@@ -180,14 +180,14 @@ When executing the sync command, ddl code will be executed according to the defi
 - The [source-name]-model.json file will be created or updated which maintains the source state since the last synchronization.
 
 ```sh
-lambdaorm sync
+lambdaorm push
 ```
 
 Files generated:
 
 ```sh
 ├── data
-│   ├── default-ddl-20231202T163012473Z-sync-default.sql
+│   ├── default-ddl-20231202T163012473Z-push-default.sql
 │   └── default-model.json
 ```
 
@@ -237,7 +237,7 @@ import path from'path'
 
 ```sh
 ├── data
-│   ├── default-ddl-20231202T163012473Z-sync-default.sql
+│   ├── default-ddl-20231202T163012473Z-push-default.sql
 │   └── default-model.json
 ├── data.json
 ├── docker-compose.yaml

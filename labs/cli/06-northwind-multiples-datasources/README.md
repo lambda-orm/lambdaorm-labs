@@ -330,19 +330,19 @@ docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTE
 docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
 ```
 
-### Sync
+### Push
 
 ```sh
-lambdaorm sync -e .env
+lambdaorm push -e .env
 ```
 
 It will generate:
 
 ```sh
 ── data
-│   ├── default-ddl-20231129T090459304Z-sync-Catalog.sql
-│   ├── default-ddl-20231129T090459305Z-sync-Crm.sql
-│   ├── default-ddl-20231129T090459305Z-sync-Ordering.json
+│   ├── default-ddl-20231129T090459304Z-push-Catalog.sql
+│   ├── default-ddl-20231129T090459305Z-push-Crm.sql
+│   ├── default-ddl-20231129T090459305Z-push-Ordering.json
 │   └── default-model.json
 ```
 

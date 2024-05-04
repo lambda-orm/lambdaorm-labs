@@ -18,7 +18,7 @@ lambdaorm update
 Sync:
 
 ```sh
-lambdaorm sync -e ./.env
+lambdaorm push -e ./.env
 ```
 
 Up:

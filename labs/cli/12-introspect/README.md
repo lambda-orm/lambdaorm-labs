@@ -92,13 +92,13 @@ Files created:
 ```sh
 ├── countries.json
 ├── data
-│   ├── default-ddl-20240502T182117031Z-sync-default.sql
+│   ├── default-ddl-20240502T182117031Z-push-default.sql
 │   └── default-model.json
 ├── docker-compose.yaml
 └── lambdaORM.yaml
 ```
 
-Script the synchronization in file "default-ddl-20240502T182117031Z-sync-default.sql":
+Script the synchronization in file "default-ddl-20240502T182117031Z-push-default.sql":
 
 ```sql
 CREATE TABLE CountiesLanguages (id INTEGER  AUTO_INCREMENT,languageCode VARCHAR(4) NOT NULL ,countyName VARCHAR(32) NOT NULL ,CONSTRAINT CountiesLanguages_PK PRIMARY KEY (id));

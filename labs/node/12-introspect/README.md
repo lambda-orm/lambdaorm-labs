@@ -148,7 +148,7 @@ File structure:
 ```sh
 ├── countries.json
 ├── data
-│   ├── default-ddl-20240502T175118043Z-sync-default.sql
+│   ├── default-ddl-20240502T175118043Z-push-default.sql
 │   └── default-model.json
 ├── docker-compose.yaml
 ├── lambdaORM.yaml
@@ -161,7 +161,7 @@ File structure:
 └── tsconfig.json
 ```
 
-Contents of the file "default-ddl-20240502T175118043Z-sync-default.sql":
+Contents of the file "default-ddl-20240502T175118043Z-push-default.sql":
 
 ```sql
 CREATE TABLE CountriesLanguages (id INTEGER  AUTO_INCREMENT,languageCode VARCHAR(4) NOT NULL ,countryName VARCHAR(32) NOT NULL ,CONSTRAINT CountriesLanguages_PK PRIMARY KEY (id));

@@ -376,12 +376,12 @@ CNN_MONGODB={"url":"mongodb://test:test@localhost:27017","database":"test"}
 docker-compose -p lambdaorm-lab up -d
 ```
 
-### Sync
+### Push
 
 Using the lambdaorm cli we synchronize the schema with the database.
 
 ```sh
-lambdaorm sync -e .env
+lambdaorm push -e .env
 ```
 
 ## Service endpoints

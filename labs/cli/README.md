@@ -140,6 +140,6 @@ Consider that in this lab we are not only implementing CQRS, but we are also imp
 
 ## CLI Incorporate
 
-- How to update schema, sync data source and import data with built-in command
+- How to update and push schema and import data with built-in command
 
 [lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/cli/13-incorporate)

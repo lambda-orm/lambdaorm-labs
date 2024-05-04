@@ -154,23 +154,23 @@ docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER
 docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
 ```
 
-### Sync
+### Push
 
-When executing the sync command, ddl code will be executed according to the definition in the lambdaorm schema file.
+When executing the push command, ddl code will be executed according to the definition in the lambdaorm schema file.
 
 - Tables, indexes and keys will be created
 - The executed code is added to a file in the data folder.
 - The [source-name]-model.json file will be created or updated which maintains the source state since the last synchronization.
 
 ```sh
-lambdaorm sync
+lambdaorm push
 ```
 
 Files generated:
 
 ```sh
 ├── data
-│   ├── default-ddl-20231122T154351640Z-sync-test.sql
+│   ├── default-ddl-20231122T154351640Z-push-test.sql
 │   └── default-model.json
 ```
 

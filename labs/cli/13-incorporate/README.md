@@ -94,11 +94,11 @@ Files generated:
 ```sh
 ├── data
 │   ├── default-data.json
-│   ├── default-ddl-20240502T113912983Z-sync-default.sql
+│   ├── default-ddl-20240502T113912983Z-push-default.sql
 │   └── default-model.json
 ```
 
-Scripts generated in **default-ddl-20240502T113912983Z-sync-default.sql**:
+Scripts generated in **default-ddl-20240502T113912983Z-push-default.sql**:
 
 ```sql
 CREATE TABLE CountriesLanguages (id INTEGER  AUTO_INCREMENT,languageCode VARCHAR(4) NOT NULL ,countryName VARCHAR(32) NOT NULL ,CONSTRAINT CountriesLanguages_PK PRIMARY KEY (id));

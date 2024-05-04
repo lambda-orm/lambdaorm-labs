@@ -199,11 +199,11 @@ docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER
 docker exec lab-mysql mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
 ```
 
-### Sync
+### Push
 
 ```sh
-lambdaorm sync -s stage1 -e .env
-lambdaorm sync -s stage2 -e .env
+lambdaorm push -s stage1 -e .env
+lambdaorm push -s stage2 -e .env
 ```
 
 It will generate:
@@ -215,9 +215,9 @@ Structure:
 
 ```sh
 ├── data
-│   ├── stage1-ddl-20231123T014514350Z-sync-source1.sql
+│   ├── stage1-ddl-20231123T014514350Z-push-source1.sql
 │   ├── stage1-model.json
-│   ├── stage2-ddl-20231123T014521625Z-sync-source2.sql
+│   ├── stage2-ddl-20231123T014521625Z-push-source2.sql
 │   └── stage2-model.json
 ├── docker-compose.yaml
 ├── lambdaORM.yaml

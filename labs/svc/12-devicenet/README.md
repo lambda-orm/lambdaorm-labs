@@ -475,17 +475,17 @@ USERS_SECRET_KEY=rifk863hmKSJDJ87hd*nhJ98
 DEVICES_SECRET_KEY=hhd843hf8HD7HDg65GD&^5
 ```
 
-### Sync
+### Push
 
 ```sh
-lambdaorm sync -e .env -s default
+lambdaorm push -e .env -s default
 ```
 
 Structure of the project:
 
 ```sh
 ├── data
-│   ├── default-ddl-20231211T102254673Z-sync-default.sql
+│   ├── default-ddl-20231211T102254673Z-push-default.sql
 │   └── default-model.json
 ├── docker-compose.yaml
 └── lambdaORM.yaml
@@ -843,7 +843,7 @@ Structure of the project:
 
 ```sh
 ├── data
-│   ├── default-ddl-20231211T102254673Z-sync-default.sql
+│   ├── default-ddl-20231211T102254673Z-push-default.sql
 │   └── default-ddl-20231211T110104970Z-clean-default.sql
 ├── docker-compose.yaml
 └── lambdaORM.yaml

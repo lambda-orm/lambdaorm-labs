@@ -498,19 +498,19 @@ docker exec mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DA
 docker exec mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
 docker exec postgres psql -U test -c "CREATE DATABASE insights" -W test
 # create tables/collections
-lambdaorm sync -e .env -s default
-lambdaorm sync -e .env -s insights
+lambdaorm push -e .env -s default
+lambdaorm push -e .env -s insights
 ```
 
 Structure of the project:
 
 ```sh
 ├── data
-│   ├── default-ddl-20231216T162738057Z-sync-Catalog.sql
-│   ├── default-ddl-20231216T162738058Z-sync-Crm.sql
-│   ├── default-ddl-20231216T162738059Z-sync-Ordering.json
+│   ├── default-ddl-20231216T162738057Z-push-Catalog.sql
+│   ├── default-ddl-20231216T162738058Z-push-Crm.sql
+│   ├── default-ddl-20231216T162738059Z-push-Ordering.json
 │   ├── default-model.json
-│   ├── insights-ddl-20231216T162746066Z-sync-Insights.sql
+│   ├── insights-ddl-20231216T162746066Z-push-Insights.sql
 │   └── insights-model.json
 ├── docker-compose.yaml
 ├── .env

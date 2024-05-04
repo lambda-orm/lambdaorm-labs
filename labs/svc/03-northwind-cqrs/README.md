@@ -457,13 +457,13 @@ docker exec mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT AL
 docker exec postgres psql -U test -c "CREATE DATABASE insights" -W test
 ```
 
-### Sync
+### Push
 
 It is necessary to synchronize the models and data from the default and insights stages.
 
 ```sh
-lambdaorm sync -e .env -s default
-lambdaorm sync -e .env -s insights
+lambdaorm push -e .env -s default
+lambdaorm push -e .env -s insights
 ```
 
 Structure of the project:
@@ -471,11 +471,11 @@ Structure of the project:
 ```sh
 ├── data
 │   ├── default-data.json
-│   ├── default-ddl-20231210T125106063Z-sync-Catalog.sql
-│   ├── default-ddl-20231210T125106065Z-sync-Crm.sql
-│   ├── default-ddl-20231210T125106065Z-sync-Ordering.json
+│   ├── default-ddl-20231210T125106063Z-push-Catalog.sql
+│   ├── default-ddl-20231210T125106065Z-push-Crm.sql
+│   ├── default-ddl-20231210T125106065Z-push-Ordering.json
 │   ├── default-model.json
-│   ├── insights-ddl-20231210T125112579Z-sync-Insights.sql
+│   ├── insights-ddl-20231210T125112579Z-push-Insights.sql
 │   └── insights-model.json
 ├── docker-compose.yaml
 └── lambdaORM.yaml
@@ -822,13 +822,13 @@ Structure of the project:
 
 ```sh
 ├── data
-│   ├── default-ddl-20231210T125106063Z-sync-Catalog.sql
-│   ├── default-ddl-20231210T125106065Z-sync-Crm.sql
-│   ├── default-ddl-20231210T125106065Z-sync-Ordering.json
+│   ├── default-ddl-20231210T125106063Z-push-Catalog.sql
+│   ├── default-ddl-20231210T125106065Z-push-Crm.sql
+│   ├── default-ddl-20231210T125106065Z-push-Ordering.json
 │   ├── default-ddl-20231210T130003699Z-clean-Catalog.sql
 │   ├── default-ddl-20231210T130003700Z-clean-Crm.sql
 │   ├── default-ddl-20231210T130003700Z-clean-Ordering.json
-│   ├── insights-ddl-20231210T125112579Z-sync-Insights.sql
+│   ├── insights-ddl-20231210T125112579Z-push-Insights.sql
 │   └── insights-ddl-20231210T130009846Z-clean-Insights.sql
 ├── data.json
 ├── docker-compose.yaml

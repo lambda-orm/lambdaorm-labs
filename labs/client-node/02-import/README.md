@@ -312,7 +312,7 @@ POSTGRES_CNX={"host":"localhost","port":5432,"user":"northwind","password":"nort
 # create infrastructure
   docker-compose -p lambdaorm-lab up -d
 # create tables in database
-lambdaorm sync -e .env
+lambdaorm push -e .env
 # exit the service folder
 cd .. 
 ```

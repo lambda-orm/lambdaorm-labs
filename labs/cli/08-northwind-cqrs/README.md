@@ -418,22 +418,22 @@ docker exec lab-mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRAN
 docker exec lab-postgres psql -U test -c "CREATE DATABASE insights" -W test
 ```
 
-### Sync
+### Push
 
 ```sh
-lambdaorm sync -e .env -s default
-lambdaorm sync -e .env -s insights
+lambdaorm push -e .env -s default
+lambdaorm push -e .env -s insights
 ```
 
 It will generate:
 
 ```sh
 ├── data
-│   ├── default-ddl-20231201T191054280Z-sync-Catalog.sql
-│   ├── default-ddl-20231201T191054280Z-sync-Crm.sql
-│   ├── default-ddl-20231201T191054281Z-sync-Ordering.json
+│   ├── default-ddl-20231201T191054280Z-push-Catalog.sql
+│   ├── default-ddl-20231201T191054280Z-push-Crm.sql
+│   ├── default-ddl-20231201T191054281Z-push-Ordering.json
 │   ├── default-model.json
-│   ├── insights-ddl-20231201T191101577Z-sync-Insights.sql
+│   ├── insights-ddl-20231201T191101577Z-push-Insights.sql
 │   └── insights-model.json
 ├── docker-compose.yaml
 └── lambdaORM.yaml
@@ -545,13 +545,13 @@ The data folder should remain like this:
 ```sh
 .
 ├── data
-│   ├── default-ddl-20231201T191054280Z-sync-Catalog.sql
-│   ├── default-ddl-20231201T191054280Z-sync-Crm.sql
-│   ├── default-ddl-20231201T191054281Z-sync-Ordering.json
+│   ├── default-ddl-20231201T191054280Z-push-Catalog.sql
+│   ├── default-ddl-20231201T191054280Z-push-Crm.sql
+│   ├── default-ddl-20231201T191054281Z-push-Ordering.json
 │   ├── default-ddl-20231201T192143299Z-clean-Catalog.sql
 │   ├── default-ddl-20231201T192143300Z-clean-Crm.sql
 │   ├── default-ddl-20231201T192143300Z-clean-Ordering.json
-│   ├── insights-ddl-20231201T191101577Z-sync-Insights.sql
+│   ├── insights-ddl-20231201T191101577Z-push-Insights.sql
 │   └── insights-ddl-20231201T192149153Z-clean-Insights.sql
 ├── docker-compose.yaml
 └── lambdaORM.yaml

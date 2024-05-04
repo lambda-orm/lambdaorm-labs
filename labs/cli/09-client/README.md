@@ -316,7 +316,7 @@ wget https://raw.githubusercontent.com/lambda-orm/lambdaorm-labs/main/source/nor
 # create infrastructure
 docker-compose -p lambdaorm-lab up -d
 # create tables in database
-lambdaorm sync -e .env
+lambdaorm push -e .env
 # populate data
 lambdaorm import -e .env -d ./data.json
 # exit the service folder
