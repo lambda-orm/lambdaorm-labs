@@ -69,4 +69,4 @@ infrastructure:
         - name: source1
     - name: stage2
       sources:
-        - name: source2  
+        - name: source2 
