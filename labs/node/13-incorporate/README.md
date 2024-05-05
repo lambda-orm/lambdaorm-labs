@@ -130,7 +130,7 @@ import { Orm } from 'lambdaorm'
 	}catch(e){
 		console.log(e)
 	} finally {
-		orm.end()
+		await orm.end()
 	}	
 })()
 ```
