@@ -110,7 +110,7 @@ Consider that in this lab we are not only implementing CQRS, but we are also imp
 In this case, every time a stage is inserted, updated or deleted in the default stage or cqrs, a message will be sent to the "insights-sync" topic with the expression and the data.
 and this message will be consumed and the expression will be executed in the insights stage, thus achieving synchronization between the data sources and the insights source.
 
-[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/svc/04-northwind-cqrs-kafka)
+[lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/svc/04-northwind-cqrs-with-kafka)
 
 ## Pentest DDoS (Distributed Denial of Service) Lab
 
