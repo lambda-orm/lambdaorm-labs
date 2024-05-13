@@ -17,10 +17,9 @@ module.exports = function (grunt) {
 				cmd: 'standard-version'
 			},
 			gitFlowRelease: {
-				cmd: `git add . && git commit -m "chore(release): <%= version %>" && git push && git push --tags
+				cmd: `git add . && git commit -m "chore(release): <%= version %>" && git push
 				  &&  git checkout main && git merge develop -m "chore(release): <%= version %>" && git push
 				  &&  git checkout develop
-				  &&  git branch -D release/<%= version %>
 				`
 			}
 		}
