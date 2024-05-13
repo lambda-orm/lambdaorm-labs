@@ -91,7 +91,7 @@ lambdaorm build -l node
 Result:
 
 ```sh
-├── data
+├── orm_state
 ├── countries.json
 ├── docker-compose.yaml
 ├── lambdaORM.yaml
@@ -152,7 +152,7 @@ File structure:
 
 ```sh
 ├── countries.json
-├── data
+├── orm_state
 │   ├── default-data.json
 │   ├── default-ddl-20240502T181420089Z-push-default.sql
 │   └── default-model.json

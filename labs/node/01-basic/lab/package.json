@@ -4,7 +4,7 @@
   },
   "dependencies": {
     "h3lp": "^1.5.1",
-    "lambdaorm": "^0.8.96",
+    "lambdaorm": "^2.2.8",
     "pg": "^8.11.3"
   }
 }

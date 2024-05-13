@@ -200,7 +200,7 @@
 	"scopes_supported": [
 		"openid",
 		"lambdaorm:schema:read",
-		"lambdaorm:expression:read",
+		"lambdaorm:query:read",
 		"group:write",
 		"offline_access",
 		"microprofile-jwt",
@@ -217,7 +217,7 @@
 		"user:write",
 		"phone",
 		"profile",
-		"lambdaorm:expression:execute",
+		"lambdaorm:query:execute",
 		"web-origins",
 		"device:status:read",
 		"user:read",

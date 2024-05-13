@@ -107,8 +107,8 @@ This pattern can be difficult to implement in conventional development or with a
 
 Consider that in this lab we are not only implementing CQRS, but we are also implementing a distributed data model, where each entity in the domain can be mapped to a different data source.
 
-In this case, every time a stage is inserted, updated or deleted in the default stage or cqrs, a message will be sent to the "insights-sync" topic with the expression and the data.
-and this message will be consumed and the expression will be executed in the insights stage, thus achieving synchronization between the data sources and the insights source.
+In this case, every time a stage is inserted, updated or deleted in the default stage or cqrs, a message will be sent to the "insights-sync" topic with the query and the data.
+and this message will be consumed and the query will be executed in the insights stage, thus achieving synchronization between the data sources and the insights source.
 
 [lab](https://github.com/lambda-orm/lambdaorm-labs/tree/main/labs/svc/04-northwind-cqrs-with-kafka)
 

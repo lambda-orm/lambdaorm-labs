@@ -39,7 +39,7 @@ client_id=devicenet-web
 #   "token_type": "Bearer",
 #   "not-before-policy": 0,
 #   "session_state": "a518d0e8-970f-4916-813d-295840bc479e",
-#   "scope": "device:read lambdaorm:expression:execute device:status:read group:read user:read"
+#   "scope": "device:read lambdaorm:query:execute device:status:read group:read user:read"
 # }
 
 ###
@@ -63,7 +63,7 @@ client_id=admin-web
 #   "token_type": "Bearer",
 #   "not-before-policy": 1647819373,
 #   "session_state": "7081b882-305a-4058-b6bf-0f2119152379",
-#   "scope": "device:read lambdaorm:expression:execute email device:status:read group:read roles user:read"
+#   "scope": "device:read lambdaorm:query:execute email device:status:read group:read roles user:read"
 # }
 
 
@@ -85,7 +85,7 @@ client_id=lambdaorm-svc
 #   "token_type": "Bearer",
 #   "not-before-policy": 0,
 #   "session_state": "c4332432-af32-458a-8826-8f97af769cb0",
-#   "scope": "lambdaorm:schema:read lambdaorm:expression:read lambdaorm:stage:export profile lambdaorm:stage:import lambdaorm:expression:execute lambdaorm:stage:read"
+#   "scope": "lambdaorm:schema:read lambdaorm:query:read lambdaorm:stage:export profile lambdaorm:stage:import lambdaorm:query:execute lambdaorm:stage:read"
 # }
 
 ###
@@ -107,7 +107,7 @@ Authorization: bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJBZG01UX
 
 
 ###
-GET {{lambdaHost}}/expression/sentence?query=Devices HTTP/1.1
+GET {{lambdaHost}}/query/sentence?query=Devices HTTP/1.1
 Authorization: bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJBZG01UXc0QWJ0T0ZMamlmT2ROcFM2U05sbS1JcWdRdXJXTjRla2xLZHFFIn0.eyJleHAiOjE2NDczNTgzODYsImlhdCI6MTY0NzM1ODA4NiwianRpIjoiNWJkMGI1YWYtN2UwNy00MTliLWE3Y2YtZjA3OTU3OWQ1MDdjIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL2RldmljZW5ldC1kZXYiLCJhdWQiOlsiZGV2aWNlbmV0LXdlYiIsImFjY291bnQiXSwic3ViIjoiNWM3NzU4ODctYTRjZS00NTIxLWJkMjctMzdhNzRkMmQzOTY2IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiYWRtaW4td2ViIiwic2Vzc2lvbl9zdGF0ZSI6IjJjOTkwYzhmLTY2MzUtNGM3ZC04MDEyLWI0ZGQwMDc5ODEzMiIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJhdWRpdG9yIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLWRldmljZW5ldCJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImRldmljZW5ldC13ZWIiOnsicm9sZXMiOlsiYXVkaXRvciJdfSwiYWRtaW4td2ViIjp7InJvbGVzIjpbImF1ZGl0b3IiXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZGV2aWNlOnJlYWQgcHJvZmlsZSBsYW1iZGFvcm06ZXhwcmVzc2lvbjpleGVjdXRlIGRldmljZTpzdGF0dXM6cmVhZCBncm91cDpyZWFkIHVzZXI6cmVhZCIsInNpZCI6IjJjOTkwYzhmLTY2MzUtNGM3ZC04MDEyLWI0ZGQwMDc5ODEzMiIsIm5hbWUiOiJGbGF2aW8gTGlvbmVsIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiYXVkaXRvciIsImdpdmVuX25hbWUiOiJGbGF2aW8iLCJmYW1pbHlfbmFtZSI6Ikxpb25lbCJ9.q47PecB60ZA6A5WduP4ZARzP-ucK5HvALzfjds6PzKHvWnasslwo0kGPCdEowBtfVqI9xJBmdPbEyBtmx0_FoQS8i5Bz_CeFftAqdvT4AxWiGq3r-yqZ72mdk6OVEZMh1SXi_nIJB8Y2YaR4FukmpC38PMZ-XxEjyT0dNtBHtN8bLI_eqwK2__d4fg5FR73UrMcIX-RYY4VFSqowdWK1k01qlocdrvRX-nuppDQROb__UDmKDi3INuOybU2qABuFQ-phVYd2iFL0sPFzseVw0-rlajE-7T3_jznnmaJRNz_bNUZu-d8F5cS-ZlATgtD65AMF135tBGS3wE6EXWf61A
 
 {}

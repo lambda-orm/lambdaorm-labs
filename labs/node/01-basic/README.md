@@ -148,7 +148,7 @@ lambdaorm build -l node
 Result:
 
 ```sh
-├── data
+├── orm_state
 ├── docker-compose.yaml
 ├── lambdaORM.yaml
 ├── package.json
@@ -186,7 +186,7 @@ lambdaorm push
 Files generated:
 
 ```sh
-├── data
+├── orm_state
 │   ├── default-ddl-20231202T163012473Z-push-default.sql
 │   └── default-model.json
 ```
@@ -236,10 +236,10 @@ import path from'path'
 ### Structure
 
 ```sh
-├── data
+├── orm_state
 │   ├── default-ddl-20231202T163012473Z-push-default.sql
 │   └── default-model.json
-├── data.json
+├── orm_state.json
 ├── docker-compose.yaml
 ├── lambdaORM.yaml
 ├── package.json

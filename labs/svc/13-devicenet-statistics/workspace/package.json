@@ -1,6 +1,6 @@
 {
 	"dependencies": {
-		"lambdaorm": "^0.1.39-alpha",
+		"lambdaorm": "^2.2.8",,
 		"mysql2": "^2.3.3",
 		"pg": "^8.7.3"
 	},

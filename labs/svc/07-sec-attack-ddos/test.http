@@ -1,6 +1,6 @@
 @host = http://0.0.0.0:9200
 @stage = default
-@expression=Orders.filter(p => p.id === id).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])
+@query=Orders.filter(p => p.id === id).include(p => [p.customer.map(p => p.name), p.details.include(p => p.product.include(p => p.category.map(p => p.name)).map(p => p.name)).map(p => [p.quantity, p.unitPrice])])
 @data={"id": 2 }
 
 
@@ -36,14 +36,14 @@ content-type: application/json
 GET {{host}}/stages/PostgreSQL HTTP/1.1
 content-type: application/json
 
-### Expressions -------------------------------------------------------------------------------------------------------------------------
+### Query -------------------------------------------------------------------------------------------------------------------------
 
 ### Model
 POST {{host}}/model HTTP/1.1
 content-type: application/json
 
 {	
-	"expression": "{{expression}}"
+	"query": "{{query}}"
 }
 
 ### Parameters
@@ -51,7 +51,7 @@ POST {{host}}/parameters HTTP/1.1
 content-type: application/json
 
 {	
-	"expression": "{{expression}}"
+	"query": "{{query}}"
 }
 
 ### Constraints
@@ -59,7 +59,7 @@ POST {{host}}/constraints HTTP/1.1
 content-type: application/json
 
 {	
-	"expression": "{{expression}}"
+	"query": "{{query}}"
 }
 
 ### Sentence
@@ -68,7 +68,7 @@ content-type: application/json
 
 {
 	"options": { "stage": "{{stage}}" },
-	"expression": "{{expression}}"
+	"query": "{{query}}"
 }
 
 ### Execute
@@ -77,6 +77,6 @@ content-type: application/json
 
 {
 	"options": { "stage": "{{stage}}" },
-	"expression": "{{expression}}",
+	"query": "{{query}}",
 	"data":{{data}}
 }

@@ -25,8 +25,8 @@ server:
 
 scopes:
 
-- lambdaorm:expression:read
-- lambdaorm:expression:execute
+- lambdaorm:query:read
+- lambdaorm:query:execute
 - lambdaorm:schema:read
 - lambdaorm:stage:read
 - lambdaorm:stage:import
@@ -121,7 +121,7 @@ server:
 
 scopes:
 
-- lambdaorm:expression:execute
+- lambdaorm:query:execute
 - device:read
 - device:write
 - device:status:read
@@ -134,7 +134,7 @@ scopes:
 
 scopes:
 
-- lambdaorm:expression:execute
+- lambdaorm:query:execute
 - device:read
 - device:status:read
 - user:read
@@ -144,7 +144,7 @@ scopes:
 
 scopes:
 
-- lambdaorm:expression:execute
+- lambdaorm:query:execute
 - device:register
 - device:status:write
 

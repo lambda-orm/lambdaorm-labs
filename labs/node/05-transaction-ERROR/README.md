@@ -146,7 +146,7 @@ lambdaorm build -l node
 Result:
 
 ```sh
-├── data
+├── orm_state
 ├── docker-compose.yaml
 ├── lambdaORM.yaml
 ├── package.json
@@ -184,7 +184,7 @@ lambdaorm push
 Files generated:
 
 ```sh
-├── data
+├── orm_state
 │   ├── default-ddl-20231202T163012473Z-push-default.sql
 │   └── default-model.json
 ```
@@ -194,7 +194,7 @@ Files generated:
 En el folder src añadir el archivo "index.ts" con el siguiente contenido:
 
 ```ts
-import { ExpressionTransaction, orm } from 'lambdaorm'
+import { QueryTransaction, orm } from 'lambdaorm'
 import { Countries, Country, States } from './countries/domain/model'
 (async () => {
 	try {
@@ -202,7 +202,7 @@ import { Countries, Country, States } from './countries/domain/model'
         await orm.init('./lambdaORM.yaml')
         let originalName    
         // Get record    
-        orm.transaction({}, async (tr:ExpressionTransaction) =>  {
+        orm.transaction({}, async (tr:QueryTransaction) =>  {
             // Insert the country and associated states       
             let country:Country = { name: 'Argentina' , iso3: 'ARG', states:[{id:1, name:'Bs As'}, {id:2 ,name:'Cordoba'}] }         
             country = await tr.execute(() => Countries.insert().include(p => p.states),country)
@@ -235,7 +235,7 @@ import { Countries, Country, States } from './countries/domain/model'
 ### Structure
 
 ```sh
-├── data
+├── orm_state
 │   ├── default-ddl-20231202T163012473Z-push-default.sql
 │   └── default-model.json
 ├── docker-compose.yaml

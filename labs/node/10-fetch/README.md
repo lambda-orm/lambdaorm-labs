@@ -99,7 +99,7 @@ lambdaorm build -l node
 Result:
 
 ```sh
-├── data
+├── orm_state
 ├── docker-compose.yaml
 ├── lambdaORM.yaml
 ├── northwind-mysql.sql

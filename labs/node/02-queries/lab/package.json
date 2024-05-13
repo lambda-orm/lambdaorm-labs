@@ -3,7 +3,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "lambdaorm": "^0.8.96",
+    "lambdaorm": "^2.2.8",,
     "pg": "^8.11.3"
   }
 }

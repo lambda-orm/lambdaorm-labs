@@ -303,8 +303,8 @@ wget https://raw.githubusercontent.com/lambda-orm/lambdaorm-labs/main/source/nor
 ### Service Structure
 
 ```sh
-├── data
-├── data.json
+├── orm_state
+├── orm_state.json
 ├── docker-compose.yaml
 ├── .env
 └── lambdaORM.yaml
@@ -328,7 +328,7 @@ cd ..
 **Query:**
 
 ```sh
-curl -X POST "http://localhost:9291/execute?format=beautiful" -H "Content-Type: application/json" -d '{"expression": "Orders.filter(p=>p.customerId==customerId).include(p=>[p.details.include(p=>p.product.map(p=>p.name)).map(p=>{subTotal:p.quantity*p.unitPrice}),p.customer.map(p=>p.name)]).order(p=>p.orderDate).page(1,1)","data":"{\"customerId\": \"CENTC\"}", "options":"{\"stage\": \"default\"}"}'
+curl -X POST "http://localhost:9291/execute?format=beautiful" -H "Content-Type: application/json" -d '{"query": "Orders.filter(p=>p.customerId==customerId).include(p=>[p.details.include(p=>p.product.map(p=>p.name)).map(p=>{subTotal:p.quantity*p.unitPrice}),p.customer.map(p=>p.name)]).order(p=>p.orderDate).page(1,1)","data":"{\"customerId\": \"CENTC\"}", "options":"{\"stage\": \"default\"}"}'
 ```
 
 **Result:**

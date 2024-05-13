@@ -1,4 +1,4 @@
-import { ExpressionTransaction, orm } from 'lambdaorm'
+import { QueryTransaction, orm } from 'lambdaorm'
 import { Countries, Country, States } from './countries/domain/model'
 (async () => {
 	try {
@@ -6,7 +6,7 @@ import { Countries, Country, States } from './countries/domain/model'
         await orm.init('./lambdaORM.yaml')
         let originalName    
         // Get record    
-        orm.transaction({}, async (tr:ExpressionTransaction) =>  {
+        orm.transaction({}, async (tr:QueryTransaction) =>  {
             // Insert the country and associated states       
             let country:Country = { name: 'Argentina' , iso3: 'ARG', states:[{id:1, name:'Bs As'}, {id:2 ,name:'Cordoba'}] }         
             country = await tr.execute('Countries.insert().include(p => p.states)',country)

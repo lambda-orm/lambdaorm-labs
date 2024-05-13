@@ -276,5 +276,5 @@ infrastructure:
     url: http://localhost:9291
   paths:
     src: src
-    data: data
+    state: orm_state
     domain: domain

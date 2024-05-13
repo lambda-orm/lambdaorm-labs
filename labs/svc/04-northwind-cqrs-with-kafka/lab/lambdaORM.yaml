@@ -234,10 +234,10 @@ infrastructure:
         subscribe:
           topic: insights-sync
           fromBeginning: true
-        execute: orm.execute(message.expression,message.data, {stage:"insights"})    
+        execute: orm.execute(message.query,message.data, {stage:"insights"})    
 application:
   listeners:
     - name: syncInsights
       on: [insert, bulkInsert, update, delete ]
       condition: options.stage.in("default","cqrs")
-      after: queue.send("insights-sync",[{expression:expression,data:data}])
+      after: queue.send("insights-sync",[{query:query,data:data}])

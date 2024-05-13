@@ -300,7 +300,7 @@ POSTGRES_CNX={"host":"localhost","port":5432,"user":"northwind","password":"nort
 ### Service Structure
 
 ```sh
-├── data
+├── orm_state
 ├── docker-compose.yaml
 ├── .env
 └── lambdaORM.yaml
@@ -386,8 +386,8 @@ import path from'path'
 ### Structure
 
 ```sh
-├── data
-├── data.json
+├── orm_state
+├── orm_state.json
 ├── lambdaORM.yaml
 ├── package.json
 ├── package-lock.json

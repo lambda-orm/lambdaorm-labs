@@ -216,20 +216,20 @@ domain:
 application:  
   start:
     - name: test
-      expression: console("App started")
+      query: console("App started")
   end:
     - name: test
-      expression: console("App ended")          
+      query: console("App ended")          
   listeners:
     - name: tests
       actions: [select]
       condition: 'options.stage === "MySQL" && query.entity=="Orders"'
-      before: console(args.expression)
+      before: console(args.query)
       after: console(stringify(args.result))
 infrastructure:
   paths:
     src: src
-    data: data
+    state: orm_state
     model: model
   mappings:
     - name: default

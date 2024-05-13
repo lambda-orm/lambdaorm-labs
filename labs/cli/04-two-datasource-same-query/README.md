@@ -198,7 +198,7 @@ lambdaorm push -e .env
 Structure:
 
 ```sh
-├── data
+├── orm_state
 │   ├── default-ddl-20231123T020138867Z-push-source1.sql
 │   ├── default-ddl-20231123T020138868Z-push-source2.sql
 │   └── default-model.json

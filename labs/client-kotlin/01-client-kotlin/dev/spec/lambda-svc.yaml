@@ -18,8 +18,8 @@ servers:
 - description: docker-local
   url: http://0.0.0.0:9291
 tags:
-- description: Expression methods
-  name: expression
+- description: query methods
+  name: query
 - description: General methods
   name: general
 - description: Schema methods
@@ -87,8 +87,8 @@ paths:
                 $ref: '#/components/schemas/Metadata'
           description: Ok
       tags:
-      - expression
-      x-eov-operation-handler: controllers/ExpressionController
+      - query
+      x-eov-operation-handler: controllers/QueryControlller
   /model:
     post:
       operationId: model
@@ -107,8 +107,8 @@ paths:
                 type: array
           description: Ok
       tags:
-      - expression
-      x-eov-operation-handler: controllers/ExpressionController
+      - query
+      x-eov-operation-handler: controllers/QueryControlller
   /parameters:
     post:
       operationId: parameters
@@ -127,8 +127,8 @@ paths:
                 type: array
           description: Ok
       tags:
-      - expression
-      x-eov-operation-handler: controllers/ExpressionController
+      - query
+      x-eov-operation-handler: controllers/QueryControlller
   /constraints:
     post:
       operationId: constraints
@@ -145,8 +145,8 @@ paths:
                 $ref: '#/components/schemas/MetadataConstraint'
           description: Ok
       tags:
-      - expression
-      x-eov-operation-handler: controllers/ExpressionController
+      - query
+      x-eov-operation-handler: controllers/QueryControlller
   /sentence:
     post:
       operationId: sentence
@@ -164,8 +164,8 @@ paths:
                 $ref: '#/components/schemas/MetadataSentence'
           description: Ok
       tags:
-      - expression
-      x-eov-operation-handler: controllers/ExpressionController
+      - query
+      x-eov-operation-handler: controllers/QueryControlller
   /execute:
     post:
       operationId: execute
@@ -182,8 +182,8 @@ paths:
               schema: {}
           description: Ok
       tags:
-      - expression
-      x-eov-operation-handler: controllers/ExpressionController
+      - query
+      x-eov-operation-handler: controllers/QueryControlller
   /execute-queued:
     post:
       operationId: executeQueued
@@ -200,8 +200,8 @@ paths:
               schema: {}
           description: Ok
       tags:
-      - expression
-      x-eov-operation-handler: controllers/ExpressionController    
+      - query
+      x-eov-operation-handler: controllers/QueryControlller    
   /entities:
     get:
       operationId: entities
@@ -1500,28 +1500,28 @@ components:
     QueryRequest:
       additionalProperties: false
       example:
-        expression: expression
+        query: query
         data: {}
       properties:
         options:
           $ref: '#/components/schemas/QueryOptions'
-        expression:
+        query:
           type: string
         data: {}
       required:
-      - expression
+      - query
       type: object
     QueryQueuedRequest:
       additionalProperties: false
       example:
-        expression: expression
+        query: query
         data: {}
         topic: topic-test
         chunk: 1000
       properties:
         options:
           $ref: '#/components/schemas/QueryOptions'
-        expression:
+        query:
           type: string
         data: {}
         topic:
@@ -1529,7 +1529,7 @@ components:
         chunk:
           type: number  
       required:
-      - expression
+      - query
       - topic
       type: object  
     QueryOptions:

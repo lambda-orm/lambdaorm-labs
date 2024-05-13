@@ -9,8 +9,8 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import org.springframework.web.bind.annotation.*
 
-@RestController("expression")
-class ExpressionController(private val ormClient: OrmClient) {
+@RestController("query")
+class QueryController(private val ormClient: OrmClient) {
     @PostMapping("/metadata")
     suspend fun metadata(@RequestBody query: MetadataRequest) : Metadata = ormClient.metadata(query).awaitSingle()
     @PostMapping("/parameters")

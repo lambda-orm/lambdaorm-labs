@@ -339,7 +339,7 @@ application:
     - name: syncInsights
       on: [insert, bulkInsert, update, delete ]
       condition: options.stage.in("default","cqrs")
-      after: orm.execute(expression,data,{stage:"insights"})   
+      after: orm.execute(query,data,{stage:"insights"})   
 ```
 
 **Stages configuration:**
@@ -388,7 +388,7 @@ application:
     - name: syncInsights
       actions: [insert, bulkInsert, update, delete ]
       condition: options.stage.in("default","cqrs")
-      after: orm.execute(expression,data,{stage:"insights"})
+      after: orm.execute(query,data,{stage:"insights"})
 ```
 
 ### Add environment file
@@ -428,7 +428,7 @@ lambdaorm push -e .env -s insights
 It will generate:
 
 ```sh
-├── data
+├── orm_state
 │   ├── default-ddl-20231201T191054280Z-push-Catalog.sql
 │   ├── default-ddl-20231201T191054280Z-push-Crm.sql
 │   ├── default-ddl-20231201T191054281Z-push-Ordering.json
@@ -544,7 +544,7 @@ The data folder should remain like this:
 
 ```sh
 .
-├── data
+├── orm_state
 │   ├── default-ddl-20231201T191054280Z-push-Catalog.sql
 │   ├── default-ddl-20231201T191054280Z-push-Crm.sql
 │   ├── default-ddl-20231201T191054281Z-push-Ordering.json

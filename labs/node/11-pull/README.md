@@ -100,7 +100,7 @@ lambdaorm build -l node
 Result:
 
 ```sh
-├── data
+├── orm_state
 ├── docker-compose.yaml
 ├── lambdaORM.yaml
 ├── northwind-mysql.sql
@@ -159,7 +159,7 @@ File structure:
 
 ```sh
 .
-├── data
+├── orm_state
 │   ├── default-ddl-20240502T165327450Z-pull-default.sql
 │   └── default-model.json
 ├── docker-compose.yaml

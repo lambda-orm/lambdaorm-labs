@@ -23,7 +23,8 @@
 	"scripts": {
 		"lint": "grunt lint",
 		"release": "grunt release",
-		"prepare": "husky install"
+		"prepare": "husky install",
+		"install-all": "npm-recursive-install --skipRoot"
 	},
 	"devDependencies": {
 		"eslint": "^8.43.0",

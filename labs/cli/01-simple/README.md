@@ -169,7 +169,7 @@ lambdaorm push
 Files generated:
 
 ```sh
-├── data
+├── orm_state
 │   ├── default-ddl-20231122T154351640Z-push-test.sql
 │   └── default-model.json
 ```

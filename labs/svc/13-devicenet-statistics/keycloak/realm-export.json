@@ -803,7 +803,7 @@
       ]
     },
     {
-      "clientScope": "lambdaorm:expression:execute",
+      "clientScope": "lambdaorm:query:execute",
       "roles": [
         "auditor",
         "admin",
@@ -1151,7 +1151,7 @@
         "group:read",
         "roles",
         "user:read",
-        "lambdaorm:expression:execute"
+        "lambdaorm:query:execute"
       ],
       "optionalClientScopes": [
         "address",
@@ -1366,7 +1366,7 @@
         "device:status:write",
         "user:read",
         "device:register",
-        "lambdaorm:expression:execute"
+        "lambdaorm:query:execute"
       ],
       "optionalClientScopes": [
         "address",
@@ -1638,11 +1638,11 @@
       "defaultClientScopes": [
         "lambdaorm:schema:read",
         "web-origins",
-        "lambdaorm:expression:read",
+        "lambdaorm:query:read",
         "profile",
         "roles",
         "lambdaorm:stage:read",
-        "lambdaorm:expression:execute"
+        "lambdaorm:query:execute"
       ],
       "optionalClientScopes": [
         "address",
@@ -1963,8 +1963,8 @@
     },
     {
       "id": "2e767fec-e652-4152-96f8-314590ab2e03",
-      "name": "lambdaorm:expression:read",
-      "description": "Access metadata of an expression",
+      "name": "lambdaorm:query:read",
+      "description": "Access metadata of an query",
       "protocol": "openid-connect",
       "attributes": {
         "include.in.token.scope": "true",
@@ -2515,8 +2515,8 @@
     },
     {
       "id": "690bffc7-5d65-498d-988d-a7b33f4f68c2",
-      "name": "lambdaorm:expression:execute",
-      "description": "Run expressions",
+      "name": "lambdaorm:query:execute",
+      "description": "Run queries",
       "protocol": "openid-connect",
       "attributes": {
         "include.in.token.scope": "true",
@@ -2590,7 +2590,7 @@
     "profile",
     "roles",
     "web-origins",
-    "lambdaorm:expression:execute"
+    "lambdaorm:query:execute"
   ],
   "defaultOptionalClientScopes": [
     "offline_access",

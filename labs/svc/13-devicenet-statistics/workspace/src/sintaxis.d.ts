@@ -202,9 +202,9 @@ declare function lpad(value:string, len:number, pad:string):string
 /** Remove leading chars */
 declare function ltrim(value:string):string
 // /**  */
-// declare function regExpReplace(value:string,expression:string):string
+// declare function regExpReplace(value:string,query:string):string
 // /**  */
-// declare function regExpSubstr(value:string,expression:string):string
+// declare function regExpSubstr(value:string,query:string):string
 /** The replace() method searches a string for a specified value and returns a new string where the specified values are replaced. */
 declare function replace(value:string, source:string, target:string):string
 /** Pad the right-side of string */

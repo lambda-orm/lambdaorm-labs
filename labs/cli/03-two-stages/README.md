@@ -214,7 +214,7 @@ It will generate:
 Structure:
 
 ```sh
-├── data
+├── orm_state
 │   ├── stage1-ddl-20231123T014514350Z-push-source1.sql
 │   ├── stage1-model.json
 │   ├── stage2-ddl-20231123T014521625Z-push-source2.sql
