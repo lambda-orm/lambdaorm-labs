@@ -100,13 +100,13 @@ Filter: tcp.port == 9292
     - [Configuración de Certificado Digital con NGROK](https://www.youtube.com/watch?v=Bw5sVqXA2aA)
   - Load Balancer
     - [Using multiple nodes](https://socket.io/docs/v4/using-multiple-nodes)
-    - [Nginx and SSL in Docker Compose](https://medium.com/geekculture/webapp-nginx-and-ssl-in-docker-compose-6d02bdbe8fa0)
+    - [Nginx and SSL in Docker Compose](https://medium.com/geekculture/webapp-nginx-and-ssl-in-docker compose-6d02bdbe8fa0)
     - NgInx load balancer
-      - [Load Balancing using docker compose](https://medium.com/@vinodkrane/microservices-scaling-and-load-balancing-using-docker-compose-78bf8dc04da9)
-      - [multiple instances](https://pspdfkit.com/blog/2018/how-to-use-docker-compose-to-run-multiple-instances-of-a-service-in-development/)  
+      - [Load Balancing using docker compose](https://medium.com/@vinodkrane/microservices-scaling-and-load-balancing-using-docker compose-78bf8dc04da9)
+      - [multiple instances](https://pspdfkit.com/blog/2018/how-to-use-docker compose-to-run-multiple-instances-of-a-service-in-development/)  
   - Keycloak and Nginx
     - [Running Keycloak behind a Reverse Proxy](https://www.youtube.com/watch?v=MFqdgUcr2-A)
-    - [example](https://github.com/jinnerbichler/keycloak-nginx/blob/master/docker-compose.yml)
+    - [example](https://github.com/jinnerbichler/keycloak-nginx/blob/master/docker compose.yml)
     - [How to Dockerize your Keycloak set up with nginx reverse proxy](https://ishanul.medium.com/how-to-dockerize-your-keycloak-set-up-with-nginx-reverse-proxy-2f78f6260147)
     - [example](https://stackoverflow.com/questions/74366273/keycloak-in-docker-with-proxy-such-as-nginx-using-non-standard-ports)
   - Mitigating DDoS Attacks with NGINX
@@ -115,7 +115,7 @@ Filter: tcp.port == 9292
     - [DDoS attacks prevention with Nginx](https://inmediatum.com/en/blog/engineering/ddos-attacks-prevention-nginx/)
     - [How to prevent DDoS attacks using nginx](https://github.com/icon-project/documentation/blob/master/node/p-rep/how-to-using-nginx-to-prevent-DDoS-attacks.md)
     - [DDoS Protection With Nginx](https://ddos-guard.net/en/blog/ddos-protection-with-nginx)
-  - Redes con docker-compose
+  - Redes con docker compose
     - [redes](https://iesgn.github.io/curso_docker_2021/sesion5/redes.html)
     - [networking]( https://docs.docker.com/compose/networking/)
 

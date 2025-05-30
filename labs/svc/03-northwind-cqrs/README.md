@@ -2,7 +2,7 @@
 
 **In this laboratory we will see:**
 
-Configure postgres databases, mysql, mongo and a lambdaorm service using docker-compose.
+Configure postgres databases, mysql, mongo and a lambdaorm service using docker compose.
 How to configure different stages:
 
 - default: where domain entities are mapped to different data sources.
@@ -47,16 +47,16 @@ cd lab
 
 ## Configure
 
-### Configure docker-compose
+### Configure docker compose
 
-Configure docker-compose to create the following containers:
+Configure docker compose to create the following containers:
 
 - mysql: database for the catalog.
 - postgres: database for the crm and insights.
 - mongodb: database for the ordering.
 - orm: lambdaorm service.
 
-Create file "docker-compose.yaml"
+Create file "docker compose.yaml"
 
 ```yaml
 version: '3'
@@ -446,7 +446,7 @@ CNN_INSIGHTS={"host":"localhost","port":5432,"user":"test","password":"test","da
 ### Create infrastructure
 
 ```sh
-docker-compose -p lambdaorm-lab up -d
+docker compose -p lambdaorm-lab up -d
 ```
 
 ### Initialize databases
@@ -477,7 +477,7 @@ Structure of the project:
 │   ├── default-model.json
 │   ├── insights-ddl-20231210T125112579Z-push-Insights.sql
 │   └── insights-model.json
-├── docker-compose.yaml
+├── docker compose.yaml
 └── lambdaORM.yaml
 ```
 
@@ -815,7 +815,7 @@ Result:
 ```sh
 lambdaorm drop -e .env -s default
 lambdaorm drop -e .env -s insights
-docker-compose -p lambdaorm-lab down
+docker compose -p lambdaorm-lab down
 ```
 
 Structure of the project:
@@ -831,6 +831,6 @@ Structure of the project:
 │   ├── insights-ddl-20231210T125112579Z-push-Insights.sql
 │   └── insights-ddl-20231210T130009846Z-clean-Insights.sql
 ├── orm_state.json
-├── docker-compose.yaml
+├── docker compose.yaml
 └── lambdaORM.yaml
 ```

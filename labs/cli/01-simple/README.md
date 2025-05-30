@@ -45,13 +45,13 @@ cd lab
 
 ## Configure
 
-### Configure docker-compose
+### Configure docker compose
 
-Configure docker-compose to create the following containers:
+Configure docker compose to create the following containers:
 
 - mysql: MySQL database
 
-Create file "docker-compose.yaml"
+Create file "docker compose.yaml"
 
 ```yaml
 version: '3'
@@ -144,7 +144,7 @@ infrastructure:
 Create MySql database for test:
 
 ```sh
-docker-compose -p "lambdaorm-lab" up -d
+docker compose -p "lambdaorm-lab" up -d
 ```
 
 create user and define character set:
@@ -237,5 +237,5 @@ To finish the lab we execute the following commands to drop the tables and remov
 
 ```sh
 lambdaorm drop
-docker-compose -p lambdaorm-lab down
+docker compose -p lambdaorm-lab down
 ```

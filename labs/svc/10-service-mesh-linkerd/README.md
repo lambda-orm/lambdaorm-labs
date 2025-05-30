@@ -17,5 +17,5 @@
     - [Cómo instalar y usar Linkerd con Kubernetes](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-linkerd-with-kubernetes-es)
     - [Introducción al service mesh con Linkerd](https://buoyant.io/media/introduccion-al-service-mesh-con-linkerd)
     -[Cómo instalar y usar Linkerd con Kubernetes](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-linkerd-with-kubernetes-es)
-    - [with docker compose](https://github.com/linkerd/linkerd-examples/blob/master/getting-started/docker/docker-compose.yml)
-    - [with docker compose](https://github.com/linkerd/linkerd-examples/blob/master/influxdb/docker-compose.yml)
+    - [with docker compose](https://github.com/linkerd/linkerd-examples/blob/master/getting-started/docker/docker compose.yml)
+    - [with docker compose](https://github.com/linkerd/linkerd-examples/blob/master/influxdb/docker compose.yml)

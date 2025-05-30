@@ -39,15 +39,15 @@ cd lab
 
 ## Configure
 
-### Configure docker-compose
+### Configure docker compose
 
-Configure docker-compose to create the following containers:
+Configure docker compose to create the following containers:
 
 - mysql: MySQL database
 - postgres: PostgreSQL database
 - mongodb: MongoDB database
 
-Create file "docker-compose.yaml"
+Create file "docker compose.yaml"
 
 ```yaml
 version: '3'
@@ -331,7 +331,7 @@ CNN_INSIGHTS={"host":"localhost","port":5433,"user":"test","password":"test","da
 Create MySQL, PostgreSQL and MongoDB containers:
 
 ```sh
-docker-compose -p lambdaorm-lab up -d
+docker compose -p lambdaorm-lab up -d
 ```
 
 Initialize databases:
@@ -613,7 +613,7 @@ Drop tables/collections and remove databases:
 ```sh
 lambdaorm drop -e .env -s default
 lambdaorm drop -e .env -s insights
-docker-compose -p lambdaorm-lab down
+docker compose -p lambdaorm-lab down
 ```
 
 The data folder should remain like this:

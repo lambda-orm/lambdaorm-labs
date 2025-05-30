@@ -2,7 +2,7 @@
 # buidl code
 npm run dist &&
 # create database and start service
-docker-compose -p sec-keyclock-kong up -d &&
+docker compose -p sec-keyclock-kong up -d &&
 # wait start databases
 sleep 15 &&
 # create tables

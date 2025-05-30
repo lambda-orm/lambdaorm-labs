@@ -9,7 +9,7 @@ It is a series of laboratories that show how to use the [lambda ORM Service](htt
 
 **In this laboratory we will see:**
 
-Stand up a postgres database and lambdaorm service using docker-compose.
+Stand up a postgres database and lambdaorm service using docker compose.
 Create the Northwind sample database tables using the lambdaorm cli.
 Access lambdaorm service endpoints to:
 
@@ -27,7 +27,7 @@ Access lambdaorm service endpoints to:
 
 **In this laboratory we will see:**
 
-Set up a postgres, mysql and mongo database and lambdaorm service using docker-compose.
+Set up a postgres, mysql and mongo database and lambdaorm service using docker compose.
 Configure a lambdaorm schema where entities defined in the domain are mapped to different databases.
 Create the Northwind sample database tables using the lambdaorm cli.
 Access lambdaorm service endpoints to:
@@ -48,7 +48,7 @@ We will verify that lambdaorm behaves in the same way if the domain entities are
 
 **In this laboratory we will see:**
 
-Configure postgres databases, mysql, mongo and a lambdaorm service using docker-compose.
+Configure postgres databases, mysql, mongo and a lambdaorm service using docker compose.
 How to configure different stages:
 
 - default: where domain entities are mapped to different data sources.
@@ -80,7 +80,7 @@ Consider that in this lab we are not only implementing CQRS, but we are also imp
 
 **In this laboratory we will see:**
 
-Configure postgres databases, mysql, mongo and a lambdaorm service using docker-compose.
+Configure postgres databases, mysql, mongo and a lambdaorm service using docker compose.
 How to configure different stages:
 
 - default: where domain entities are mapped to different data sources.
@@ -117,7 +117,7 @@ and this message will be consumed and the query will be executed in the insights
 **In this laboratory we will see:**
 
 We will set up a test environment to perform a distributed denial of service (DDoS) attack on a lambdaorm service.
-We will configure a docker-compose with the following services:
+We will configure a docker compose with the following services:
 
 - postgres:database
 - orm: lambdaorm service
@@ -136,7 +136,7 @@ We will execute DDoS attacks using the following tools:
 **In this laboratory we will see:**
 
 We will set up a test environment to perform a distributed denial of service (DDoS) attack on a lambdaorm service.
-We will configure a docker-compose with the following services:
+We will configure a docker compose with the following services:
 
 - postgres:database
 - orm: lambdaorm service

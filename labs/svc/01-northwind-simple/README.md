@@ -2,7 +2,7 @@
 
 **In this laboratory we will see:**
 
-Stand up a postgres database and lambdaorm service using docker-compose.
+Stand up a postgres database and lambdaorm service using docker compose.
 Create the Northwind sample database tables using the lambdaorm cli.
 Access lambdaorm service endpoints to:
 
@@ -33,14 +33,14 @@ cd lab
 
 ## Configure
 
-### Configure docker-compose
+### Configure docker compose
 
-Configure docker-compose to create the following containers:
+Configure docker compose to create the following containers:
 
 - postgres: postgres database
 - orm: lambdaorm service
 
-Create file "docker-compose.yaml"
+Create file "docker compose.yaml"
 
 ```yaml
 version: "3"
@@ -304,7 +304,7 @@ POSTGRES_CNX={"host":"localhost","port":5432,"user":"northwind","password":"nort
 Create database for test:
 
 ```sh
-docker-compose -p lambdaorm-lab up -d
+docker compose -p lambdaorm-lab up -d
 ```
 
 ### Push
@@ -508,5 +508,5 @@ To finish the lab we execute the following commands to drop the tables and stop 
 
 ```sh
 lambdaorm drop -e .env
-docker-compose -p lambdaorm-lab down
+docker compose -p lambdaorm-lab down
 ```

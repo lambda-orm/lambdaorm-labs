@@ -25,7 +25,7 @@ Up:
 
 ``` sh
 npm run dist
-docker-compose -f ./docker-compose-win.yaml up -d 
+docker compose -f ./docker compose-win.yaml up -d 
 ```
 
 Test:
@@ -45,7 +45,7 @@ Test:
 Down:
 
 ``` sh
-docker-compose -f ./docker-compose-win.yaml down --remove-orphans
+docker compose -f ./docker compose-win.yaml down --remove-orphans
 docker rmi devicenet_lambdaorm-api
 ```
 
@@ -67,12 +67,12 @@ lambdaorm drop -e ./.env
 - [Example](https://github.com/StackAbuse/node-prometheus-grafana)
 - [Other example](https://github.com/RisingStack/example-prometheus-nodejs)
 - JMeter
-  - <https://www.vinsguru.com/jmeter-scaling-out-load-servers-using-docker-compose-in-distributed-load-testing/>
+  - <https://www.vinsguru.com/jmeter-scaling-out-load-servers-using-docker compose-in-distributed-load-testing/>
   - <https://hub.docker.com/r/justb4/jmeter>
-  -<https://github.com/apolloclark/jmeter/blob/master/docker-compose.yml>
+  -<https://github.com/apolloclark/jmeter/blob/master/docker compose.yml>
 
 - KeyCloak
-  - [docker-compose](https://github.com/keycloak/keycloak-containers/blob/main/docker-compose-examples/keycloak-postgres.yml)
+  - [docker compose](https://github.com/keycloak/keycloak-containers/blob/main/docker compose-examples/keycloak-postgres.yml)
 
 Kill Port:
 

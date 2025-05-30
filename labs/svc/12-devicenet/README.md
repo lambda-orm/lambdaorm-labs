@@ -30,7 +30,7 @@ cd lab
 
 ## Create database for test
 
-Create file "docker-compose.yaml"
+Create file "docker compose.yaml"
 
 ```yaml
 version: "3"
@@ -96,7 +96,7 @@ services:
 Create database for test:
 
 ```sh
-docker-compose -p "lambdaorm-lab" up -d
+docker compose -p "lambdaorm-lab" up -d
 ```
 
 Initialize databases:
@@ -487,7 +487,7 @@ Structure of the project:
 ├── orm_state
 │   ├── default-ddl-20231211T102254673Z-push-default.sql
 │   └── default-model.json
-├── docker-compose.yaml
+├── docker compose.yaml
 └── lambdaORM.yaml
 ```
 
@@ -836,7 +836,7 @@ Result:
 
 ```sh
 lambdaorm drop -e .env -s default
-docker-compose -p lambdaorm-lab down
+docker compose -p lambdaorm-lab down
 ```
 
 Structure of the project:
@@ -845,6 +845,6 @@ Structure of the project:
 ├── orm_state
 │   ├── default-ddl-20231211T102254673Z-push-default.sql
 │   └── default-ddl-20231211T110104970Z-clean-default.sql
-├── docker-compose.yaml
+├── docker compose.yaml
 └── lambdaORM.yaml
 ```

@@ -29,9 +29,9 @@ cd service
 
 ### Configure Service Infrastructure
 
-Create docker-compose file to create a postgres database and lambdaorm service
+Create docker compose file to create a postgres database and lambdaorm service
 
-Create file "docker-compose.yaml"
+Create file "docker compose.yaml"
 
 ```yaml
 version: "3"
@@ -301,7 +301,7 @@ POSTGRES_CNX={"host":"localhost","port":5432,"user":"northwind","password":"nort
 
 ```sh
 ├── orm_state
-├── docker-compose.yaml
+├── docker compose.yaml
 ├── .env
 └── lambdaORM.yaml
 ```
@@ -310,7 +310,7 @@ POSTGRES_CNX={"host":"localhost","port":5432,"user":"northwind","password":"nort
 
 ```sh
 # create infrastructure
-  docker-compose -p lambdaorm-lab up -d
+  docker compose -p lambdaorm-lab up -d
 # create tables in database
 lambdaorm push -e .env
 # exit the service folder
@@ -496,5 +496,5 @@ To finish the lab we execute the following commands to drop the tables and stop 
 cd ..
 cd service
 lambdaorm drop -e .env
-docker-compose -p lambdaorm-lab down
+docker compose -p lambdaorm-lab down
 ```

@@ -9,10 +9,10 @@
 ## Tutorial
 
 - [Tutorial](https://refactorizando.com/arquitectura-microservicios-kong-konga/)
-  - Nota: El docker-compose tiene mal configurada la base de datos.
+  - Nota: El docker compose tiene mal configurada la base de datos.
 
 ```sh
-docker-compose up -d
+docker compose up -d
 ```
 
 - [konga](http://localhost:1337)
@@ -30,7 +30,7 @@ curl -i -H "apikey:abcdef" http://localhost:8000/mock
 ### Uninstall
 
 ```sh
-docker-compose down
+docker compose down
 docker volume rm sec-keycloak-kong_db-data-kong-postgres
 ```
 

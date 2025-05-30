@@ -46,14 +46,14 @@ cd lab
 
 ## Configure
 
-### Configure docker-compose
+### Configure docker compose
 
-Configure docker-compose to create the following containers:
+Configure docker compose to create the following containers:
 
 - mysql: MySQL database
 - postgres: PostgreSQL database
 
-Add file "docker-compose.yaml"
+Add file "docker compose.yaml"
 
 ```yaml
 version: '3'
@@ -189,7 +189,7 @@ CNN_POSTGRES={"host":"localhost","port":5432,"user":"test","password":"test","da
 Create MySql and Postgres databases for test:
 
 ```sh
-docker-compose -p lambdaorm-lab up -d
+docker compose -p lambdaorm-lab up -d
 ```
 
 Create user and set character:
@@ -219,7 +219,7 @@ Structure:
 │   ├── stage1-model.json
 │   ├── stage2-ddl-20231123T014521625Z-push-source2.sql
 │   └── stage2-model.json
-├── docker-compose.yaml
+├── docker compose.yaml
 ├── lambdaORM.yaml
 ├── package.json
 ├── src
@@ -300,5 +300,5 @@ lambdaorm drop -s stage2 -e .env
 ### Remove containers
 
 ```sh
-docker-compose -p lambdaorm-lab down
+docker compose -p lambdaorm-lab down
 ```

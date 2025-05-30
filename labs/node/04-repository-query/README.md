@@ -38,11 +38,11 @@ cd lab
 
 ## Configure
 
-### Configure docker-compose
+### Configure docker compose
 
-Create docker-compose file to create a postgres database
+Create docker compose file to create a postgres database
 
-Create file "docker-compose.yaml"
+Create file "docker compose.yaml"
 
 ```yaml
 version: '3'
@@ -149,7 +149,7 @@ Result:
 
 ```sh
 ├── orm_state
-├── docker-compose.yaml
+├── docker compose.yaml
 ├── lambdaORM.yaml
 ├── package.json
 ├── src
@@ -168,7 +168,7 @@ Result:
 Create database for test:
 
 ```sh
-docker-compose -p lambdaorm-lab up -d
+docker compose -p lambdaorm-lab up -d
 ```
 
 ### Push
@@ -242,7 +242,7 @@ import path from'path'
 │   ├── default-ddl-20231202T163012473Z-push-default.sql
 │   └── default-model.json
 ├── orm_state.json
-├── docker-compose.yaml
+├── docker compose.yaml
 ├── lambdaORM.yaml
 ├── package.json
 ├── src
@@ -339,5 +339,5 @@ Drop tables associates to default stage and down containers
 
 ```sh
 lambdaorm drop
-docker-compose -p "lambdaorm-lab" down
+docker compose -p "lambdaorm-lab" down
 ```

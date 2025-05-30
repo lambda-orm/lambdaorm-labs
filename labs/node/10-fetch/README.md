@@ -24,13 +24,13 @@ cd lab
 
 ## Crete environment
 
-### Configure docker-compose
+### Configure docker compose
 
-Configure docker-compose to create the following containers:
+Configure docker compose to create the following containers:
 
 - mysql: MySQL database
 
-Create file "docker-compose.yaml"
+Create file "docker compose.yaml"
 
 ```yaml
 version: '3'
@@ -51,7 +51,7 @@ services:
 Create MySql database for test:
 
 ```sh
-docker-compose -p lambdaorm-lab up -d
+docker compose -p lambdaorm-lab up -d
 ```
 
 create user and define character set:
@@ -100,7 +100,7 @@ Result:
 
 ```sh
 ├── orm_state
-├── docker-compose.yaml
+├── docker compose.yaml
 ├── lambdaORM.yaml
 ├── northwind-mysql.sql
 ├── package.json
@@ -154,5 +154,5 @@ As a result, the "mappings.yaml" file will be created with the mapping of the co
 To finish the lab we execute the following command to eliminate the containers.
 
 ```sh
-docker-compose -p lambdaorm-lab down
+docker compose -p lambdaorm-lab down
 ```

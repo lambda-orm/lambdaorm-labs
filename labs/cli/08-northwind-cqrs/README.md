@@ -2,7 +2,7 @@
 
 **In this laboratory we will see:**
 
-Configure postgres databases, mysql, mongo using docker-compose.
+Configure postgres databases, mysql, mongo using docker compose.
 How to configure different stages:
 
 - default: where domain entities are mapped to different data sources.
@@ -48,15 +48,15 @@ cd lab
 
 ## Configure
 
-### Configure docker-compose
+### Configure docker compose
 
-Configure docker-compose to create the following containers:
+Configure docker compose to create the following containers:
 
 - mysql: database for the catalog and crm domains
 - postgres: database for the ordering domain
 - mongodb: database for the ordering domain
 
-Create file "docker-compose.yaml"
+Create file "docker compose.yaml"
 
 ```yaml
 version: '3'
@@ -407,7 +407,7 @@ CNN_INSIGHTS={"host":"localhost","port":5433,"user":"test","password":"test","da
 Create MySql database for test:
 
 ```sh
-docker-compose -p lambdaorm-lab up -d
+docker compose -p lambdaorm-lab up -d
 ```
 
 Initialize databases:
@@ -435,7 +435,7 @@ It will generate:
 │   ├── default-model.json
 │   ├── insights-ddl-20231201T191101577Z-push-Insights.sql
 │   └── insights-model.json
-├── docker-compose.yaml
+├── docker compose.yaml
 └── lambdaORM.yaml
 ```
 
@@ -537,7 +537,7 @@ lambdaorm plan -e .env -s cqrs -q "Orders.bulkInsert().include(p=> p.details) " 
 ```sh
 lambdaorm drop -e .env -s default
 lambdaorm drop -e .env -s insights
-docker-compose -p lambdaorm-lab down
+docker compose -p lambdaorm-lab down
 ```
 
 The data folder should remain like this:
@@ -553,6 +553,6 @@ The data folder should remain like this:
 │   ├── default-ddl-20231201T192143300Z-clean-Ordering.json
 │   ├── insights-ddl-20231201T191101577Z-push-Insights.sql
 │   └── insights-ddl-20231201T192149153Z-clean-Insights.sql
-├── docker-compose.yaml
+├── docker compose.yaml
 └── lambdaORM.yaml
 ```

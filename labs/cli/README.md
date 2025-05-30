@@ -95,7 +95,7 @@ We will also see some example queries to execute from CLI
 
 **In this laboratory we will see:**
 
-Configure postgres databases, mysql, mongo using docker-compose.
+Configure postgres databases, mysql, mongo using docker compose.
 How to configure different stages:
 
 - default: where domain entities are mapped to different data sources.

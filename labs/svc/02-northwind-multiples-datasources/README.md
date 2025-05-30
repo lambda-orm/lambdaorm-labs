@@ -2,7 +2,7 @@
 
 **In this laboratory we will see:**
 
-Set up a postgres, mysql and mongo database and lambdaorm service using docker-compose.
+Set up a postgres, mysql and mongo database and lambdaorm service using docker compose.
 Configure a lambdaorm schema where entities defined in the domain are mapped to different databases.
 Create the Northwind sample database tables using the lambdaorm cli.
 Access lambdaorm service endpoints to:
@@ -36,9 +36,9 @@ cd lab
 
 ## Configure
 
-### Configure docker-compose to stand up the database and lambdaorm service
+### Configure docker compose to stand up the database and lambdaorm service
 
-Create file "docker-compose.yaml"
+Create file "docker compose.yaml"
 
 ```yaml
 version: '3'
@@ -373,7 +373,7 @@ CNN_MONGODB={"url":"mongodb://test:test@localhost:27017","database":"test"}
 ### Create infrastructure
 
 ```sh
-docker-compose -p lambdaorm-lab up -d
+docker compose -p lambdaorm-lab up -d
 ```
 
 ### Push
@@ -647,5 +647,5 @@ To finish the lab we execute the following commands to drop the tables and stop 
 
 ```sh
 lambdaorm drop -e .env
-docker-compose -p lambdaorm-lab down
+docker compose -p lambdaorm-lab down
 ```

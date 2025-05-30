@@ -2,7 +2,7 @@
 
 **In this laboratory we will see:**
 
-Configure postgres databases, mysql, mongo and a lambdaorm service using docker-compose.
+Configure postgres databases, mysql, mongo and a lambdaorm service using docker compose.
 How to configure different stages:
 
 - default: where domain entities are mapped to different data sources.
@@ -51,9 +51,9 @@ cd lab
 
 ## Configure
 
-### Configure docker-compose
+### Configure docker compose
 
-Configure docker-compose to create the following containers:
+Configure docker compose to create the following containers:
 
 - mysql: database for the catalog
 - postgres: database for crm and insights
@@ -63,7 +63,7 @@ Configure docker-compose to create the following containers:
 - kafdrop: kafka dependency
 - orm: lambdaorm service  
 
-Create file "docker-compose.yaml"
+Create file "docker compose.yaml"
 
 ```yaml
 version: '3'
@@ -492,7 +492,7 @@ CNN_INSIGHTS={"host":"localhost","port":5432,"user":"test","password":"test","da
 
 ```sh
 # Create infrastructure
-docker-compose -p lambdaorm-lab up -d
+docker compose -p lambdaorm-lab up -d
 # Configure databases
 docker exec mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "ALTER DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;"
 docker exec mysql  mysql --host 127.0.0.1 --port 3306 -uroot -proot -e "GRANT ALL ON *.* TO 'test'@'%' with grant option; FLUSH PRIVILEGES;"
@@ -512,7 +512,7 @@ Structure of the project:
 │   ├── default-model.json
 │   ├── insights-ddl-20231216T162746066Z-push-Insights.sql
 │   └── insights-model.json
-├── docker-compose.yaml
+├── docker compose.yaml
 ├── .env
 └── lambdaORM.yaml
 ```
@@ -608,6 +608,6 @@ Result:
 ## End
 
 ```sh
-docker-compose -p lambdaorm-lab down
+docker compose -p lambdaorm-lab down
 rm -rf data
 ```
